@@ -1,5 +1,8 @@
 #ifndef SHIFTER_HH
 #define SHIFTER_HH
+#include "device.hh"
+#include <array>
+#include <iostream>
 
 class Shifter : public Device {
 public:
@@ -9,12 +12,12 @@ public:
         Power = 0.5;
         control = control;
     }
-    ~Shifter();
+    ~Shifter() {}
     void receive_clock() {outLatch.value = result;}
-    void do_function(){ result = (in[0] >> in[1]) if control == 0 else (in[0] << in[1]);}
+    void do_function(){ result = (control == 0)? (in[0] >> in[1]) : (in[0] << in[1]);}
     void connect(int port_id, Latch l) {in[port_id] = l.value;}
 private:
-    Port in[2];
+    std::array<Port, 2> in;
     long long result;
     double control;
 };

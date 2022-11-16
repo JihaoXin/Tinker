@@ -1,5 +1,8 @@
 #ifndef TWOCOMPLEMENT_HH
 #define TWOCOMPLEMENT_HH
+#include "device.hh"
+#include <array>
+#include <iostream>
 
 class TwoComplement : public Device {
 public:
@@ -8,13 +11,13 @@ public:
         Area = 200;
         Power = 0.25;
     }
-    ~TwoComplement();
+    ~TwoComplement() {}
     void receive_clock() {outLatch.value = result;}
     void do_function(){result = ~in[0] + 1;}
     void connect(int port_id, Latch l) {in[port_id] = l.value;}
 
 private:    
-    Port in[1];
+    std::array<Port, 1> in;
     long long result;
 
 };

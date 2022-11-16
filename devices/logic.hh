@@ -1,5 +1,8 @@
 #ifndef LOGIC_HH
 #define LOGIC_HH
+#include "device.hh"
+#include <array>
+#include <iostream>
 
 class Logic : public Device { 
 public:
@@ -9,7 +12,7 @@ public:
         Power = 0.75;
         control = control;
     }
-    ~Logic();
+    ~Logic() {}
     void receive_clock() {outLatch.value = result;}
     void do_function(){ 
         if (control == 0) { // 0x00 NOT
@@ -24,7 +27,7 @@ public:
     }
     void connect(int port_id, Latch l) {in[port_id] = l.value;}
 private:
-    Port in[2];
+    std::array<Port, 2> in;
     long long result;
     double control;
 };
