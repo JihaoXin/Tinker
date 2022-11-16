@@ -1,4 +1,6 @@
-#include <stdint.h>
+#ifndef TWOCOMPLEMENT_HH
+#define TWOCOMPLEMENT_HH
+
 class TwoComplement : public Device {
 public:
     TwoComplement() { 
@@ -16,3 +18,5 @@ private:
     long long result;
 
 };
+
+#endif

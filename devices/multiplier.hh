@@ -1,3 +1,6 @@
+#ifndef MULTIPLIER_HH
+#define MULTIPLIER_HH
+
 class Multiplier : public Device { 
 public:
     Multiplier() { 
@@ -15,3 +18,5 @@ private:
     long long result;
 
 }
+
+#endif

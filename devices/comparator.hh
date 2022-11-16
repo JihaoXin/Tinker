@@ -1,3 +1,6 @@
+#ifndef COMPARATOR_HH
+#define COMPARATOR_HH
+
 class Comparator : public Device {
 public:
     Comparator() { 
@@ -15,3 +18,5 @@ private:
     long long result;
 
 };
+
+#endif

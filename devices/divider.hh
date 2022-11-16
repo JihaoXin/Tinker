@@ -1,3 +1,6 @@
+#ifndef DIVIDER_HH
+#define DIVIDER_HH
+
 class Divider : public Device {
 public:
     Divider() { 
@@ -15,3 +18,5 @@ private:
     long long result;
 
 }
+
+#endif
