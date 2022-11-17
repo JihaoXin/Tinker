@@ -6,15 +6,15 @@
 
 class Logic : public Device { 
 public:
-    Logic(long long cntrl) { 
-        control = cntrl;
+    Logic(/*long long cntrl*/) { 
+        // control = cntrl;
         cycles = 1;
         area = 600;
         power = 0.75;
     }
     ~Logic() {}
     void receive_clock() {outLatch.value = result;}
-    void do_function(){ 
+    void do_function(long long control){ 
         if (control == 0) { // 0x00 NOT
             result = ~in[0];
         } else if (control == 1) { // 0x01 AND
@@ -26,11 +26,14 @@ public:
         }
         
     }
+    void do_function(){}
     void connect(int port_id, Latch l) {in[port_id] = l.value;}
+
+    Latch outLatch;
 private:
     std::array<long long, 2> in;
     long long result;
-    long long control;
+    // long long control;
 };
 
 #endif

@@ -16,6 +16,7 @@ public:
     void do_function(){result = !(in[0] == in[1]);}
     void connect(int port_id, Latch l) {in[port_id] = l.value;}
 
+    Latch outLatch;
 private:
     std::array<Port, 2> in;
     double result;
