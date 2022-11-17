@@ -1,6 +1,6 @@
 #ifndef TYPES_HH
 #define TYPES_HH
 
-typedef long long Port;
+typedef double Port;
 
 #endif

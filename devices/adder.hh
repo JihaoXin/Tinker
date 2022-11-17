@@ -8,8 +8,8 @@ class Adder : public Device {
 public:
     Adder() { 
         cycles = 1;
-        Area = 400;
-        Power = 0.5;
+        area = 400;
+        power = 0.5;
     }
     ~Adder() {}
     void receive_clock() {outLatch.value = result;}
@@ -17,7 +17,7 @@ public:
     void connect(int port_id, Latch l) {in[port_id] = l.value;}
 
 private:
-    std::array<Port, 2> in;
+    std::array<long long, 2> in;
     long long result;
 
 };

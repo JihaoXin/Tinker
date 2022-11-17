@@ -6,20 +6,20 @@
 
 class Shifter : public Device {
 public:
-    Shifter(double control) { 
+    Shifter(double cntrl) { 
         cycles = 1;
-        Area = 200;
-        Power = 0.5;
-        control = control;
+        area = 200;
+        power = 0.5;
+        control = cntrl;
     }
     ~Shifter() {}
     void receive_clock() {outLatch.value = result;}
     void do_function(){ result = (control == 0)? (in[0] >> in[1]) : (in[0] << in[1]);}
     void connect(int port_id, Latch l) {in[port_id] = l.value;}
 private:
-    std::array<Port, 2> in;
+    std::array<long long, 2> in;
     long long result;
-    double control;
+    long long control;
 };
 
 #endif

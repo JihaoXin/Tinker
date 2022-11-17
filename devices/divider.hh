@@ -8,8 +8,8 @@ class Divider : public Device {
 public:
     Divider() { 
         cycles = 8;
-        Area = 5000;
-        Power = 1.0;
+        area = 5000;
+        power = 1.0;
     }
     ~Divider() {}
     void receive_clock() {outLatch.value = result;}
@@ -17,7 +17,7 @@ public:
     void connect(int port_id, Latch l) {in[port_id] = l.value;}
 
 private:
-    std::array<Port, 2> in;
+    std::array<long long, 2> in;
     long long result;
 
 };

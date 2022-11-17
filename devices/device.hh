@@ -14,8 +14,8 @@ public:
     Latch outLatch; // each device will have its own output latch which is later connected to a devices input ports.
                     // ports will be declared in each device individually. 
     double cycles;
-    double Area;
-    double Power;
+    double area;
+    double power;
     
     
 

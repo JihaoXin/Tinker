@@ -8,8 +8,8 @@ class Multiplier : public Device {
 public:
     Multiplier() { 
         cycles = 3;
-        Area = 2000;
-        Power = 1.5;
+        area = 2000;
+        power = 1.5;
     }
     ~Multiplier() {}
     void receive_clock() {outLatch.value = result;}
@@ -17,7 +17,7 @@ public:
     void connect(int port_id, Latch l) {in[port_id] = l.value;}
 
 private:
-    std::array<Port, 2> in;
+    std::array<long long, 2> in;
     long long result;
 
 };

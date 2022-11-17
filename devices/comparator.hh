@@ -8,8 +8,8 @@ class Comparator : public Device {
 public:
     Comparator() { 
         cycles = 1;
-        Area = 200;
-        Power = 0.25;
+        area = 200;
+        power = 0.25;
     }
     ~Comparator() {}
     void receive_clock() {outLatch.value = result;}
@@ -18,7 +18,7 @@ public:
 
 private:
     std::array<Port, 2> in;
-    long long result;
+    double result;
 
 };
 

@@ -6,11 +6,11 @@
 
 class Logic : public Device { 
 public:
-    Logic(double control) { 
+    Logic(long long cntrl) { 
+        control = cntrl;
         cycles = 1;
-        Area = 600;
-        Power = 0.75;
-        control = control;
+        area = 600;
+        power = 0.75;
     }
     ~Logic() {}
     void receive_clock() {outLatch.value = result;}
@@ -24,12 +24,13 @@ public:
         } else if (control == 17) { // 0x11 XOR
             result = in[0] ^ in[1];
         }
+        
     }
     void connect(int port_id, Latch l) {in[port_id] = l.value;}
 private:
-    std::array<Port, 2> in;
+    std::array<long long, 2> in;
     long long result;
-    double control;
+    long long control;
 };
 
 #endif

@@ -6,7 +6,7 @@
 
 class Latch {
 public:
-    long long value; // long long so latch is agnostic to whatever type is used. 
+    double value; // long long so latch is agnostic to whatever type is used. 
 };
 
 #endif
