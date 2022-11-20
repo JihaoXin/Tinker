@@ -326,16 +326,5 @@ int main () {
     std::cout << "outLatch[1] = " << demultiplexer.outLatch[1].value << truth << std::endl;
     std::cout << "outLatch[2] = " << demultiplexer.outLatch[2].value << truth << std::endl;
 
-
-
-
-
-    // demultiplexer.do_function(1);
-    // demultiplexer.receive_clock();
-
-
-
-
-
     return 0;
 };
