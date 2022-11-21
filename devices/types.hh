@@ -3,8 +3,8 @@
 
 #include <cstdint>
 
-typedef double Port;
-typedef double Reg;
+typedef long long *Port;
+typedef long long Reg;
 
 struct instruction_t {
   uint32_t opcode:5;
