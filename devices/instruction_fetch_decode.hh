@@ -14,14 +14,14 @@ public:
       instructionFile.open(filename, std::ios::out | std::ios::binary);
       if(!instructionFile) {
         std::cout << "Cannot open instruction file" << std::endl;
-        result = -1;
+        *outport = -1;
         return;
       }
     }
     ~InstructionFetchDecode() {
       instructionFile.close();
     }
-    void receive_clock() {outLatch.value = result;}
+    void receive_clock() {outLatch.value = *outport;}
     void do_function(uint32_t PC) {
       /* --- Instruction Fetch and Decode --- */
       
@@ -35,14 +35,14 @@ public:
       
       //TODO:
 
-      result = 0;
+      *outport = 0;
     }
     void do_function() {}
-    void connect(int port_id, Latch l) {}
+    void connect(int port_id, Latch inLatch) {}
 
     Latch outLatch;
 private:
-    long long result;
+    long long *outport;
 
     std::ifstream instructionFile;
     

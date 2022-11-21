@@ -1,5 +1,5 @@
 #include "latch.hh"
 
 Latch::Latch() {
-    value = new char[8];
+    value = new unsigned char[8];
 }

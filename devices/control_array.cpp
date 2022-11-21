@@ -15,7 +15,7 @@ void ControlArray::do_function(){
     // Do nothing
     return;
 };
-void ControlArray::connect(int port_id, Latch l){
+void ControlArray::connect(int port_id, Latch inLatch){
     // Currently Do nothing
     // Should take an instruction input
     // Then analysis the instruction and push the corresponding control signal to the control array

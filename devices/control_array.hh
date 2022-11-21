@@ -24,7 +24,7 @@ public:
     ~ControlArray() {}
     void receive_clock();
     void do_function();
-    void connect(int port_id, Latch l);
+    void connect(int port_id, Latch inLatch);
 
     std::array<Latch, 6> outLatch;
 

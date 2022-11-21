@@ -13,38 +13,16 @@ public:
         power = 0.25;
     }
     ~Demultiplexer() {}
-    void receive_clock() {}
-    void receive_clock(long long control) {
-        if (control == 0) {
-            outLatch[0].value = result;
-            outLatch[1].value = 0;
-            outLatch[2].value = 0;
-            outLatch[3].value = 0;
-        } else if (control == 1) {
-            outLatch[0].value = 0;
-            outLatch[1].value = result;
-            outLatch[2].value = 0;
-            outLatch[3].value = 0;
-        } else if (control == 16) {
-            outLatch[0].value = 0;
-            outLatch[1].value = 0;
-            outLatch[2].value = result;
-            outLatch[3].value = 0;
-        } else if (control == 17) {
-            outLatch[0].value = 0;
-            outLatch[1].value = 0;
-            outLatch[2].value = 0;
-            outLatch[3].value = result;
-        } 
-    }
-    void do_function(){ result = in[0];}
-    void connect(int port_id, Latch l) {in[port_id] = l.value;}
+    void receive_clock();
+    void receive_clock(long long control);
+    void do_function();
+    void connect(int port_id, Latch inLatch);
 
     std::array<Latch, 4> outLatch;
 
 private:
-    std::array<Port, 1> in;
-    double result;
+    std::array<Port, 2> inport;
+    Port outport;
 };
 
 #endif

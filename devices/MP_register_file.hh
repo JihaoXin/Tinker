@@ -17,7 +17,7 @@ public:
     void receive_clock(){}
     void do_function(long long control);
     void do_function(){}
-    void connect(int port_id, Latch l) {in[port_id] = l.value;}
+    void connect(int port_id, Latch inLatch) {inport[port_id] = l.value;}
 
     std::array<Latch, 4> outLatch;
 

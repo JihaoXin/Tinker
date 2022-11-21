@@ -14,14 +14,14 @@ public:
     ~Add4() {}
     void receive_clock();
     void do_function();
-    void connect(int port_id, Latch l);
+    void connect(int port_id, Latch inLatch);
 
     Latch outLatch;
 
 
 private:
-    std::array<long long, 1> in;
-    long long result;
+    std::array<Port, 1> inport;
+    Port outport;
 
 };
 

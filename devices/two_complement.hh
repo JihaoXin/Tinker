@@ -12,14 +12,15 @@ public:
         power = 0.25;
     }
     ~TwoComplement() {}
-    void receive_clock() {outLatch.value = result;}
-    void do_function(){result = -in[0];}
-    void connect(int port_id, Latch l) {in[port_id] = l.value;}
-
+    void receive_clock();
+    void do_function();
+    void connect(int port_id, Latch inLatch);
+    
     Latch outLatch;
-private:    
-    std::array<long long, 1> in;
-    long long result;
+
+private:
+    std::array<Port, 1> inport;
+    Port outport;
 
 };
 

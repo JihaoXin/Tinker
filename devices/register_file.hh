@@ -19,14 +19,14 @@ public:
     
     void do_function(long long control);
     void do_function(){}
-    void connect(int port_id, Latch l) {in[port_id] = l.value;}
+    void connect(int port_id, Latch inLatch);
 
     std::array<Latch, 2> outLatch;
 
 private:
-    std::array<Port, 2> in;
+    std::array<Port, 2> inport;
     std::array<Reg, 32> registers;
-    std::array<double, 2> result;
+    std::array<Port, 2> outport;
 
 
 };

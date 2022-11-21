@@ -12,15 +12,15 @@ public:
         power = 1.0;
     }
     ~Divider() {}
-    void receive_clock() {outLatch.value = result;}
-    void do_function(){result = in[0] / in[1];}
-    void connect(int port_id, Latch l) {in[port_id] = l.value;}
+    void receive_clock();
+    void do_function();
+    void connect(int port_id, Latch inLatch);
 
     Latch outLatch;
-private:
-    std::array<long long, 2> in;
-    long long result;
 
+private:
+    std::array<Port, 2> inport;
+    Port outport;
 };
 
 #endif

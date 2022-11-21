@@ -21,8 +21,8 @@ int main () {
     // // Shifter shifter;
     // TwoComplement twocomplement;
 
-    Latch latch1;
-    Latch latch2;
+    Latch inLatchatch1;
+    Latch inLatchatch2;
 
     // adder
     // positive
@@ -252,8 +252,8 @@ int main () {
 
 
     //multiplexer
-    Latch latch3;
-    Latch latch4;
+    Latch inLatchatch3;
+    Latch inLatchatch4;
     Multiplexer multiplexer;
     latch1.value = 1;
     latch2.value = 2;
