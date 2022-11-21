@@ -8,7 +8,9 @@
 #include "register_file.hh"
 #include "multiplexer.hh"
 #include "demultiplexer.hh"
+#include "instruction_fetch_decode.hh"
 #include <iostream>
+#include <bitset>
 
 int main () {
     Adder adder;
@@ -205,48 +207,48 @@ int main () {
     std::bitset<64> z7(twoComplement.outLatch.value);
     std::cout << x7 <<  " two's complement = "  << z7 << truth << std::endl;
 
-    // register file
-    // write to register file for register 5 and 6
-    RegisterFile registerFile;
-    latch1.value = 12345;
-    latch2.value = 5;
-    registerFile.connect(0, latch1);
-    registerFile.connect(1, latch2);
-    registerFile.do_function(17);
-    registerFile.receive_clock(17);
+    // // register file
+    // // write to register file for register 5 and 6
+    // RegisterFile registerFile;
+    // latch1.value = 12345;
+    // latch2.value = 5;
+    // registerFile.connect(0, latch1);
+    // registerFile.connect(1, latch2);
+    // registerFile.do_function(17);
+    // registerFile.receive_clock(17);
 
-    latch1.value = 6789;
-    latch2.value = 6;
-    registerFile.connect(0, latch1);
-    registerFile.connect(1, latch2);
-    registerFile.do_function(17);
-    registerFile.receive_clock(17);
+    // latch1.value = 6789;
+    // latch2.value = 6;
+    // registerFile.connect(0, latch1);
+    // registerFile.connect(1, latch2);
+    // registerFile.do_function(17);
+    // registerFile.receive_clock(17);
 
-    // read from register file for register 5 and 6
-    latch1.value = 5;
-    latch2.value = 6;
-    registerFile.connect(0, latch1);
-    registerFile.connect(1, latch2);
-    registerFile.do_function(16);
-    registerFile.receive_clock(16);
-    truth = (registerFile.outLatch[0].value == 12345)? " TRUE" : " FALSE";
-    std::cout << "register 5 = " << registerFile.outLatch[0].value << truth << std::endl;
-    truth = (registerFile.outLatch[1].value == 6789)? " TRUE" : " FALSE";
-    std::cout << "register 6 = " << registerFile.outLatch[1].value << truth << std::endl;
+    // // read from register file for register 5 and 6
+    // latch1.value = 5;
+    // latch2.value = 6;
+    // registerFile.connect(0, latch1);
+    // registerFile.connect(1, latch2);
+    // registerFile.do_function(16);
+    // registerFile.receive_clock(16);
+    // truth = (registerFile.outLatch[0].value == 12345)? " TRUE" : " FALSE";
+    // std::cout << "register 5 = " << registerFile.outLatch[0].value << truth << std::endl;
+    // truth = (registerFile.outLatch[1].value == 6789)? " TRUE" : " FALSE";
+    // std::cout << "register 6 = " << registerFile.outLatch[1].value << truth << std::endl;
 
-    // read registers 5 and 6 individually
-    registerFile.connect(0, latch1);
-    registerFile.do_function(1);
-    registerFile.receive_clock(1);
-    truth = (registerFile.outLatch[0].value == 12345)? " TRUE" : " FALSE";
-    std::cout << "register 5 = " << registerFile.outLatch[0].value << truth << std::endl;
+    // // read registers 5 and 6 individually
+    // registerFile.connect(0, latch1);
+    // registerFile.do_function(1);
+    // registerFile.receive_clock(1);
+    // truth = (registerFile.outLatch[0].value == 12345)? " TRUE" : " FALSE";
+    // std::cout << "register 5 = " << registerFile.outLatch[0].value << truth << std::endl;
 
-    latch1.value = 6;
-    registerFile.connect(0, latch1);
-    registerFile.do_function(1);
-    registerFile.receive_clock(1);
-    truth = (registerFile.outLatch[0].value == 6789)? " TRUE" : " FALSE";
-    std::cout << "register 6 = " << registerFile.outLatch[0].value << truth << std::endl;
+    // latch1.value = 6;
+    // registerFile.connect(0, latch1);
+    // registerFile.do_function(1);
+    // registerFile.receive_clock(1);
+    // truth = (registerFile.outLatch[0].value == 6789)? " TRUE" : " FALSE";
+    // std::cout << "register 6 = " << registerFile.outLatch[0].value << truth << std::endl;
 
 
     //multiplexer
@@ -325,6 +327,18 @@ int main () {
     std::cout << "outLatch[0] = " << demultiplexer.outLatch[0].value << truth << std::endl;
     std::cout << "outLatch[1] = " << demultiplexer.outLatch[1].value << truth << std::endl;
     std::cout << "outLatch[2] = " << demultiplexer.outLatch[2].value << truth << std::endl;
+
+    //Instruction Fetch and Decode Unit
+    InstructionFetchDecode ifd_unit("TwoSubInstructions");
+    ifd_unit.do_function(0); //Read instruction when PC = 0
+    printf("opcode: %u, r_d: %u, r_s: %u, r_t: %u, literal: %u\n", ifd_unit.instr.opcode,
+    ifd_unit.instr.register_d, ifd_unit.instr.register_s, ifd_unit.instr.register_t,
+    ifd_unit.instr.literal);
+
+    ifd_unit.do_function(4); //Read instruction when PC = 4
+    printf("opcode: %u, r_d: %u, r_s: %u, r_t: %u, literal: %u\n", ifd_unit.instr.opcode,
+    ifd_unit.instr.register_d, ifd_unit.instr.register_s, ifd_unit.instr.register_t,
+    ifd_unit.instr.literal);
 
     return 0;
 };
