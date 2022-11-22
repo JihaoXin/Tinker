@@ -1,16 +1,19 @@
 #include "multiplier.hh"
+#include <iostream>
+Multiplier::Multiplier() {
+    cycles = 3;
+    area = 2000;
+    power = 1.5;
+}
+
+Multiplier::~Multiplier() {}
 
 void Multiplier::receive_clock() {
-    // Pass data from outport to outLatch
-    outLatch.value = reinterpret_cast<unsigned char*>(outport);
+    cycle_counter++;
+    if (cycle_counter < cycles) {
+        return;
+    }
+    cycle_counter = 0;
+    outport = (*inport[0]) * (*inport[1]);
 }
 
-void Multiplier::do_function(){
-    // Add inport 1 & 2 to outport
-    *outport = (*inport[0] * *inport[1]);
-}
-
-void Multiplier::connect(int port_id, Latch inLatch){
-    // Connect inLatch to inport
-    inport[port_id] = reinterpret_cast<Port>(inLatch.value);
-}

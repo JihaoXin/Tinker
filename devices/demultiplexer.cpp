@@ -1,36 +1,38 @@
 #include "demultiplexer.hh"
-void Demultiplexer::receive_clock(){}
-void Demultiplexer::do_function(){
-    *outport = *inport[0];
-}
-void Demultiplexer::receive_clock(long long control) {
-    if (control == 0) {
-        outLatch[0].value = reinterpret_cast<unsigned char*>(outport);
-        *outLatch[1].value = 0;
-        *outLatch[2].value = 0;
-        *outLatch[3].value = 0;
-    } else if (control == 1) {
-        *outLatch[0].value = 0;
-        outLatch[1].value = reinterpret_cast<unsigned char*>(outport);
-        *outLatch[2].value = 0;
-        *outLatch[3].value = 0;
-    } else if (control == 16) {
-        *outLatch[0].value = 0;
-        *outLatch[1].value = 0;
-        outLatch[2].value = reinterpret_cast<unsigned char*>(outport);
-        *outLatch[3].value = 0;
-    } else if (control == 17) {
-        *outLatch[0].value = 0;
-        *outLatch[1].value = 0;
-        *outLatch[2].value = 0;
-        outLatch[3].value = reinterpret_cast<unsigned char*>(outport);;
-    } 
-}
-void Demultiplexer::do_function(){
-    *outport = *inport[0];
+
+Demultiplexer::Demultiplexer() {
+    cycles = 0.5;
+    area = 500;
+    power = 0.25;
 }
 
-void Demultiplexer::connect(int port_id, Latch inLatch){
-    // Connect inLatch to inport
-    inport[port_id] = reinterpret_cast<Port>(inLatch.value);
+Demultiplexer::~Demultiplexer() {}
+
+void Demultiplexer::receive_clock() {
+    cycle_counter++;
+    if (cycle_counter < cycles) {
+        return;
+    }
+    cycle_counter = 0;
+    if (*ctrlport == 0) {
+        outport[0] = *inport[0];
+        outport[1] = 0;
+        outport[2] = 0;
+        outport[3] = 0;
+    } else if (*ctrlport == 1) {
+        outport[0] = 0;
+        outport[1] = *inport[0];
+        outport[2] = 0;
+        outport[3] = 0;
+    } else if (*ctrlport == 16) {
+        outport[0] = 0;
+        outport[1] = 0;
+        outport[2] = *inport[0];
+        outport[3] = 0;
+    } else if (*ctrlport == 17) {
+        outport[0] = 0;
+        outport[1] = 0;
+        outport[2] = 0;
+        outport[3] = *inport[0];
+    } 
 }

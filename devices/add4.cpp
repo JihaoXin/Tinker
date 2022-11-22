@@ -1,16 +1,17 @@
 #include "add4.hh"
+Add4::Add4() {
+    cycles = 1;
+    area = 100;
+    power = 0.1;
+}
+
+Add4::~Add4() {}
 
 void Add4::receive_clock() {
-    // Pass data from outport to outLatch
-    outLatch.value = reinterpret_cast<unsigned char*>(outport);
-}
-
-void Add4::do_function(){
-    // Add 4 bits from inport to outport
-    *outport = *inport[0] + 4;
-}
-
-void Add4::connect(int port_id, Latch inLatch){
-    // Connect inLatch to inport
-    inport[port_id] = reinterpret_cast<Port>(inLatch.value);
+    cycle_counter++;
+    if (cycle_counter < cycles) {
+        return;
+    }
+    cycle_counter = 0;
+    outport = *inport[0] + 4;
 }
