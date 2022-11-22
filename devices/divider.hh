@@ -2,25 +2,14 @@
 #define DIVIDER_HH
 #include "device.hh"
 #include <array>
-#include <iostream>
 
 class Divider : public Device {
 public:
-    Divider() { 
-        cycles = 8;
-        area = 5000;
-        power = 1.0;
-    }
-    ~Divider() {}
-    void receive_clock() {outLatch.value = result;}
-    void do_function(){result = in[0] / in[1];}
-    void connect(int port_id, Latch l) {in[port_id] = l.value;}
-
-    Latch outLatch;
-private:
-    std::array<long long, 2> in;
-    long long result;
-
+    Divider();
+    ~Divider();
+    void receive_clock();
+    std::array<inport_t, 2> inport;
+    outport_t outport;
 };
 
 #endif

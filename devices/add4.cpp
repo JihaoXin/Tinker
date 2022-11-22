@@ -1,13 +1,17 @@
 #include "add4.hh"
+Add4::Add4() {
+    cycles = 1;
+    area = 100;
+    power = 0.1;
+}
+
+Add4::~Add4() {}
 
 void Add4::receive_clock() {
-    outLatch.value = result;
-}
-
-void Add4::do_function(){
-    result = in[0] + 4;
-}
-
-void Add4::connect(int port_id, Latch l){
-    in[port_id] = l.value;
+    cycle_counter++;
+    if (cycle_counter < cycles) {
+        return;
+    }
+    cycle_counter = 0;
+    outport = *inport[0] + 4;
 }

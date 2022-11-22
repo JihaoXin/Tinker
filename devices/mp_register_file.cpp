@@ -1,14 +1,14 @@
-#include "register_file.hh"
+#include "mp_register_file.hh"
 
-RegisterFile::RegisterFile() { 
+MPRegisterFile::MPRegisterFile() { 
     cycles = 1;
-    area = 20000;
-    power = 4.0;
+    area = 25000;
+    power = 6.0;
 }
 
-RegisterFile::~RegisterFile() {}
+MPRegisterFile::~MPRegisterFile() {}
 
-void RegisterFile::receive_clock(){
+void MPRegisterFile::receive_clock(){
     cycle_counter++;
     if (cycle_counter < cycles) {
         return;

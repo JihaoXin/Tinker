@@ -1,31 +1,19 @@
+// Currently Implemented same functionality as register_file
 #ifndef MP_REGISTER_FILE_HH
 #define MP_REGISTER_FILE_HH
 
 #include "device.hh"
 #include <array>
-#include <iostream>
 
 class MPRegisterFile : public Device {
 public:
-    MPRegisterFile() { 
-        cycles = 1;
-        area = 25000;
-        power = 6.0;
-    }
-    ~MPRegisterFile() {}
-    void receive_clock(long long control); 
-    void receive_clock(){}
-    void do_function(long long control);
-    void do_function(){}
-    void connect(int port_id, Latch l) {in[port_id] = l.value;}
-
-    std::array<Latch, 4> outLatch;
-
-private:
-    std::array<Port, 4> in;
+    MPRegisterFile();
+    ~MPRegisterFile();
+    void receive_clock();
     std::array<Reg, 32> registers;
-    std::array<double, 4> result;
-
+    std::array<inport_t, 4> inport;
+    std::array<outport_t, 4> outport;
+    inport_t ctrlport;
 };
 
 #endif

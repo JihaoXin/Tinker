@@ -1,23 +1,28 @@
 #include "control_array.hh"
+
+ControlArray::ControlArray() { 
+    cycles = 1;
+    area = 1;
+    power = 0.001;
+    CONTROL_ARRAY_SIZE = 64;
+}
+
+ControlArray::~ControlArray() {}
+
 void ControlArray::receive_clock(){
-    if (control_array.size() > 0){
-        register_line current_line = control_array.front();
-        control_array.pop();
-        outLatch[0].value = current_line.sig_shifter;
-        outLatch[1].value = current_line.sig_logic;
-        outLatch[2].value = current_line.sig_register_file;
-        outLatch[3].value = current_line.sig_multiport_register_file;
-        outLatch[4].value = current_line.sig_multiplexier;
-        outLatch[5].value = current_line.sig_demultiplexier;
+    cycle_counter++;
+    if (cycle_counter < cycles) {
+        return;
     }
-};
-void ControlArray::do_function(){
-    // Do nothing
-    return;
-};
-void ControlArray::connect(int port_id, Latch l){
-    // Currently Do nothing
-    // Should take an instruction input
-    // Then analysis the instruction and push the corresponding control signal to the control array
-    return;
+    cycle_counter = 0;
+    if (control_registers.size() > 0){
+        control_signal_t current_line = control_registers.front();
+        control_registers.pop();
+        outport[0] = current_line.sig_shifter;
+        outport[1] = current_line.sig_logic;
+        outport[2] = current_line.sig_register_file;
+        outport[3] = current_line.sig_multiport_register_file;
+        outport[4] = current_line.sig_multiplexier;
+        outport[5] = current_line.sig_demultiplexier;
+    }
 };

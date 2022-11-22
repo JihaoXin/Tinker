@@ -2,33 +2,18 @@
 #define RESGITER_FILE_HH
 
 #include "device.hh"
-#include <iostream>
 #include <array>
 
 class RegisterFile : public Device {
 public:
-    RegisterFile() { 
-        cycles = 1;
-        area = 20000;
-        power = 4.0;
-    }
-    ~RegisterFile() {}
+    RegisterFile();
+    ~RegisterFile();
+    void receive_clock();
 
-    void receive_clock(long long control); 
-    void receive_clock(){}
-    
-    void do_function(long long control);
-    void do_function(){}
-    void connect(int port_id, Latch l) {in[port_id] = l.value;}
-
-    std::array<Latch, 2> outLatch;
-
-private:
-    std::array<Port, 2> in;
     std::array<Reg, 32> registers;
-    std::array<double, 2> result;
-
-
+    std::array<inport_t, 2> inport;
+    std::array<outport_t, 2> outport;
+    inport_t ctrlport;
 };
 
 #endif
