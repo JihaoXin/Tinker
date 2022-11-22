@@ -1,2 +1,2 @@
-device_test: latch.cpp device.cpp adder.cpp add4.cpp divider.cpp comparator.cpp two_complement.cpp multiplier.cpp logic.cpp shifter.cpp multiplexer.cpp demultiplexer.cpp register_file.cpp mp_register_file.cpp device_test.cpp 
-	$(CXX) $(CFLAGS) -o device_test latch.cpp device.cpp adder.cpp add4.cpp divider.cpp comparator.cpp two_complement.cpp multiplier.cpp logic.cpp shifter.cpp multiplexer.cpp demultiplexer.cpp register_file.cpp mp_register_file.cpp device_test.cpp
+device_test: latch.cpp device.cpp adder.cpp add4.cpp divider.cpp comparator.cpp two_complement.cpp multiplier.cpp logic.cpp shifter.cpp multiplexer.cpp demultiplexer.cpp register_file.cpp mp_register_file.cpp control_array.cpp device_test.cpp 
+	$(CXX) $(CFLAGS) -o device_test latch.cpp device.cpp adder.cpp add4.cpp divider.cpp comparator.cpp two_complement.cpp multiplier.cpp logic.cpp shifter.cpp multiplexer.cpp demultiplexer.cpp register_file.cpp mp_register_file.cpp control_array.cpp device_test.cpp
