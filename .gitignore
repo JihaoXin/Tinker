@@ -352,3 +352,4 @@ MigrationBackup/
 *.o
 **/.DS_Store
 *.json
+devices/device_test
