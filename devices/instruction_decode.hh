@@ -6,14 +6,19 @@
 
 class InstructionDecode : public Device {
 public:
-    instruction_t instr;
-
-    InstructionDecode() {}
+    InstructionDecode() {
+      out_opcode = new long long[1];
+      out_register_d = new long long[1];
+      out_register_s = new long long[1];
+      out_register_t = new long long[1];
+      out_literal = new long long[1];
+    };
     ~InstructionDecode() {}
-    void receive_clock() {}
-    void do_function() {}
-    void connect(int port_id, Latch inLatch) {}
+    void receive_clock();
+    void do_function();
+    void connect(int port_id, Latch inLatch);
 
+    instruction_t instr;
     Latch opcode_l;
     Latch register_d_l;
     Latch register_s_l;

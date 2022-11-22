@@ -5,23 +5,17 @@
 #include <iostream>
 #include <fstream>
 
+
 class InstructionFetch : public Device {
 public:
-    InstructionFetch(char const* filename) {
-      //Open the binary file of instructions
-
-      instructionFile.open(filename, std::ios::out | std::ios::binary);
-      if(!instructionFile) {
-        std::cout << "Cannot open instruction file" << std::endl;
-      }
-    }
+    InstructionFetch(char const* filename);
     ~InstructionFetch() {
       instructionFile.close();
     }
-    void receive_clock() {}
-    void do_function(uint32_t PC) {}
-    void do_function() {}
-    void connect(int port_id, Latch inLatch) {}
+    void receive_clock();
+    void do_function(uint32_t PC);
+    void do_function();
+    void connect(int port_id, Latch inLatch);
 
     Latch outLatch;
 private:

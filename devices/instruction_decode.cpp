@@ -12,8 +12,7 @@ void InstructionDecode::receive_clock() {
 
 void InstructionDecode::do_function() {
     /* --- Instruction Decode --- */
-      
-
+    
     //Decode the instruction to the opcode, r_d, r_s, r_t, and literal
     *out_opcode = (*inport[0] >> 27) & 0b11111;
     *out_register_d = (*inport[0] >> 22) & 0b11111;
