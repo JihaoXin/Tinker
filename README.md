@@ -8,6 +8,7 @@ KAUST CS294V Project by`Sadiq Albinalshaikh` `Omar Zawawi` `Kuilian Yang`, `Jiha
   ```shell
   cd devices
   make
+  ./tinker_assembler #Assembles "code.txt" containing Tinker instructions to a binary file "code"
   ./device_test
   ```
 
