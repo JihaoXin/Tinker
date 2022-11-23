@@ -9,27 +9,30 @@ InstructionFetch::InstructionFetch(char const* filename) {
       std::cout << "Cannot open instruction file" << std::endl;
     }
 
-    outport = new long long[1];
+    //Metrics (TODO: define them to something)
+    cycles = 0;
+    area = 0;
+    power = 0;
+
+    cycle_counter = 0;
+}
+
+InstructionFetch::~InstructionFetch() {
+    instructionFile.close();
 }
 
 void InstructionFetch::receive_clock() {
-    // Pass data from outport to outLatch
-    outLatch.value = reinterpret_cast<unsigned char*>(outport);
-}
+    cycle_counter++;
+    if (cycle_counter < cycles) {
+        return;
+    }
+    cycle_counter = 0;
 
-void InstructionFetch::do_function(uint32_t PC) {
     /* --- Instruction Fetch --- */
     
     //Seek to the program counter's value
-    instructionFile.seekg(PC, std::ios::beg);
+    instructionFile.seekg(static_cast<uint32_t>(*inport[0]), std::ios::beg);
 
-    //Read the 32-bits and output it to the latch
-    instructionFile.read((char *) outport, sizeof(instruction_t));
-}
-
-void InstructionFetch::do_function() {}
-
-void InstructionFetch::connect(int port_id, Latch inLatch) {
-    // Connect inLatch to inport
-    inport[port_id] = reinterpret_cast<Port>(inLatch.value);
+    //Read the 32-bits and output it to the port
+    instructionFile.read((char *) &outport, sizeof(uint32_t));
 }

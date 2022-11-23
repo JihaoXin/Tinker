@@ -9,22 +9,17 @@
 class InstructionFetch : public Device {
 public:
     InstructionFetch(char const* filename);
-    ~InstructionFetch() {
-      instructionFile.close();
-    }
+    InstructionFetch();
+    ~InstructionFetch();
     void receive_clock();
-    void do_function(uint32_t PC);
-    void do_function();
-    void connect(int port_id, Latch inLatch);
 
-    Latch outLatch;
-private:
-    std::array<Port, 2> inport;
-    Port outport;
-
-    std::ifstream instructionFile;
+    //inport[0] must be a pointer for PC
+    std::array<inport_t, 1> inport;
     
-
+    //outport is the 32-bit instruction
+    outport_t outport;
+private:
+    std::ifstream instructionFile;
 };
 
 #endif

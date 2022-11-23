@@ -7,14 +7,6 @@ typedef long long *inport_t;
 typedef long long outport_t;
 typedef long long Reg;
 
-struct instruction_t {
-  uint32_t opcode:5;
-  uint32_t register_d:5;
-  uint32_t register_s:5;
-  uint32_t register_t:5;
-  uint32_t literal:12;
-};
-
 // 6*8 = 48 bits for one register line
 struct control_signal_t {
     int sig_shifter: 8; // 0x00 for right, 0x01 for left

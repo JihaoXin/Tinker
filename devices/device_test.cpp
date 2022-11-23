@@ -11,6 +11,8 @@
 #include "register_file.hh"
 #include "mp_register_file.hh"
 #include "control_array.hh"
+#include "instruction_fetch.hh"
+#include "instruction_decode.hh"
 #include <iostream>
 #include <bitset>
 int main () {
@@ -214,10 +216,72 @@ int main () {
     std::cout << "MPRegisterFile output = " << mpRegisterFile.outport[0] << truth << std::endl;
     }
 
+    // Instruction Fetch and Decode Test
+    {
+    std::cout<<"=================="<<std::endl<<"Instruction Fetch and Decode Test"<<std::endl;
+    InstructionFetch if_unit("code");
+    InstructionDecode id_unit;
+    
+    Latch pc_l;
+    Latch ifd_l;
+    Latch opcode_l;
+    Latch register_d_l;
+    Latch register_s_l;
+    Latch register_t_l;
+    Latch literal_l;
+
+    //PC Latch -> Instruction Fetch
+    if_unit.connect(&pc_l.outport, if_unit.inport[0]);
+
+    //Instruction Fetch -> IFD Latch
+    ifd_l.connect(&if_unit.outport);
+
+    //IFD Latch -> Instruction Decode
+    id_unit.connect(&ifd_l.outport, id_unit.inport[0]);
+
+    //Instruction Decode -> opcode, register, and literal Latches
+    opcode_l.connect(&id_unit.opcode);
+    register_d_l.connect(&id_unit.register_d);
+    register_s_l.connect(&id_unit.register_s);
+    register_t_l.connect(&id_unit.register_t);
+    literal_l.connect(&id_unit.literal);
+
+    pc_l.outport = 0; // PC Value, read first instruction
+
+    if_unit.receive_clock(); // Fetch the instruction
+    ifd_l.receive_clock(); // Receive the results from IF
+    id_unit.receive_clock(); // Receive the results from the latch
+    opcode_l.receive_clock(); // Receive the opcode from the ID
+    register_d_l.receive_clock(); // Receive the register from the ID
+    register_s_l.receive_clock(); // Receive the register from the ID
+    register_t_l.receive_clock(); // Receive the register from the ID
+    literal_l.receive_clock(); // Receive the literal from the ID
+
+    printf("Instruction Fetch and Decode output: \n1- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
+    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
+    literal_l.outport);
+
+    pc_l.outport = 4; // PC Value, read second instruction
+
+    if_unit.receive_clock(); // Fetch the instruction
+    ifd_l.receive_clock(); // Receive the results from IF
+    id_unit.receive_clock(); // Receive the results from the latch
+    opcode_l.receive_clock(); // Receive the opcode from the ID
+    register_d_l.receive_clock(); // Receive the register from the ID
+    register_s_l.receive_clock(); // Receive the register from the ID
+    register_t_l.receive_clock(); // Receive the register from the ID
+    literal_l.receive_clock(); // Receive the literal from the ID
+
+    printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
+    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
+    literal_l.outport);
+    }
+
     // control_array Test
     {
     std::cout<<"=================="<<std::endl<<"ControlArray Test"<<std::endl;
     std::cout << " ControlArray Pending ..." << std::endl;
     }
+    
     return 0;
 }
