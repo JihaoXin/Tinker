@@ -247,7 +247,7 @@ int main () {
     register_t_l.connect(&id_unit.register_t);
     literal_l.connect(&id_unit.literal);
 
-    pc_l.outport = 0; // PC Value, read first instruction
+    pc_l.outport = 0; // PC Value, read first instruction << start main from here
 
     if_unit.receive_clock(); // Fetch the instruction
     ifd_l.receive_clock(); // Receive the results from IF
