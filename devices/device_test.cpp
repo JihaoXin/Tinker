@@ -13,6 +13,7 @@
 #include "control_array.hh"
 #include "instruction_fetch.hh"
 #include "instruction_decode.hh"
+#include "lookup.hh"
 #include <iostream>
 #include <bitset>
 int main () {
@@ -167,12 +168,12 @@ int main () {
     std::cout << "Multiplexer output = " << multiplexer.outport << truth << std::endl;
     }
 
-    //multiplexer test
+    //demultiplexer test
     {
-    std::cout<<"=================="<<std::endl<<"Multiplexer Test"<<std::endl;
+    std::cout<<"=================="<<std::endl<<"Demultiplexer Test"<<std::endl;
     Demultiplexer demultiplexer;
     inLatch0.outport = 3;
-    ctrlLatch.outport = 17; // select inport 3
+    ctrlLatch.outport = 3; // select inport 3
     demultiplexer.connect(&inLatch0.outport, demultiplexer.inport[0]);
     demultiplexer.connect(&ctrlLatch.outport, demultiplexer.ctrlport);
     demultiplexer.receive_clock();
@@ -186,7 +187,7 @@ int main () {
     RegisterFile registerFile;
     inLatch0.outport = 100;
     inLatch1.outport = 18;
-    ctrlLatch.outport = 17; //Store 100 on reg[18]
+    ctrlLatch.outport = 3; //Store 100 on reg[18]
     registerFile.connect(&inLatch0.outport, registerFile.inport[0]);
     registerFile.connect(&inLatch1.outport, registerFile.inport[1]);
     registerFile.connect(&ctrlLatch.outport, registerFile.ctrlport);
@@ -204,7 +205,7 @@ int main () {
     MPRegisterFile mpRegisterFile;
     inLatch0.outport = 100;
     inLatch1.outport = 18;
-    ctrlLatch.outport = 17; //Store 100 on reg[18]
+    ctrlLatch.outport = 3; //Store 100 on reg[18]
     mpRegisterFile.connect(&inLatch0.outport, mpRegisterFile.inport[0]);
     mpRegisterFile.connect(&inLatch1.outport, mpRegisterFile.inport[1]);
     mpRegisterFile.connect(&ctrlLatch.outport, mpRegisterFile.ctrlport);
@@ -277,10 +278,177 @@ int main () {
     literal_l.outport);
     }
 
+    { // Lookup test
+    std::cout<<"=================="<<std::endl<<"Lookup Test"<<std::endl;
+    Lookup lookup;
+    Latch opcode_l;
+    opcode_l.inport = 0; 
+    lookup.connect(&opcode_l.outport, lookup.inport[0]);
+    opcode_l.receive_clock();
+    lookup.receive_clock();
+
+    control_signal_array_t control_signals = lookup.outport;
+    // print arrays in control_signals 
+    // std::bitset<33> b(control_signals.control_signals[0]);
+    truth = (control_signals.control_signals[0] == lookup.add.control_signals[0])? " PASS" : " FAIL";
+    std::bitset<35> b(control_signals.control_signals[0]);
+    std::cout << "Lookup output = " << b << truth << std::endl;
+    truth = (control_signals.control_signals[1] == lookup.add.control_signals[1])? " PASS" : " FAIL";
+    std::bitset<35> b1(control_signals.control_signals[1]);
+    std::cout << "Lookup output = " << b1 << truth << std::endl;
+    truth = (control_signals.control_signals[2] == lookup.add.control_signals[2])? " PASS" : " FAIL";
+    std::bitset<35> b2(control_signals.control_signals[2]);
+    std::cout << "Lookup output = " << b2 << truth << std::endl;
+    truth = (control_signals.control_signals[3] == lookup.add.control_signals[3])? " PASS" : " FAIL";
+    std::bitset<35> b3(control_signals.control_signals[3]);
+    std::cout << "Lookup output = " << b3 << truth << std::endl;
+    truth = (control_signals.control_signals[4] == lookup.add.control_signals[4])? " PASS" : " FAIL";
+    std::bitset<35> b4(control_signals.control_signals[4]);
+    std::cout << "Lookup output = " << b4 << truth << std::endl;
+    truth = (control_signals.control_signals[5] == lookup.add.control_signals[5])? " PASS" : " FAIL";
+    std::bitset<35> b5(control_signals.control_signals[5]);
+    std::cout << "Lookup output = " << b5 << truth << std::endl;
+    truth = (control_signals.control_signals[6] == lookup.add.control_signals[6])? " PASS" : " FAIL";
+    std::bitset<35> b6(control_signals.control_signals[6]);
+    std::cout << "Lookup output = " << b6 << truth << std::endl;
+    truth = (control_signals.control_signals[7] == lookup.add.control_signals[7])? " PASS" : " FAIL";
+    std::bitset<35> b7(control_signals.control_signals[7]);
+    std::cout << "Lookup output = " << b7 << truth << std::endl;
+    
     // control_array Test
-    {
-    std::cout<<"=================="<<std::endl<<"ControlArray Test"<<std::endl;
-    std::cout << " ControlArray Pending ..." << std::endl;
+    
+    std::cout<<"=================="<<std::endl<<"ControlArray Test"<<std::endl;    
+    ControlArray control_array;
+    control_array.connect_array(&lookup.outport, control_array.inport[0]);
+    control_array.receive_clock();
+    // control_signal_t *control_array_out = control_array.outport;
+    truth = (control_array.outport->ll_dem == 0b00) ? " PASS" : " FAIL";
+    std::bitset<2> b9(control_array.outport->ll_dem);
+    std::cout << "ControlArray ll_dem = " << b9<< truth << std::endl;
+
+    truth = (control_array.outport->lrd_dem == 0b00) ? " PASS" : " FAIL";
+    std::bitset<2> b10(control_array.outport->lrd_dem);
+    std::cout << "ControlArray lrd_dem = " << b10<< truth << std::endl;
+
+    truth = (control_array.outport->lrt_dem == 0b01) ? " PASS" : " FAIL";
+    std::bitset<2> b11(control_array.outport->lrt_dem);
+    std::cout << "ControlArray lrt_dem = " << b11 << truth << std::endl;
+
+    truth = (control_array.outport->lrf1_mux == 0b01) ? " PASS" : " FAIL";
+    std::bitset<2> b12(control_array.outport->lrf1_mux);
+    std::cout << "ControlArray lrf1_mux = " << b12 << truth << std::endl;
+
+    truth = (control_array.outport->lrf2_mux == 0b01) ? " PASS" : " FAIL";
+    std::bitset<2> b13(control_array.outport->lrf2_mux);
+    std::cout << "ControlArray lrf2_mux = " << b13 << truth << std::endl;
+
+
+    control_array.inport[0] = NULL; // no more instructions to process. 
+    control_array.receive_clock();
+
+    truth = (control_array.outport->l1_mux == 0b00) ? " PASS" : " FAIL";
+    std::bitset<2> b14(control_array.outport->l1_mux);
+    std::cout << "ControlArray l1_mux = " << b14 << truth << std::endl;
+
+    truth = (control_array.outport->register_file == 0b10) ? " PASS" : " FAIL";
+    std::bitset<2> b15(control_array.outport->register_file);
+    std::cout << "ControlArray register_file = " << b15 << truth << std::endl;
+
+    truth = (control_array.outport->lrf2_mux == 0b00) ? " PASS" : " FAIL";
+    std::bitset<2> b16(control_array.outport->lrf2_mux);
+    std::cout << "ControlArray lrf2_mux = " << b16 << truth << std::endl;
+
+    control_array.receive_clock();
+    control_array.receive_clock();
+    control_array.receive_clock();
+    control_array.receive_clock();
+    control_array.receive_clock();
+
+    truth = (control_array.outport->ll_dem == 0b00) ? " PASS" : " FAIL";
+    std::bitset<2> b17(control_array.outport->ll_dem);
+    std::cout << "ControlArray ll_dem = " << b17 << truth << std::endl;
+
+    truth = (control_array.outport->lrd_dem == 0b01) ? " PASS" : " FAIL";
+    std::bitset<2> b18(control_array.outport->lrd_dem);
+    std::cout << "ControlArray lrd_dem = " << b18 << truth << std::endl;
+
+    truth = (control_array.outport->lrt_dem == 0b00) ? " PASS" : " FAIL";
+    std::bitset<2> b19(control_array.outport->lrt_dem);
+    std::cout << "ControlArray lrt_dem = " << b19 << truth << std::endl;
+
+    truth = (control_array.outport->lrf1_mux == 0b11) ? " PASS" : " FAIL";
+    std::bitset<2> b20(control_array.outport->lrf1_mux);
+    std::cout << "ControlArray lrf1_mux = " << b20 << truth << std::endl;
+
+
+
+
+
+
+
+
+
+    // truth = (control_array_out == lookup.add.control_signals[0])? " PASS" : " FAIL";
+    // std::bitset<33> b8(control_array_out);
+    // std::cout << "ControlArray output 1 = " << b8 << truth << std::endl;
+
+    // control_array.inport[0] = NULL; // no more instructions to process. 
+
+    // // control_array_out = control_array.control_registers.front();
+    // // control_array.control_registers.pop();
+    // control_array.receive_clock();
+    // control_array_out = control_array.outport;
+    // truth = (control_array_out == lookup.add.control_signals[1])? " PASS" : " FAIL";
+    // std::bitset<33> b9(control_array_out);
+    // std::cout << "ControlArray output 2 = " << b9 << truth << std::endl;
+    
+    // // control_array_out = control_array.control_registers.front();
+    // // control_array.control_registers.pop();
+    // control_array.receive_clock();
+    // control_array_out = control_array.outport;
+    // truth = (control_array_out == lookup.add.control_signals[2])? " PASS" : " FAIL";
+    // std::bitset<33> b10(control_array_out);
+    // std::cout << "ControlArray output 3 = " << b10 << truth << std::endl;
+
+    // // control_array_out = control_array.control_registers.front();
+    // // control_array.control_registers.pop();
+    // control_array.receive_clock();
+    // control_array_out = control_array.outport;
+    // truth = (control_array_out == lookup.add.control_signals[3])? " PASS" : " FAIL";
+    // std::bitset<33> b11(control_array_out);
+    // std::cout << "ControlArray output 4 = " << b11 << truth << std::endl;
+
+    // // control_array_out = control_array.control_registers.front();
+    // // control_array.control_registers.pop();
+    // control_array.receive_clock();
+    // control_array_out = control_array.outport;
+    // truth = (control_array_out == lookup.add.control_signals[4])? " PASS" : " FAIL";
+    // std::bitset<33> b12(control_array_out);
+    // std::cout << "ControlArray output 5 = " << b12 << truth << std::endl;
+
+    // // control_array_out = control_array.control_registers.front();
+    // // control_array.control_registers.pop();
+    // control_array.receive_clock();
+    // control_array_out = control_array.outport;
+    // truth = (control_array_out == lookup.add.control_signals[5])? " PASS" : " FAIL";
+    // std::bitset<33> b13(control_array_out);
+    // std::cout << "ControlArray output 6 = " << b13 << truth << std::endl;
+
+    // // control_array_out = control_array.control_registers.front();
+    // // control_array.control_registers.pop();
+    // control_array.receive_clock();
+    // control_array_out = control_array.outport;
+    // truth = (control_array_out == lookup.add.control_signals[6])? " PASS" : " FAIL";
+    // std::bitset<33> b14(control_array_out);
+    // std::cout << "ControlArray output 7 = " << b14 << truth << std::endl;
+
+    // // control_array_out = control_array.control_registers.front();
+    // // control_array.control_registers.pop();
+    // control_array.receive_clock();
+    // control_array_out = control_array.outport;
+    // truth = (control_array_out == lookup.add.control_signals[7])? " PASS" : " FAIL";
+    // std::bitset<33> b15(control_array_out);
+    // std::cout << "ControlArray output 8 = " << b15 << truth << std::endl;
     }
     
     return 0;

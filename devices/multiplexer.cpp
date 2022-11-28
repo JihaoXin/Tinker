@@ -18,9 +18,9 @@ void Multiplexer::receive_clock() {
         outport = *inport[0];
     } else if (*ctrlport == 1) {
         outport = *inport[1];
-    } else if (*ctrlport == 16) {
+    } else if (*ctrlport == 2) {
         outport = *inport[2];
-    } else if (*ctrlport == 17) {
+    } else if (*ctrlport == 3) {
         outport = *inport[3];
     } 
 }

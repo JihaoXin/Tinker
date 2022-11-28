@@ -18,9 +18,9 @@ void Logic::receive_clock() {
         outport = ~*inport[0];
     } else if (*ctrlport == 1) { // 0x01 AND
         outport = *inport[0] & *inport[1];
-    } else if (*ctrlport == 16) { // 0x10 OR
+    } else if (*ctrlport == 2) { // 0x10 OR
         outport = *inport[0] | *inport[1];
-    } else if (*ctrlport == 17) { // 0x11 XOR
+    } else if (*ctrlport == 3) { // 0x11 XOR
         outport = *inport[0] ^ *inport[1];
     }
 }

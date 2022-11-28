@@ -14,7 +14,7 @@ void Demultiplexer::receive_clock() {
         return;
     }
     cycle_counter = 0;
-    if (*ctrlport == 0) {
+    if (*ctrlport == 0) { // ctrlport recieves two bits
         outport[0] = *inport[0];
         outport[1] = 0;
         outport[2] = 0;
@@ -24,12 +24,12 @@ void Demultiplexer::receive_clock() {
         outport[1] = *inport[0];
         outport[2] = 0;
         outport[3] = 0;
-    } else if (*ctrlport == 16) {
+    } else if (*ctrlport == 2) {
         outport[0] = 0;
         outport[1] = 0;
         outport[2] = *inport[0];
         outport[3] = 0;
-    } else if (*ctrlport == 17) {
+    } else if (*ctrlport == 3) {
         outport[0] = 0;
         outport[1] = 0;
         outport[2] = 0;
