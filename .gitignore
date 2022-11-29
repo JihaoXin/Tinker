@@ -353,3 +353,7 @@ MigrationBackup/
 **/.DS_Store
 *.json
 devices/device_test
+*.plist
+devices/main.dSYM/Contents/Resources/DWARF/main
+devices/tinker_assembler
+devices/tinker_assembler

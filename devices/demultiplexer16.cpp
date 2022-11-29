@@ -1,4 +1,4 @@
-#include "demultiplexer.hh"
+#include "demultiplexer16.hh"
 
 Demultiplexer16::Demultiplexer16() {
     cycles = 0.5; // using same stats as demultiplexer for now
@@ -8,7 +8,7 @@ Demultiplexer16::Demultiplexer16() {
 
 Demultiplexer16::~Demultiplexer16() {}
 
-void Demultiplexer::receive_clock() {
+void Demultiplexer16::receive_clock() {
     cycle_counter++;
     if (cycle_counter < cycles) {
         return;
@@ -31,5 +31,5 @@ void Demultiplexer::receive_clock() {
     outport[14] = 0;
     outport[15] = 0;
 
-    outport[*ctrlport] = *inport[*ctrlport];    
+    outport[*ctrlport] = *inport[*ctrlport];
 }

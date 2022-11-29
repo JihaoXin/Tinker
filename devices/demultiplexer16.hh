@@ -1,5 +1,7 @@
 #ifndef DEMULTIPLEXER_16_HH
 #define DEMULTIPLEXER_16_HH
+#include "device.hh"
+#include <array>
 
 class Demultiplexer16 : public Device {
 public:
@@ -10,3 +12,4 @@ public:
     std::array<outport_t, 16> outport;
     inport_t ctrlport;
 };
+#endif
