@@ -1,5 +1,5 @@
-#inclde"lookuphh
-#include"types.hh"
+#include "lookup.hh"
+#include "types.hh"
 
 Lookup::Lookup() {
     cycles = 0.5;
