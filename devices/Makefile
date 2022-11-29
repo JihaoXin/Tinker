@@ -1,8 +1,19 @@
-device_test: tinker_assembler latch.cpp device.cpp adder.cpp add4.cpp divider.cpp comparator.cpp two_complement.cpp multiplier.cpp logic.cpp shifter.cpp multiplexer.cpp demultiplexer.cpp register_file.cpp mp_register_file.cpp control_array.cpp device_test.cpp instruction_fetch.cpp instruction_decode.cpp lookup.cpp 
-	$(CXX) $(CFLAGS) -o device_test latch.cpp device.cpp adder.cpp add4.cpp divider.cpp comparator.cpp two_complement.cpp multiplier.cpp logic.cpp shifter.cpp multiplexer.cpp demultiplexer.cpp register_file.cpp mp_register_file.cpp control_array.cpp device_test.cpp instruction_fetch.cpp instruction_decode.cpp lookup.cpp
+CXX = g++
+CFLAGS = -o
+CPP_FILES = $(wildcard *.cpp)
+DEVICE_CPP_FILE = $(filter-out tinker_assembler.cpp device_test.cpp main.cpp , $(CPP_FILES))
 
-tinker_assembler: tinker_assembler.cpp
-	$(CXX) $(CFLAGS) -o tinker_assembler tinker_assembler.cpp
+all:$(DEVICE_CPP_FILE)
+	$(CXX) $(CFLAGS) main main.cpp ${DEVICE_CPP_FILE}
 
-main: main.cpp tinker_assembler latch.cpp device.cpp adder.cpp add4.cpp divider.cpp comparator.cpp two_complement.cpp multiplier.cpp logic.cpp shifter.cpp multiplexer.cpp demultiplexer.cpp register_file.cpp mp_register_file.cpp control_array.cpp instruction_fetch.cpp instruction_decode.cpp lookup.cpp demultiplexer16.cpp
-	$(CXX) $(CFLAGS) -o main main.cpp latch.cpp device.cpp adder.cpp add4.cpp divider.cpp comparator.cpp two_complement.cpp multiplier.cpp logic.cpp shifter.cpp multiplexer.cpp demultiplexer.cpp register_file.cpp mp_register_file.cpp control_array.cpp instruction_fetch.cpp instruction_decode.cpp lookup.cpp demultiplexer16.cpp
+device_test:$(DEVICE_CPP_FILE)
+	rm device_test
+	$(CXX) $(CFLAGS) device_test device_test.cpp ${DEVICE_CPP_FILE}
+
+tinker_assembler:tinker_assembler.cpp
+	$(CXX) $(CFLAGS) tinker_assembler tinker_assembler.cpp
+
+clean:
+	rm main
+	rm device_test
+	rm tinker_assembler
