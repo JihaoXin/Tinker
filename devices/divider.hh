@@ -2,7 +2,7 @@
 #define DIVIDER_HH
 #include "device.hh"
 #include <array>
-
+#include <climits>
 class Divider : public Device {
 public:
     Divider();

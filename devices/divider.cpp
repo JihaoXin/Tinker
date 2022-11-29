@@ -14,5 +14,6 @@ void Divider::receive_clock() {
         return;
     }
     cycle_counter = 0;
-    outport = *inport[0] / *inport[1];
+
+    outport = *inport[1] == 0 ? LLONG_MAX : *inport[0] / *inport[1];
 }

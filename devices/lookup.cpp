@@ -13,14 +13,14 @@ Lookup::Lookup() {
 Lookup::~Lookup() {this->lookup_table.clear();}
 
 void Lookup::populate_signals(){
-    this->add.control_signals[0] = 0b00000101010000000000000000000000000; //where are the alu signals for logic, shifter, etc in excel? I added them myself
-    this->add.control_signals[1] = 0b00000000001000000000000000000000000;
-    this->add.control_signals[2] = 0b00000000000000000000000000000000000;
-    this->add.control_signals[3] = 0b00000000000000000000000000000000000;
-    this->add.control_signals[4] = 0b00000000000000000000000000000000000;
-    this->add.control_signals[5] = 0b00000000000000000000000000000000000;
-    this->add.control_signals[6] = 0b00010011000000000000000000000000000;
-    this->add.control_signals[7] = 0b00000000001100000000000000000000000;
+    this->add.control_signals[0] = 0b00000'10101'00000'00000'00000'00000'00000; //where are the alu signals for logic, shifter, etc in excel? I added them myself
+    this->add.control_signals[1] = 0b00000'00000'10000'00000'00000'00000'00000;
+    this->add.control_signals[2] = 0b00000'00000'00000'00000'00000'00000'00000;
+    this->add.control_signals[3] = 0b00000'00000'00000'00000'00000'00000'00000;
+    this->add.control_signals[4] = 0b00000'00000'00000'00000'00000'00000'00000;
+    this->add.control_signals[5] = 0b00000'00000'00000'00000'00000'00000'00000;
+    this->add.control_signals[6] = 0b00010'01100'00000'00000'00000'00000'00000;
+    this->add.control_signals[7] = 0b00000'00000'11000'00000'00000'00000'00000;
     /*
     .
     .

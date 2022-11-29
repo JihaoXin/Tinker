@@ -355,5 +355,5 @@ MigrationBackup/
 devices/device_test
 *.plist
 devices/main.dSYM/Contents/Resources/DWARF/main
-devices/tinker_assembler
+devices/main
 devices/tinker_assembler

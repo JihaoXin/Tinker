@@ -136,10 +136,11 @@ int main () {
     lrf1_mux.connect(&lrd_dem.outport[0], lrf1_mux.inport[0]);
     lrf1_mux.connect(&lrs.outport, lrf1_mux.inport[1]);
     lrf1_mux.connect(&lrt_dem.outport[0], lrf1_mux.inport[2]);
+    lrf1_mux.connect(&lalu_dem.outport[1], lrf1_mux.inport[3]);
 
     //connect lrf2_mux
-    lrf1_mux.connect(&lrd_dem.outport[1], lrf2_mux.inport[0]);
-    lrf1_mux.connect(&lrt_dem.outport[1], lrf2_mux.inport[1]);
+    lrf2_mux.connect(&lrd_dem.outport[1], lrf2_mux.inport[0]);
+    lrf2_mux.connect(&lrt_dem.outport[1], lrf2_mux.inport[1]);
 
     // connect lrf_1 latch input to lrf1_mux output
     lrf_1.connect(&lrf1_mux.outport);
