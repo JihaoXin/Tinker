@@ -1,18 +1,27 @@
 #include "register_file.hh"
+#include <iostream>
 
 RegisterFile::RegisterFile() { 
     cycles = 1;
     area = 20000;
     power = 4.0;
+
+    for(int i = 0; i < size(registers); i++) {
+        registers[i] = 0;
+    }
 }
 
-RegisterFile::~RegisterFile() {}
+RegisterFile::~RegisterFile() {
+
+}
 
 void RegisterFile::receive_clock(){
     cycle_counter++;
     if (cycle_counter < cycles) {
         return;
     }
+
+    printf("ctrlport: %lld, in0: %lld, in1: %lld\n", *ctrlport, *inport[0], *inport[1]);
     cycle_counter = 0;
     if (*ctrlport == 0) { // The register file is idle
         return;

@@ -52,7 +52,7 @@ int main () {
     */
 
     Latch pc;
-    pc.outport=0;
+    pc.outport = 0;
     Latch ifd;
     Latch lrd;
     Latch lrs;
@@ -247,13 +247,35 @@ int main () {
     .
     */
 
-    // architecture is now declared and connected. 
+    // architecture is now declared and connected.
+
+    // //DEBUGGING CODE
+    // register_file.registers[3] = 1;
+    // register_file.registers[4] = 1;
+
+    // printf("----------------\n");
+    // for (int i = 0; i < 32; i++) {
+    //     printf("registers[%d]: %lld\n", i, register_file.registers[i]);
+    // }
+    // printf("----------------\n");
 
     int test_cycles = 0;
     while (test_cycles < 8) { // should only pass first inputs, call do_functions, and recieve clocks. 
         // pass input to first devices (first device(s) in dependency chain) probably the PC to the fetch unit. 
-        decoder.receive_clock();
         fetcher.receive_clock();
+        ifd.receive_clock();
+        decoder.receive_clock();
+
+        opcode.receive_clock();
+        lrd.receive_clock();
+        lrs.receive_clock();
+        lrt.receive_clock();
+        ll.receive_clock();
+
+        // printf("Instruction Fetch and Decode output: \n1- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
+        // opcode.outport, lrd.outport, lrs.outport, lrt.outport,
+        // ll.outport);
+    
         lookup.receive_clock();
         control_array.receive_clock();
 
@@ -276,17 +298,13 @@ int main () {
         lalu_mux.connect(&ctr_sig->lalu_mux, lalu_mux.ctrlport);
         lalu_dem.connect(&ctr_sig->lalu_dem, lalu_dem.ctrlport);
 
-        lrd.receive_clock();
-        lrs.receive_clock();
-        lrt.receive_clock();
-        ll.receive_clock();
-
         lrd_dem.receive_clock();
         lrt_dem.receive_clock();
         ll_dem.receive_clock();
 
         lrf1_mux.receive_clock();
         lrf2_mux.receive_clock();
+
 
         lrf_1.receive_clock();
         lrf_2.receive_clock();
@@ -295,6 +313,8 @@ int main () {
 
         lrf_out_1.receive_clock();
         lrf_out_2.receive_clock();
+
+        // printf("lrf_out_1: %lld, lrf_out_2: %lld\n", lrf_out_1.outport, lrf_out_2.outport);
 
         l1_mux.receive_clock();
         l2_mux.receive_clock();
@@ -334,8 +354,14 @@ int main () {
         lalu_dem.receive_clock();
 
         test_cycles++;
-
     }
+
+    // //DEBUGGING CODE
+    printf("----------------\n");
+    for (int i = 0; i < 32; i++) {
+        printf("registers[%d]: %lld\n", i, register_file.registers[i]);
+    }
+    printf("----------------\n");
 
     return 0;
 }
