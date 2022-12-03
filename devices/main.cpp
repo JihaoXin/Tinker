@@ -345,7 +345,6 @@ int main () {
         multiplier.receive_clock();
         divider.receive_clock();
         comparator.receive_clock();
-        twos_complement.receive_clock();
 
         lalu_mux.receive_clock();
 
