@@ -6,7 +6,7 @@ RegisterFile::RegisterFile() {
     area = 20000;
     power = 4.0;
 
-    for(int i = 0; i < size(registers); i++) {
+    for(int i = 0; i < 32; i++) {
         registers[i] = 0;
     }
 }

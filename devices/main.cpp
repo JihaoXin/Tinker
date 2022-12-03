@@ -195,20 +195,20 @@ int main () {
     l_dem2_5.connect(&l2_dem.outport[4]);
     l_dem2_6.connect(&l2_dem.outport[5]);
 
-    // connect l_dem1_7 and l_dem2_6 to adder
-    adder.connect(&l_dem1_7.outport, adder.inport[0]);
-    adder.connect(&l_dem2_6.outport, adder.inport[1]);
-
-    // connect l_dem1_5 and l_dem2_4 to shifter
-    shifter.connect(&l_dem1_5.outport, shifter.inport[0]);
-    shifter.connect(&l_dem2_4.outport, shifter.inport[1]);
-
-    // connect l_dem1_3 and l_dem1_2 to logic
-    logic.connect(&l_dem1_3.outport, logic.inport[0]);
-    logic.connect(&l_dem1_2.outport, logic.inport[1]);
-
     // connect l_dem1_1 to two's complement
     twos_complement.connect(&l_dem1_1.outport, twos_complement.inport[0]);
+
+    // connect l_dem1_3 and l_dem1_2 to logic
+    logic.connect(&l_dem1_2.outport, logic.inport[0]);
+    logic.connect(&l_dem1_3.outport, logic.inport[1]);
+
+    // connect l_dem1_5 and l_dem2_4 to shifter
+    shifter.connect(&l_dem1_4.outport, shifter.inport[0]);
+    shifter.connect(&l_dem1_5.outport, shifter.inport[1]);
+
+    // connect l_dem1_7 and l_dem2_6 to adder
+    adder.connect(&l_dem1_6.outport, adder.inport[0]);
+    adder.connect(&l_dem1_7.outport, adder.inport[1]);
 
     // connect l_dem2_1 and l_dem2_2 to multiplier
     multiplier.connect(&l_dem2_1.outport, multiplier.inport[0]);
@@ -354,6 +354,13 @@ int main () {
         lalu_dem.receive_clock();
 
         test_cycles++;
+
+        // //DEBUGGING CODE
+        printf("----------------\n");
+        for (int i = 0; i < 32; i++) {
+            printf("registers[%d]: %lld\n", i, register_file.registers[i]);
+        }
+        printf("----------------\n");
     }
 
     // // //DEBUGGING CODE
