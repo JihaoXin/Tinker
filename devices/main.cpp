@@ -202,11 +202,11 @@ int main () {
     logic.connect(&l_dem1_2.outport, logic.inport[0]);
     logic.connect(&l_dem1_3.outport, logic.inport[1]);
 
-    // connect l_dem1_5 and l_dem2_4 to shifter
+    // connect l_dem1_5 and l_dem1_4 to shifter
     shifter.connect(&l_dem1_4.outport, shifter.inport[0]);
     shifter.connect(&l_dem1_5.outport, shifter.inport[1]);
 
-    // connect l_dem1_7 and l_dem2_6 to adder
+    // connect l_dem1_7 and l_dem1_6 to adder
     adder.connect(&l_dem1_6.outport, adder.inport[0]);
     adder.connect(&l_dem1_7.outport, adder.inport[1]);
 
