@@ -78,6 +78,13 @@ int main () {
     Latch l_dem2_4;
     Latch l_dem2_5;
     Latch l_dem2_6;
+    Latch la1;
+    Latch la2;
+    Latch la3;
+    Latch la4;
+    Latch la5;
+    Latch la6;
+    Latch la7;
     Latch lalu;
 
 
@@ -136,7 +143,7 @@ int main () {
     lrf1_mux.connect(&lrd_dem.outport[0], lrf1_mux.inport[0]);
     lrf1_mux.connect(&lrs.outport, lrf1_mux.inport[1]);
     lrf1_mux.connect(&lrt_dem.outport[0], lrf1_mux.inport[2]);
-    lrf1_mux.connect(&lalu_dem.outport[1], lrf1_mux.inport[3]);
+    lrf1_mux.connect(&lalu_dem.outport[0], lrf1_mux.inport[3]);
 
     //connect lrf2_mux
     lrf2_mux.connect(&lrd_dem.outport[1], lrf2_mux.inport[0]);
@@ -164,7 +171,7 @@ int main () {
     // connect l2 mux to lrf_out_2 and ll_dem and lalu_dem
     l2_mux.connect(&lrf_out_2.outport, l2_mux.inport[0]);
     l2_mux.connect(&ll_dem.outport[1], l2_mux.inport[1]);
-    l2_mux.connect(&lalu_dem.outport[0], l2_mux.inport[2]);
+    l2_mux.connect(&lalu_dem.outport[1], l2_mux.inport[2]);
 
     // connect l1 latch to l1_mux output
     l1.connect(&l1_mux.outport);
@@ -195,41 +202,50 @@ int main () {
     l_dem2_5.connect(&l2_dem.outport[4]);
     l_dem2_6.connect(&l2_dem.outport[5]);
 
-    // connect l_dem1_1 to two's complement
-    twos_complement.connect(&l_dem1_1.outport, twos_complement.inport[0]);
+    // connect l_dem1_1 and l_dem1_2 to adder
+    adder.connect(&l_dem1_1.outport, adder.inport[0]);
+    adder.connect(&l_dem2_1.outport, adder.inport[1]);
 
-    // connect l_dem1_3 and l_dem1_2 to logic
-    logic.connect(&l_dem1_2.outport, logic.inport[0]);
-    logic.connect(&l_dem1_3.outport, logic.inport[1]);
+    // connect l_dem1_3 and l_dem1_4 to shifter
+    shifter.connect(&l_dem1_2.outport, shifter.inport[0]);
+    shifter.connect(&l_dem2_2.outport, shifter.inport[1]);
 
-    // connect l_dem1_5 and l_dem1_4 to shifter
-    shifter.connect(&l_dem1_4.outport, shifter.inport[0]);
-    shifter.connect(&l_dem1_5.outport, shifter.inport[1]);
-
-    // connect l_dem1_7 and l_dem1_6 to adder
-    adder.connect(&l_dem1_6.outport, adder.inport[0]);
-    adder.connect(&l_dem1_7.outport, adder.inport[1]);
+    // connect l_dem1_5 and l_dem1_6 to logic
+    logic.connect(&l_dem1_3.outport, logic.inport[0]);
+    logic.connect(&l_dem2_3.outport, logic.inport[1]);
 
     // connect l_dem2_1 and l_dem2_2 to multiplier
-    multiplier.connect(&l_dem2_1.outport, multiplier.inport[0]);
-    multiplier.connect(&l_dem2_2.outport, multiplier.inport[1]);
+    multiplier.connect(&l_dem1_4.outport, multiplier.inport[0]);
+    multiplier.connect(&l_dem2_4.outport, multiplier.inport[1]);
 
-    // connect l_dem2_3 l_dem2_4 to divider
-    divider.connect(&l_dem2_3.outport, divider.inport[0]);
-    divider.connect(&l_dem2_4.outport, divider.inport[1]);
+    // connect l_dem2_3 and l_dem2_4 to divider
+    divider.connect(&l_dem1_5.outport, divider.inport[0]);
+    divider.connect(&l_dem2_5.outport, divider.inport[1]);
 
     // connect l_dem2_5 and l_dem2_6 to comparator
-    comparator.connect(&l_dem2_5.outport, comparator.inport[0]);
+    comparator.connect(&l_dem1_6.outport, comparator.inport[0]);
     comparator.connect(&l_dem2_6.outport, comparator.inport[1]);
 
+    // connect l_dem1_7 to two's complement
+    twos_complement.connect(&l_dem1_7.outport, twos_complement.inport[0]);
+
+
+    la1.connect(&adder.outport);
+    la2.connect(&shifter.outport);
+    la3.connect(&logic.outport);
+    la4.connect(&multiplier.outport);
+    la5.connect(&divider.outport);
+    la6.connect(&comparator.outport);
+    la7.connect(&twos_complement.outport);
+
     // connect lalu mux to adder, shifter, logic, twos_complement, multiplier, divider, comparator
-    lalu_mux.connect(&adder.outport, lalu_mux.inport[0]);
-    lalu_mux.connect(&shifter.outport, lalu_mux.inport[1]);
-    lalu_mux.connect(&logic.outport, lalu_mux.inport[2]);
-    lalu_mux.connect(&twos_complement.outport, lalu_mux.inport[3]);
-    lalu_mux.connect(&multiplier.outport, lalu_mux.inport[4]);
-    lalu_mux.connect(&divider.outport, lalu_mux.inport[5]);
-    lalu_mux.connect(&comparator.outport, lalu_mux.inport[6]);
+    lalu_mux.connect(&la1.outport, lalu_mux.inport[0]);
+    lalu_mux.connect(&la2.outport, lalu_mux.inport[1]);
+    lalu_mux.connect(&la3.outport, lalu_mux.inport[2]);
+    lalu_mux.connect(&la4.outport, lalu_mux.inport[3]);
+    lalu_mux.connect(&la5.outport, lalu_mux.inport[4]);
+    lalu_mux.connect(&la6.outport, lalu_mux.inport[5]);
+    lalu_mux.connect(&la7.outport, lalu_mux.inport[6]);
     
     // connect lalu mux to lalu latch
     lalu.connect(&lalu_mux.outport);
@@ -237,21 +253,11 @@ int main () {
     // connect lalu latch to lalu demux
     lalu_dem.connect(&lalu.outport, lalu_dem.inport[0]);
 
-
-
-    //
-    /*
-    .
-    .
-    .
-    .
-    */
-
     // architecture is now declared and connected.
 
-    // //DEBUGGING CODE
-    // register_file.registers[3] = 1;
-    // register_file.registers[4] = 1;
+    //DEBUGGING CODE
+    register_file.registers[3] = 3;
+    register_file.registers[4] = 4;
 
     // printf("----------------\n");
     // for (int i = 0; i < 32; i++) {
@@ -260,17 +266,13 @@ int main () {
     // printf("----------------\n");
 
     int test_cycles = 0;
+    long long a = 1;
     while (test_cycles < 8) { // should only pass first inputs, call do_functions, and recieve clocks. 
         // pass input to first devices (first device(s) in dependency chain) probably the PC to the fetch unit. 
         fetcher.receive_clock();
         ifd.receive_clock();
         decoder.receive_clock();
-
         opcode.receive_clock();
-        lrd.receive_clock();
-        lrs.receive_clock();
-        lrt.receive_clock();
-        ll.receive_clock();
 
         // printf("Instruction Fetch and Decode output: \n1- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
         // opcode.outport, lrd.outport, lrs.outport, lrt.outport,
@@ -293,10 +295,23 @@ int main () {
         l2_mux.connect(&ctr_sig->l2_mux, l2_mux.ctrlport);
         l1_dem.connect(&ctr_sig->l1_dem, l1_dem.ctrlport);
         l2_dem.connect(&ctr_sig->l2_dem, l2_dem.ctrlport);
-        shifter.connect(&ctr_sig->shifter, shifter.ctrlport);
-        logic.connect(&ctr_sig->logic, logic.ctrlport);
         lalu_mux.connect(&ctr_sig->lalu_mux, lalu_mux.ctrlport);
         lalu_dem.connect(&ctr_sig->lalu_dem, lalu_dem.ctrlport);
+        shifter.connect(&ctr_sig->shifter, shifter.ctrlport);
+        logic.connect(&ctr_sig->logic, logic.ctrlport);
+
+        lrd.receive_clock();
+        lrs.receive_clock();
+        lrt.receive_clock();
+        ll.receive_clock();
+
+        if (test_cycles == 0){
+            lrd.receive_clock();
+            lrs.receive_clock();
+            lrt.receive_clock();
+            ll.receive_clock();
+
+        }
 
         lrd_dem.receive_clock();
         lrt_dem.receive_clock();
@@ -304,6 +319,9 @@ int main () {
 
         lrf1_mux.receive_clock();
         lrf2_mux.receive_clock();
+
+        l1_mux.receive_clock();
+        l2_mux.receive_clock();
 
 
         lrf_1.receive_clock();
@@ -316,8 +334,8 @@ int main () {
 
         // printf("lrf_out_1: %lld, lrf_out_2: %lld\n", lrf_out_1.outport, lrf_out_2.outport);
 
-        l1_mux.receive_clock();
-        l2_mux.receive_clock();
+        // l1_mux.receive_clock();
+        // l2_mux.receive_clock();
 
         l1.receive_clock();
         l2.receive_clock();
@@ -346,11 +364,59 @@ int main () {
         divider.receive_clock();
         comparator.receive_clock();
 
+        la1.receive_clock();
+        la2.receive_clock();
+        la3.receive_clock();
+        la4.receive_clock();
+        la5.receive_clock();
+        la6.receive_clock();
+        la7.receive_clock();
+
         lalu_mux.receive_clock();
 
         lalu.receive_clock();
 
         lalu_dem.receive_clock();
+
+        // horizontal execution/code = parallel/independent 
+        // ==================================
+        // lalu.receive_clock();
+        // lalu_dem.receive_clock();
+        // // ==================================
+
+        // la1.receive_clock(); la2.receive_clock(); la3.receive_clock(); la4.receive_clock(); la5.receive_clock(); la6.receive_clock(); la7.receive_clock();
+        // lalu_mux.receive_clock();
+        
+        // // ==================================
+
+        // l_dem1_1.receive_clock(); l_dem1_2.receive_clock(); l_dem1_3.receive_clock(); l_dem1_4.receive_clock(); l_dem1_5.receive_clock(); l_dem1_6.receive_clock(); l_dem1_7.receive_clock();
+        // l_dem2_1.receive_clock(); l_dem2_2.receive_clock(); l_dem2_3.receive_clock(); l_dem2_4.receive_clock(); l_dem2_5.receive_clock(); l_dem2_6.receive_clock();
+        // adder.receive_clock(); shifter.receive_clock(); logic.receive_clock(); twos_complement.receive_clock(); multiplier.receive_clock(); divider.receive_clock(); comparator.receive_clock();
+
+        // // ==================================
+
+        // l1.receive_clock(); l2.receive_clock();
+        // l1_dem.receive_clock(); l2_dem.receive_clock();
+
+        // // ==================================
+
+        // lrf_out_1.receive_clock(); lrf_out_2.receive_clock();
+        // l1_mux.receive_clock(); l2_mux.receive_clock();
+
+        // // ==================================
+
+        // lrf_1.receive_clock(); lrf_2.receive_clock();
+        // register_file.receive_clock();
+
+        // // ==================================
+
+        // lrd.receive_clock(); lrs.receive_clock(); lrt.receive_clock(); ll.receive_clock();
+        // lrd_dem.receive_clock(); lrt_dem.receive_clock(); ll_dem.receive_clock(); // not sure about ll_dem
+        // lrf1_mux.receive_clock(); lrf2_mux.receive_clock();
+
+
+        // std::cout << "lrf1_mux output: " << lrf1_mux.outport << std::endl;
+        // std::cout << "lrf2_mux output: " << lrf2_mux.outport << std::endl;
 
         test_cycles++;
 
