@@ -89,7 +89,7 @@ struct control_signal_t {
 
 // as many control signals as number of cycles 8, this struct will be appened to the control array.
 struct control_signal_array_t {
-    long long control_signals[8];
+    long long control_signals[12];
 };
 
 

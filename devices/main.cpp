@@ -7,6 +7,7 @@
 #include "logic.hh"
 #include "shifter.hh"
 #include "multiplexer.hh"
+#include "multiplexer16.hh"
 #include "demultiplexer.hh"
 #include "demultiplexer16.hh"
 #include "register_file.hh"
@@ -43,7 +44,7 @@ int main () {
     Comparator comparator;
     Divider divider;
     TwoComplement twos_complement;
-    Multiplexer lalu_mux;
+    Multiplexer16 lalu_mux;
     Demultiplexer lalu_dem;
 
     /* 
@@ -108,20 +109,31 @@ int main () {
     //IFD Latch -> Instruction Decode
     decoder.connect(&ifd.outport, decoder.inport[0]);
 
+    // outport_t lrd_val = 5;
+    // outport_t lrs_val = 4;
+    // outport_t lrt_val = 3;
+    // outport_t ll_val = 0;
+    // outport_t opcode_val = 2;
+
     // connect lrd latch to decoder register_d
     lrd.connect(&decoder.register_d);
+    // lrd.connect(&lrd_val);
 
     // connect lrs latch to decoder register_s
     lrs.connect(&decoder.register_s);
+    // lrs.connect(&lrs_val);
 
     // connect lrt latch to decoder register_t
     lrt.connect(&decoder.register_t);
+    // lrt.connect(&lrt_val);
 
     // connect ll latch to decoder literal
     ll.connect(&decoder.literal);
+    // ll.connect(&ll_val);
 
     // connect opcode latch to decoder opcode
     opcode.connect(&decoder.opcode);
+    // opcode.connect(&opcode_val);
 
     // connect lrd_dem port 0 to lrd latch
     lrd_dem.connect(&lrd.outport, lrd_dem.inport[0]);
@@ -266,8 +278,8 @@ int main () {
     // architecture is now declared and connected.
 
     //DEBUGGING CODE
-    register_file.registers[5] = 5;
-    // register_file.registers[4] = 4;
+    register_file.registers[3] = 49336;
+    register_file.registers[4] = 5835;
 
     // printf("----------------\n");
     // for (int i = 0; i < 32; i++) {
@@ -279,8 +291,10 @@ int main () {
     long long a = 1;
     ifd.connect_signal(&a);
     opcode.connect_signal(&a); // ifd and opcode dont need control register
-    while (test_cycles < 8) { // should only pass first inputs, call do_functions, and recieve clocks. 
+    while (test_cycles < 12) { // should only pass first inputs, call do_functions, and recieve clocks. 
         // pass input to first devices (first device(s) in dependency chain) probably the PC to the fetch unit. 
+        // if (test_cycles == 7) 
+        //     std::cout << "here" << std::endl;
         fetcher.receive_clock();
         ifd.receive_clock();
         decoder.receive_clock();

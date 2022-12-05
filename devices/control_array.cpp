@@ -32,9 +32,13 @@ void ControlArray::receive_clock(){
         control_registers.push(ctr_sigs.control_signals[5]);
         control_registers.push(ctr_sigs.control_signals[6]);
         control_registers.push(ctr_sigs.control_signals[7]);
+        control_registers.push(ctr_sigs.control_signals[8]);
+        control_registers.push(ctr_sigs.control_signals[9]);
+        control_registers.push(ctr_sigs.control_signals[10]);
+        control_registers.push(ctr_sigs.control_signals[11]);
     }
     cycle_counter = 0;
-    if (control_registers.size() > 0 & control_registers.size() <= CONTROL_ARRAY_SIZE) {
+    if (control_registers.size() > 0 /*& control_registers.size() <= CONTROL_ARRAY_SIZE*/) {
         outport_t current_line = control_registers.front();
         control_registers.pop();
 

@@ -81,6 +81,60 @@ int main() {
                       return 1;
                   }
               }
+          } else if (word == "sub") {
+              machine_instruction = (machine_instruction + 0b00010) << 5;
+              if (words >> word) {
+                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                      //r_d
+                      machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
+                      if (words >> word) {
+                          if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                              //r_s
+                              machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
+                              if (words >> word) {
+                                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                                      //r_t
+                                      machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 12;
+                                  } else {
+                                      std::cout << "Invalid Instruction!";
+                                      return 1;
+                                  }
+                              } else {
+                                  std::cout << "Invalid Instruction!";
+                                  return 1;
+                              }
+                          } else {
+                              std::cout << "Invalid Instruction!";
+                              return 1;
+                          }
+                      } else {
+                          std::cout << "Invalid Instruction!";
+                          return 1;
+                      }
+                  } else {
+                      std::cout << "Invalid Instruction!";
+                      return 1;
+                  }
+              }
+          } else if (word == "subi") {
+              machine_instruction = (machine_instruction + 0b00011) << 5;
+              if (words >> word) {
+                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                      //r_d
+                      machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
+                      machine_instruction = machine_instruction << 5;
+                      machine_instruction = machine_instruction << 12;
+                      if (words >> word) {
+                          machine_instruction = (machine_instruction + stoi(word.substr(0,word.length())));
+                      } else {
+                          std::cout << "Invalid Instruction!";
+                          return 1;
+                      }
+                  } else {
+                      std::cout << "Invalid Instruction!";
+                      return 1;
+                  }
+              }
           } else {
               std::cout << "Invalid Instruction!";
               return 1;

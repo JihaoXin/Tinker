@@ -31,5 +31,5 @@ void Demultiplexer16::receive_clock() {
     outport[14] = 0;
     outport[15] = 0;
 
-    outport[*ctrlport] = *inport[*ctrlport];
+    outport[*ctrlport] = *inport[0];
 }
