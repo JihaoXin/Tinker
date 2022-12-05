@@ -1,5 +1,5 @@
 CXX = g++
-CFLAGS = -g -o 
+CFLAGS = -g3 -o
 CPP_FILES = $(wildcard *.cpp)
 DEVICE_CPP_FILE = $(filter-out tinker_assembler.cpp device_test.cpp main.cpp , $(CPP_FILES))
 
