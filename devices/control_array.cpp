@@ -27,18 +27,6 @@ void ControlArray::receive_clock(){
         for (int i = 0; i < ctr_sigs.size; i++) {
             control_registers.push(ctr_sigs.control_signals[i]);
         }
-        // control_registers.push(ctr_sigs.control_signals[0]);
-        // control_registers.push(ctr_sigs.control_signals[1]);
-        // control_registers.push(ctr_sigs.control_signals[2]);
-        // control_registers.push(ctr_sigs.control_signals[3]);
-        // control_registers.push(ctr_sigs.control_signals[4]);
-        // control_registers.push(ctr_sigs.control_signals[5]);
-        // control_registers.push(ctr_sigs.control_signals[6]);
-        // control_registers.push(ctr_sigs.control_signals[7]);
-        // control_registers.push(ctr_sigs.control_signals[8]);
-        // control_registers.push(ctr_sigs.control_signals[9]);
-        // control_registers.push(ctr_sigs.control_signals[10]);
-        // control_registers.push(ctr_sigs.control_signals[11]);
     }
     cycle_counter = 0;
     if (control_registers.size() > 0 /*& control_registers.size() <= CONTROL_ARRAY_SIZE*/) {

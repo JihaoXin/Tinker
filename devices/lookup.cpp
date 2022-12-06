@@ -66,6 +66,10 @@ void Lookup::receive_clock() {
         return;
     }
     cycle_counter = 0;
+    if (*inport[0] == std::numeric_limits<long long>::min()) {
+        outport = {size: 0}; // control array won;t push anything to queue with size 0;
+        return;
+    }
     outport = this->lookup_table[*inport[0]];
 }
 

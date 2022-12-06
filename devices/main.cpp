@@ -269,14 +269,16 @@ int main () {
     // architecture is now declared and connected.
 
     //DEBUGGING CODE
-    // register_file.registers[3] = 3;
-    register_file.registers[5] = 4;
+    register_file.registers[3] = 3;
+    register_file.registers[4] = 4;
 
     int test_cycles = 0;
     long long a = 1;
     ifd.connect_signal(&a);
     opcode.connect_signal(&a); // ifd and opcode dont need control register
-    while (test_cycles < 8) { // should only pass first inputs, call do_functions, and recieve clocks. 
+    bool start = true;
+    
+    do { // should only pass first inputs, call do_functions, and recieve clocks. 
         // pass input to first devices (first device(s) in dependency chain) probably the PC to the fetch unit. 
         // if (test_cycles == 7) 
         //     std::cout << "here" << std::endl;
@@ -284,6 +286,8 @@ int main () {
         ifd.receive_clock();
         decoder.receive_clock();
         opcode.receive_clock();
+
+        pc.outport+=4; // we need add4
     
         lookup.receive_clock();
         control_array.receive_clock();
@@ -385,7 +389,11 @@ int main () {
             printf("registers[%d]: %lld\n", i, register_file.registers[i]);
         }
         printf("----------------\n");
-    }
+
+        if (control_array.control_registers.size() == 0) { // finished instructions 
+            std::cout << "Num cycles: " << test_cycles << std::endl;
+        }
+    } while (control_array.control_registers.size() > 0);
 
     // // //DEBUGGING CODE
     // printf("----------------\n");

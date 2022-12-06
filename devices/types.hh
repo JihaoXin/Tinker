@@ -89,7 +89,6 @@ struct control_signal_t {
 
 #define MAX_CONTROL_SIGNALS 15
 
-// as many control signals as number of cycles 8, this struct will be appened to the control array.
 struct control_signal_array_t {
     int size; // number of control signals
     long long control_signals[MAX_CONTROL_SIGNALS];

@@ -18,6 +18,7 @@ public:
     
     //outport is the 32-bit instruction
     outport_t outport;
+    int fileLength;
 private:
     std::ifstream instructionFile;
 };
