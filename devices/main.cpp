@@ -266,32 +266,17 @@ int main () {
     lalu_dem.connect(&lalu.outport, lalu_dem.inport[0]);
 
 
-
-    //
-    /*
-    .
-    .
-    .
-    .
-    */
-
     // architecture is now declared and connected.
 
     //DEBUGGING CODE
-    register_file.registers[3] = 49336;
-    register_file.registers[4] = 5835;
-
-    // printf("----------------\n");
-    // for (int i = 0; i < 32; i++) {
-    //     printf("registers[%d]: %lld\n", i, register_file.registers[i]);
-    // }
-    // printf("----------------\n");
+    // register_file.registers[3] = 3;
+    register_file.registers[5] = 4;
 
     int test_cycles = 0;
     long long a = 1;
     ifd.connect_signal(&a);
     opcode.connect_signal(&a); // ifd and opcode dont need control register
-    while (test_cycles < 12) { // should only pass first inputs, call do_functions, and recieve clocks. 
+    while (test_cycles < 8) { // should only pass first inputs, call do_functions, and recieve clocks. 
         // pass input to first devices (first device(s) in dependency chain) probably the PC to the fetch unit. 
         // if (test_cycles == 7) 
         //     std::cout << "here" << std::endl;
@@ -299,10 +284,6 @@ int main () {
         ifd.receive_clock();
         decoder.receive_clock();
         opcode.receive_clock();
-
-        // printf("Instruction Fetch and Decode output: \n1- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
-        // opcode.outport, lrd.outport, lrs.outport, lrt.outport,
-        // ll.outport);
     
         lookup.receive_clock();
         control_array.receive_clock();

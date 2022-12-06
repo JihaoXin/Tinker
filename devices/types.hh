@@ -87,9 +87,12 @@ struct control_signal_t {
     // unsigned int ll_dem :   2; //LSB
 };
 
+#define MAX_CONTROL_SIGNALS 15
+
 // as many control signals as number of cycles 8, this struct will be appened to the control array.
 struct control_signal_array_t {
-    long long control_signals[12];
+    int size; // number of control signals
+    long long control_signals[MAX_CONTROL_SIGNALS];
 };
 
 
