@@ -357,3 +357,5 @@ devices/device_test
 devices/main.dSYM/Contents/Resources/DWARF/main
 devices/main
 devices/tinker_assembler
+devices/tinker_assembler.dSYM/*
+devices/code
