@@ -13,8 +13,11 @@ InstructionFetch::InstructionFetch(char const* filename) {
     cycles = 0;
     area = 0;
     power = 0;
-
     cycle_counter = 0;
+
+    // get size of instructionFile in bytes
+    instructionFile.seekg(0, instructionFile.end);
+    fileLength = instructionFile.tellg();
 }
 
 InstructionFetch::~InstructionFetch() {
@@ -30,6 +33,12 @@ void InstructionFetch::receive_clock() {
 
     /* --- Instruction Fetch --- */
     
+    // check if PC from inport is out of bounds
+    if (*inport[0] >= fileLength) { 
+        outport = 23458977153024; // this is our assembler's halt instruction in decimal
+        return;
+    }
+
     //Seek to the program counter's value
     instructionFile.seekg(static_cast<uint32_t>(*inport[0]), std::ios::beg);
 

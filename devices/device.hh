@@ -3,6 +3,10 @@
 
 #include "latch.hh"
 #include "types.hh"
+#include <iostream>
+#include <limits>
+
+
 
 class Device { // abstract base class
 public:

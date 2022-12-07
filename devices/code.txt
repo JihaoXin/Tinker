@@ -1,4 +1,1 @@
-mul r5, r4, r3
-div r6, r7, r8
-out r3, r2, r1
-halt
+div r12, r4, r3

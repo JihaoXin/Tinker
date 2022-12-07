@@ -352,13 +352,13 @@ int main () {
     control_array.connect_array(&lookup.outport, control_array.inport[0]);
     control_array.receive_clock();
     // control_signal_t *control_array_out = control_array.outport;
-    truth = (control_array.outport->ll_dem == 0b00) ? " PASS" : " FAIL";
-    std::bitset<2> b9(control_array.outport->ll_dem);
-    std::cout << "ControlArray ll_dem = " << b9<< truth << std::endl;
+    truth = (control_array.outport->lrt == 1) ? " PASS" : " FAIL";
+    std::bitset<2> b9(control_array.outport->lrt);
+    std::cout << "ControlArray lrt = " << b9<< truth << std::endl;
 
-    truth = (control_array.outport->lrd_dem == 0b00) ? " PASS" : " FAIL";
-    std::bitset<2> b10(control_array.outport->lrd_dem);
-    std::cout << "ControlArray lrd_dem = " << b10<< truth << std::endl;
+    truth = (control_array.outport->lrs == 1) ? " PASS" : " FAIL";
+    std::bitset<2> b10(control_array.outport->lrs);
+    std::cout << "ControlArray lrs = " << b10<< truth << std::endl;
 
     truth = (control_array.outport->lrt_dem == 0b01) ? " PASS" : " FAIL";
     std::bitset<2> b11(control_array.outport->lrt_dem);
@@ -376,17 +376,17 @@ int main () {
     control_array.inport[0] = NULL; // no more instructions to process. 
     control_array.receive_clock();
 
-    truth = (control_array.outport->l1_mux == 0b00) ? " PASS" : " FAIL";
-    std::bitset<2> b14(control_array.outport->l1_mux);
-    std::cout << "ControlArray l1_mux = " << b14 << truth << std::endl;
+    // truth = (control_array.outport->l1_mux == 0b00) ? " PASS" : " FAIL";
+    // std::bitset<2> b14(control_array.outport->l1_mux);
+    // std::cout << "ControlArray l1_mux = " << b14 << truth << std::endl;
 
-    truth = (control_array.outport->register_file == 0b10) ? " PASS" : " FAIL";
-    std::bitset<2> b15(control_array.outport->register_file);
-    std::cout << "ControlArray register_file = " << b15 << truth << std::endl;
+    // truth = (control_array.outport->register_file == 0b10) ? " PASS" : " FAIL";
+    // std::bitset<2> b15(control_array.outport->register_file);
+    // std::cout << "ControlArray register_file = " << b15 << truth << std::endl;
 
-    truth = (control_array.outport->lrf2_mux == 0b00) ? " PASS" : " FAIL";
-    std::bitset<2> b16(control_array.outport->lrf2_mux);
-    std::cout << "ControlArray lrf2_mux = " << b16 << truth << std::endl;
+    // truth = (control_array.outport->lrf2_mux == 0b00) ? " PASS" : " FAIL";
+    // std::bitset<2> b16(control_array.outport->lrf2_mux);
+    // std::cout << "ControlArray lrf2_mux = " << b16 << truth << std::endl;
 
     control_array.receive_clock();
     control_array.receive_clock();
@@ -394,21 +394,21 @@ int main () {
     control_array.receive_clock();
     control_array.receive_clock();
 
-    truth = (control_array.outport->ll_dem == 0b00) ? " PASS" : " FAIL";
-    std::bitset<2> b17(control_array.outport->ll_dem);
-    std::cout << "ControlArray ll_dem = " << b17 << truth << std::endl;
-
-    truth = (control_array.outport->lrd_dem == 0b01) ? " PASS" : " FAIL";
-    std::bitset<2> b18(control_array.outport->lrd_dem);
-    std::cout << "ControlArray lrd_dem = " << b18 << truth << std::endl;
-
-    truth = (control_array.outport->lrt_dem == 0b00) ? " PASS" : " FAIL";
-    std::bitset<2> b19(control_array.outport->lrt_dem);
-    std::cout << "ControlArray lrt_dem = " << b19 << truth << std::endl;
+    truth = (control_array.outport->lalu == 0b01) ? " PASS" : " FAIL";
+    std::bitset<2> b17(control_array.outport->lalu);
+    std::cout << "ControlArray lalu = " << b17 << truth << std::endl;
 
     truth = (control_array.outport->lrf1_mux == 0b11) ? " PASS" : " FAIL";
-    std::bitset<2> b20(control_array.outport->lrf1_mux);
-    std::cout << "ControlArray lrf1_mux = " << b20 << truth << std::endl;
+    std::bitset<2> b18(control_array.outport->lrf1_mux);
+    std::cout << "ControlArray lrf1_mux = " << b18 << truth << std::endl;
+
+    truth = (control_array.outport->lrd_dem == 0b01) ? " PASS" : " FAIL";
+    std::bitset<2> b19(control_array.outport->lrd_dem);
+    std::cout << "ControlArray lrd_dem = " << b19 << truth << std::endl;
+
+    truth = (control_array.outport->register_file == 0b00) ? " PASS" : " FAIL";
+    std::bitset<2> b20(control_array.outport->register_file);
+    std::cout << "ControlArray register_file = " << b20 << truth << std::endl;
 
 
 
