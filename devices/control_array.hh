@@ -3,6 +3,7 @@
 #include "device.hh"
 #include <array>
 #include <queue>
+#include <string>
 // inport of control array is a pointer to control signal
 // Every cycle, control array 
 // Every cycle, control array will send out a control signal
@@ -15,7 +16,7 @@ public:
     std::array<control_signal_array_t*, 1> inport;
     control_signal_t *outport;
     int CONTROL_ARRAY_SIZE; // Size of ControlArray
-    std::queue<long long> control_registers;
+    std::queue< std::array<bool,100> > control_registers;
 };
 
 #endif

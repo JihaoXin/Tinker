@@ -2,11 +2,12 @@
 #define TYPES_HH
 #define NULL 0
 #include <cstdint>
-
+#include <array>
+#define MAX_CONTROL_SIGNALS 15
+# define CONTROL_SIGNAL_BITS 64
 typedef long long *inport_t;
 typedef long long outport_t;
 typedef long long Reg;
-
 // 64 bits
 struct control_signal_t {
     long long lrd;
@@ -87,12 +88,11 @@ struct control_signal_t {
     // unsigned int ll_dem :   2; //LSB
 };
 
-#define MAX_CONTROL_SIGNALS 15
-
 struct control_signal_array_t {
     int size; // number of control signals
-    long long control_signals[MAX_CONTROL_SIGNALS];
+    std::array< std::array<bool,100>,MAX_CONTROL_SIGNALS >  control_signals; // MAX_CONTROL_SIGNALS rows, each row is 100 bits to represent one control signal
 };
+
 
 
 #endif

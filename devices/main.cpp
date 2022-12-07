@@ -265,7 +265,6 @@ int main () {
     // connect lalu latch to lalu demux
     lalu_dem.connect(&lalu.outport, lalu_dem.inport[0]);
 
-
     // architecture is now declared and connected.
 
     //DEBUGGING CODE
@@ -301,6 +300,7 @@ int main () {
             std::cout << "Num cycles: " << test_cycles << std::endl;
             break;
         }
+
         // assign bitfields of ctr_sig to respective devices
         lrd.connect_signal(&ctr_sig->lrd);
         lrs.connect_signal(&ctr_sig->lrs);

@@ -321,29 +321,53 @@ int main () {
     // print arrays in control_signals 
     // std::bitset<33> b(control_signals.control_signals[0]);
     truth = (control_signals.control_signals[0] == lookup.add.control_signals[0])? " PASS" : " FAIL";
-    std::bitset<35> b(control_signals.control_signals[0]);
-    std::cout << "Lookup output = " << b << truth << std::endl;
+    std::cout << "Lookup output = ";
+    for (int i = 0; i < CONTROL_SIGNAL_BITS; i++) {
+        std::cout << control_signals.control_signals[0][i];
+    }
+    std::cout << truth << std::endl;
     truth = (control_signals.control_signals[1] == lookup.add.control_signals[1])? " PASS" : " FAIL";
-    std::bitset<35> b1(control_signals.control_signals[1]);
-    std::cout << "Lookup output = " << b1 << truth << std::endl;
+    std::cout << "Lookup output = ";
+    for (int i = 0; i < CONTROL_SIGNAL_BITS; i++) {
+        std::cout << control_signals.control_signals[1][i];
+    }
+    std::cout << truth << std::endl;
     truth = (control_signals.control_signals[2] == lookup.add.control_signals[2])? " PASS" : " FAIL";
-    std::bitset<35> b2(control_signals.control_signals[2]);
-    std::cout << "Lookup output = " << b2 << truth << std::endl;
+    std::cout << "Lookup output = ";
+    for (int i = 0; i < CONTROL_SIGNAL_BITS; i++) {
+        std::cout << control_signals.control_signals[2][i];
+    }
+    std::cout << truth << std::endl;
     truth = (control_signals.control_signals[3] == lookup.add.control_signals[3])? " PASS" : " FAIL";
-    std::bitset<35> b3(control_signals.control_signals[3]);
-    std::cout << "Lookup output = " << b3 << truth << std::endl;
+    std::cout << "Lookup output = ";
+    for (int i = 0; i < CONTROL_SIGNAL_BITS; i++) {
+        std::cout << control_signals.control_signals[3][i];
+    }
+    std::cout << truth << std::endl;
     truth = (control_signals.control_signals[4] == lookup.add.control_signals[4])? " PASS" : " FAIL";
-    std::bitset<35> b4(control_signals.control_signals[4]);
-    std::cout << "Lookup output = " << b4 << truth << std::endl;
+    std::cout << "Lookup output = ";
+    for (int i = 0; i < CONTROL_SIGNAL_BITS; i++) {
+        std::cout << control_signals.control_signals[4][i];
+    }
+    std::cout << truth << std::endl;
     truth = (control_signals.control_signals[5] == lookup.add.control_signals[5])? " PASS" : " FAIL";
-    std::bitset<35> b5(control_signals.control_signals[5]);
-    std::cout << "Lookup output = " << b5 << truth << std::endl;
+    std::cout << "Lookup output = ";
+    for (int i = 0; i < CONTROL_SIGNAL_BITS; i++) {
+        std::cout << control_signals.control_signals[5][i];
+    }
+    std::cout << truth << std::endl;
     truth = (control_signals.control_signals[6] == lookup.add.control_signals[6])? " PASS" : " FAIL";
-    std::bitset<35> b6(control_signals.control_signals[6]);
-    std::cout << "Lookup output = " << b6 << truth << std::endl;
+    std::cout << "Lookup output = ";
+    for (int i = 0; i < CONTROL_SIGNAL_BITS; i++) {
+        std::cout << control_signals.control_signals[6][i];
+    }
+    std::cout << truth << std::endl;
     truth = (control_signals.control_signals[7] == lookup.add.control_signals[7])? " PASS" : " FAIL";
-    std::bitset<35> b7(control_signals.control_signals[7]);
-    std::cout << "Lookup output = " << b7 << truth << std::endl;
+    std::cout << "Lookup output = ";
+    for (int i = 0; i < CONTROL_SIGNAL_BITS; i++) {
+        std::cout << control_signals.control_signals[7][i];
+    }
+    std::cout << truth << std::endl;
     
     // control_array Test
     
