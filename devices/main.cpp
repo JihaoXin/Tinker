@@ -269,8 +269,8 @@ int main () {
     // architecture is now declared and connected.
 
     //DEBUGGING CODE
-    register_file.registers[3] = 3;
-    register_file.registers[4] = 4;
+    register_file.registers[4] = 30;
+    register_file.registers[3] = 2;
 
     int test_cycles = 0;
     long long a = 1;

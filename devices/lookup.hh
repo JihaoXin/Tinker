@@ -21,6 +21,8 @@ public:
     control_signal_array_t addi;
     control_signal_array_t sub;
     control_signal_array_t subi;
+    control_signal_array_t mul;
+    control_signal_array_t div;
     control_signal_array_t halt;
 };
 
