@@ -30,15 +30,15 @@ int main() {
           if (word == "add") {
               machine_instruction = (machine_instruction + 0b00000) << 5;
               if (words >> word) {
-                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                       //r_d
                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                       if (words >> word) {
-                          if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                          if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                               //r_s
                               machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                               if (words >> word) {
-                                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                                       //r_t
                                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 12;
                                   } else {
@@ -65,7 +65,7 @@ int main() {
           } else if (word == "addi") {
               machine_instruction = (machine_instruction + 0b00001) << 5;
               if (words >> word) {
-                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                       //r_d
                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                       machine_instruction = machine_instruction << 5;
@@ -84,15 +84,15 @@ int main() {
           } else if (word == "sub") {
               machine_instruction = (machine_instruction + 0b00010) << 5;
               if (words >> word) {
-                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                       //r_d
                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                       if (words >> word) {
-                          if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                          if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                               //r_s
                               machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                               if (words >> word) {
-                                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                                       //r_t
                                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 12;
                                   } else {
@@ -119,7 +119,7 @@ int main() {
           } else if (word == "subi") {
               machine_instruction = (machine_instruction + 0b00011) << 5;
               if (words >> word) {
-                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                       //r_d
                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                       machine_instruction = machine_instruction << 5;
@@ -138,15 +138,15 @@ int main() {
           } else if (word == "mul") {
               machine_instruction = (machine_instruction + 0b00100) << 5;
               if (words >> word) {
-                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                       //r_d
                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                       if (words >> word) {
-                          if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                          if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                               //r_s
                               machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                               if (words >> word) {
-                                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                                       //r_t
                                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 12;
                                   } else {
@@ -173,15 +173,15 @@ int main() {
           } else if (word == "div") {
               machine_instruction = (machine_instruction + 0b00101) << 5;
               if (words >> word) {
-                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                       //r_d
                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                       if (words >> word) {
-                          if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                          if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                               //r_s
                               machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                               if (words >> word) {
-                                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                                       //r_t
                                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 12;
                                   } else {
@@ -208,15 +208,15 @@ int main() {
           } else if (word == "out") {
               machine_instruction = (machine_instruction + 0b11110) << 5;
               if (words >> word) {
-                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                       //r_d
                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                       if (words >> word) {
-                          if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                          if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                               //r_s
                               machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 5;
                               if (words >> word) {
-                                  if (word.length() > 1 && word.length() <= 3 && word[0] == 'r') {
+                                  if (word.length() > 1 && word.length() <= 4 && word[0] == 'r') {
                                       //r_t
                                       machine_instruction = (machine_instruction + stoi(word.substr(1,word.length() - 1))) << 12;
                                   } else {
