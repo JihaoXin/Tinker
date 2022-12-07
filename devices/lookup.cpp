@@ -46,6 +46,9 @@ void Lookup::populate_signals(){
     this->sub.control_signals[9] = 0b0000000000000000000000000000000000000000100000010000000000000000;
     this->sub.control_signals[10] = 0b1000000100110000000000000000000000000000000000000000000000100000;
     this->sub.control_signals[11] = 0b0000000000000011110000000000000000000000000000000000000000000000;
+
+    this->halt.size = 1;
+    this->halt.control_signals[0] = 0b1111111111111111111111111111111111111111111111111111111111111111;
     /*
     .
     .
@@ -57,6 +60,7 @@ void Lookup::populate_table(){
     this->lookup_table[0] = this->add;
     this->lookup_table[1] = this->addi;
     this->lookup_table[2] = this->sub;
+    this->lookup_table[31] = this->halt;
     return;
 }
 
@@ -66,10 +70,11 @@ void Lookup::receive_clock() {
         return;
     }
     cycle_counter = 0;
-    if (*inport[0] == std::numeric_limits<long long>::min()) {
-        outport = {size: 0}; // control array won;t push anything to queue with size 0;
-        return;
-    }
+    // if (halt || *inport[0] == 31) { // if halt set once, not longer processing lookups. 
+    //     halt = true;
+    //     outport = {size: -1}; // size = -1 tells control array to queue the halt signal
+    //     return;
+    // } 
     outport = this->lookup_table[*inport[0]];
 }
 

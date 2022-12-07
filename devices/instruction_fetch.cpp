@@ -34,8 +34,9 @@ void InstructionFetch::receive_clock() {
     /* --- Instruction Fetch --- */
     
     // check if PC from inport is out of bounds
-    if (*inport[0] >= fileLength) {
-        outport = std::numeric_limits<long long>::min();
+    if (*inport[0] >= fileLength) { // halt fetch = 23458977153024
+        // outport = std::numeric_limits<long long>::min(); // all 1's. signifies EOF. 
+        outport = 23458977153024; // halt
         return;
     }
 

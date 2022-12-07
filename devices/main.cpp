@@ -278,7 +278,7 @@ int main () {
     opcode.connect_signal(&a); // ifd and opcode dont need control register
     bool start = true;
     
-    do { // should only pass first inputs, call do_functions, and recieve clocks. 
+    while (true) { // should only pass first inputs, call do_functions, and recieve clocks. 
         // pass input to first devices (first device(s) in dependency chain) probably the PC to the fetch unit. 
         // if (test_cycles == 7) 
         //     std::cout << "here" << std::endl;
@@ -295,6 +295,12 @@ int main () {
         // assign contorl signals
         control_signal_t *ctr_sig;
         ctr_sig = control_array.outport;
+
+        if (ctr_sig == NULL) { // HALT
+            std::cout << "HALT" << std::endl;
+            std::cout << "Num cycles: " << test_cycles << std::endl;
+            break;
+        }
         // assign bitfields of ctr_sig to respective devices
         lrd.connect_signal(&ctr_sig->lrd);
         lrs.connect_signal(&ctr_sig->lrs);
@@ -390,10 +396,10 @@ int main () {
         }
         printf("----------------\n");
 
-        if (control_array.control_registers.size() == 0) { // finished instructions 
-            std::cout << "Num cycles: " << test_cycles << std::endl;
-        }
-    } while (control_array.control_registers.size() > 0);
+        // if (control_array.control_registers.size() == 0) { // finished instructions 
+        //     std::cout << "Num cycles: " << test_cycles << std::endl;
+        // }
+    }
 
     // // //DEBUGGING CODE
     // printf("----------------\n");

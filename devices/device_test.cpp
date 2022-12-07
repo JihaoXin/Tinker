@@ -276,6 +276,36 @@ int main () {
     printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
     opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
     literal_l.outport);
+
+    pc_l.outport = 8; // PC Value, read second instruction
+
+    if_unit.receive_clock(); // Fetch the instruction
+    ifd_l.receive_clock(); // Receive the results from IF
+    id_unit.receive_clock(); // Receive the results from the latch
+    opcode_l.receive_clock(); // Receive the opcode from the ID
+    register_d_l.receive_clock(); // Receive the register from the ID
+    register_s_l.receive_clock(); // Receive the register from the ID
+    register_t_l.receive_clock(); // Receive the register from the ID
+    literal_l.receive_clock(); // Receive the literal from the ID
+
+    printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
+    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
+    literal_l.outport);
+
+    pc_l.outport = 12; // PC Value, read second instruction
+
+    if_unit.receive_clock(); // Fetch the instruction
+    ifd_l.receive_clock(); // Receive the results from IF
+    id_unit.receive_clock(); // Receive the results from the latch
+    opcode_l.receive_clock(); // Receive the opcode from the ID
+    register_d_l.receive_clock(); // Receive the register from the ID
+    register_s_l.receive_clock(); // Receive the register from the ID
+    register_t_l.receive_clock(); // Receive the register from the ID
+    literal_l.receive_clock(); // Receive the literal from the ID
+
+    printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
+    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
+    literal_l.outport);
     }
 
     { // Lookup test

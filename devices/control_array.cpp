@@ -33,6 +33,11 @@ void ControlArray::receive_clock(){
         outport_t current_line = control_registers.front();
         control_registers.pop();
 
+        if (current_line == 0b1111111111111111111111111111111111111111111111111111111111111111){
+            outport = NULL;
+            return;
+        }
+
         outport->lrd = (current_line >> 63) & 1;
         outport->lrs = (current_line >> 62) & 1;
         outport->lrt = (current_line >> 61) & 1;
