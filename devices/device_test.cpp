@@ -14,6 +14,7 @@
 #include "instruction_fetch.hh"
 #include "instruction_decode.hh"
 #include "lookup.hh"
+#include "loadstore.hh"
 #include <iostream>
 #include <bitset>
 int main () {
@@ -215,6 +216,21 @@ int main () {
     mpRegisterFile.receive_clock();
     truth = (mpRegisterFile.outport[0] == 100)? " PASS" : " FAIL";
     std::cout << "MPRegisterFile output = " << mpRegisterFile.outport[0] << truth << std::endl;
+    }
+
+    // LoadStore Test
+    {
+    std::cout<<"=================="<<std::endl<<"LoadStore Test"<<std::endl;
+    Loadstore loadstore;
+    inLatch0.outport = 10;
+    inLatch1.outport = 666;
+    ctrlLatch.outport = 1; //Store 666 on mem[10]
+    loadstore.connect(&inLatch0.outport, loadstore.inport[0]);
+    loadstore.connect(&inLatch1.outport, loadstore.inport[1]);
+    loadstore.connect(&ctrlLatch.outport, loadstore.ctrlport);
+    loadstore.receive_clock();
+    truth = (loadstore.mem[10] == 666)? " PASS" : " FAIL";
+    std::cout << "loadstore output = " << loadstore.mem[10] << truth << std::endl;
     }
 
     // Instruction Fetch and Decode Test
