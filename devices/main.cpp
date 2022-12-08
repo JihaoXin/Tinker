@@ -70,6 +70,7 @@ int main () {
     Latch l_ls_address;
     Latch l_load_data;
     Latch l_instruction; // latch before fetcher
+    Latch l_laod_data_lrf1;
 
     Latch ifd;
     Latch lrd;
@@ -170,7 +171,11 @@ int main () {
     // connect load_dem to l_load_data latch
     load_dem.connect(&l_load_data.outport, load_dem.inport[0]);
 
+    // connect l_instruction to load_dem outport
     l_instruction.connect(&load_dem.outport[0]);
+
+    // connect l_laod_data_lrf1 to load_dem outport
+    l_laod_data_lrf1.connect(&load_dem.outport[1]);
 
     //PC Latch -> Instruction Fetch
     fetcher.connect(&pc.outport, fetcher.inport[0]);
@@ -243,10 +248,12 @@ int main () {
 
 
     // conect lrf1_mux
-    lrf1_mux.connect(&lrd_lrf1.outport, lrf1_mux.inport[0]);
-    lrf1_mux.connect(&lrs_lrf1.outport, lrf1_mux.inport[1]);
-    lrf1_mux.connect(&lrt_lrf1.outport, lrf1_mux.inport[2]);
-    lrf1_mux.connect(&lalu_lrf1.outport, lrf1_mux.inport[3]);
+    lrf1_mux.connect(&lrf_out_1_lrf1.outport, lrf1_mux.inport[0]);
+    lrf1_mux.connect(&l_laod_data_lrf1.outport, lrf1_mux.inport[1]);
+    lrf1_mux.connect(&lrd_lrf1.outport, lrf1_mux.inport[2]);
+    lrf1_mux.connect(&lrs_lrf1.outport, lrf1_mux.inport[3]);
+    lrf1_mux.connect(&lrt_lrf1.outport, lrf1_mux.inport[4]);
+    lrf1_mux.connect(&lalu_lrf1.outport, lrf1_mux.inport[5]);
 
     //connect lrf2_mux
     lrf2_mux.connect(&lrd_lrf2.outport, lrf2_mux.inport[0]);
