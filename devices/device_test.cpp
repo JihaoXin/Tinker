@@ -15,6 +15,8 @@
 #include "instruction_decode.hh"
 #include "lookup.hh"
 #include "loadstore.hh"
+#include "input.hh"
+#include "output.hh"
 #include <iostream>
 #include <bitset>
 int main () {
@@ -521,5 +523,26 @@ int main () {
     // std::cout << "ControlArray output 8 = " << b15 << truth << std::endl;
     }
     
+    // Input Test
+    {
+    std::cout<<"=================="<<std::endl<<"Input Test"<<std::endl;
+    Input input;
+    input.outport = 0b0000000000000000000000000000000000000000000000000000000000000000;
+    input.receive_clock();
+    truth = (input.outport != 0b0000000000000000000000000000000000000000000000000000000000000000)? " PASS" : " FAIL";
+    std::cout<<"Input = "<<input.outport<<truth<<std::endl;
+    }
+
+    // Output Test
+    {
+    std::cout<<"=================="<<std::endl<<"Output Test"<<std::endl;
+    Output output;
+    inLatch0.outport = 10;
+    output.connect(&inLatch0.outport, output.inport[0]);
+    output.receive_clock();
+    truth = " PASS";
+    std::cout<<truth<<std::endl;
+    }
+
     return 0;
 }
