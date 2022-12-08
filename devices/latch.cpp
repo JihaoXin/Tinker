@@ -8,7 +8,7 @@ Latch::Latch() {
 Latch::~Latch() {}
 
 void Latch::receive_clock() {
-    if (inport != NULL && ctrlport != NULL & *ctrlport == 1) {
+    if (inport != NULL && ctrlport != NULL && *ctrlport == 1) {
         outport = *inport;
 
     }
