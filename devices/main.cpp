@@ -23,6 +23,12 @@
 int main () {
 
     // declare all devices in Execute unit
+    Multiplexer16 pc_mux;
+    Demultiplexer16 pc_dem;
+    Multiplexer16 address_mux;
+    Loadstore loadstore;
+    Demultiplexer16 load_dem;
+
     InstructionDecode decoder;
     InstructionFetch fetcher("code");
     Lookup lookup;
@@ -57,6 +63,14 @@ int main () {
 
     Latch pc;
     pc.outport = 0;
+    Latch l_add4_out;
+    Latch l_pc_add4;
+    Latch l_pc_ls_add;
+    Latch l_pc_l1;
+    Latch l_ls_address;
+    Latch l_load_data;
+    Latch l_instruction; // latch before fetcher
+
     Latch ifd;
     Latch lrd;
     Latch lrd_lrf1;
@@ -106,6 +120,7 @@ int main () {
     Latch lalu;
     Latch lalu_l2;
     Latch lalu_lrf1;
+    Latch lalu_ls_add;
 
 
 
@@ -118,6 +133,44 @@ int main () {
     */
 
     /* connect the Latches with the ports of the devices */
+    // connect add4 to to l_pc_add4 latch
+    add4.connect(&l_pc_add4.outport, add4.inport[0]);
+
+    // connect l_add4_out to add4 outport
+    l_add4_out.connect(&add4.outport);
+
+    // connect pc_mux to l_add4_out latch
+    pc_mux.connect(&l_add4_out.outport, pc_mux.inport[0]);
+
+    // connect pc latch to pc_mux 
+    pc.connect(&pc_mux.outport);
+
+    // connect pc_dem to pc 
+    pc_dem.connect(&pc.outport, pc_dem.inport[0]);
+
+    // connect latches to pc_dem
+    l_pc_add4.connect(&pc_dem.outport[0]);
+    l_pc_ls_add.connect(&pc_dem.outport[1]);
+    l_pc_l1.connect(&pc_dem.outport[2]);
+
+    // connect address_mux to latches l_pc_ls_add and lalu_ls
+    address_mux.connect(&lalu_ls_add.outport, address_mux.inport[0]);
+    address_mux.connect(&l_pc_ls_add.outport, address_mux.inport[1]);
+
+    // connect l_ls_address to address_mux
+    l_ls_address.connect(&address_mux.outport);
+
+    // connect l/s unit to l_ls_address latch and lrf_out_1_ls latch
+    loadstore.connect(&l_ls_address.outport, loadstore.inport[0]);
+    loadstore.connect(&lrf_out_1_ls.outport, loadstore.inport[1]);
+
+    // connect l_load_data to loadstore outport
+    l_load_data.connect(&loadstore.outport[0]);
+
+    // connect load_dem to l_load_data latch
+    load_dem.connect(&l_load_data.outport, load_dem.inport[0]);
+
+    l_instruction.connect(&load_dem.outport[0]);
 
     //PC Latch -> Instruction Fetch
     fetcher.connect(&pc.outport, fetcher.inport[0]);
