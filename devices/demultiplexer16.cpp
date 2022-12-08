@@ -13,6 +13,10 @@ void Demultiplexer16::receive_clock() {
     if (cycle_counter < cycles) {
         return;
     }
+
+    // if (inport[0] == NULL || ctrlport == NULL) {
+    //     return;
+    // }
     cycle_counter = 0;
     outport[0] = 0;
     outport[1] = 0;
