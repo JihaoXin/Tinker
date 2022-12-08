@@ -16,6 +16,7 @@
 #include "instruction_fetch.hh"
 #include "instruction_decode.hh"
 #include "lookup.hh"
+#include "loadstore.hh"
 #include <iostream>
 #include <bitset>
 

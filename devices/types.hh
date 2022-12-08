@@ -8,6 +8,7 @@
 typedef long long *inport_t;
 typedef long long outport_t;
 typedef long long Reg;
+typedef long long mem_unit;
 // 64 bits
 struct control_signal_t {
     long long lrd;
