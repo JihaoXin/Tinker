@@ -70,9 +70,7 @@ int main () {
     Latch l_pc_l1;
     Latch l_ls_address;
     Latch l_load_data;
-    Latch l_instruction; // latch before fetcher
     Latch l_laod_data_lrf1;
-
     Latch ifd;
     Latch lrd;
     Latch lrd_lrf1;
@@ -84,6 +82,7 @@ int main () {
     Latch lrt_lrf1;
     Latch lrt_lrf2;
     Latch ll;
+    Latch lim;
     Latch ll_l1;
     Latch ll_l2;
     Latch opcode;
@@ -91,6 +90,7 @@ int main () {
     Latch lrf_2;
     Latch lrf_out_1;
     Latch lrf_out_2;
+    Latch lrf_out_1_out;
     Latch lrf_out_1_ls;
     Latch lrf_out_1_pc;
     Latch lrf_out_1_l1;
@@ -122,7 +122,9 @@ int main () {
     Latch lalu;
     Latch lalu_l2;
     Latch lalu_lrf1;
+    Latch lalu_pc;
     Latch lalu_ls_add;
+    Latch lalu_lut;
 
 
     long long a = 1;
@@ -143,6 +145,8 @@ int main () {
 
     // connect pc_mux to l_add4_out latch
     pc_mux.connect(&l_add4_out.outport, pc_mux.inport[0]);
+    pc_mux.connect(&lalu_pc.outport, pc_mux.inport[1]);
+    pc_mux.connect(&lrf_out_1_pc.outport, pc_mux.inport[2]);
 
     // connect pc latch to pc_mux 
     pc.connect(&pc_mux.outport);
@@ -172,8 +176,8 @@ int main () {
     // connect load_dem to l_load_data latch
     load_dem.connect(&l_load_data.outport, load_dem.inport[0]);
 
-    // connect l_instruction to load_dem outport
-    l_instruction.connect(&load_dem.outport[0]);
+    // connect ifd latch to load_dem outport
+    ifd.connect(&load_dem.outport[0]);
 
     // connect l_laod_data_lrf1 to load_dem outport
     l_laod_data_lrf1.connect(&load_dem.outport[1]);
@@ -281,7 +285,12 @@ int main () {
     lrf_out_2_dem.connect(&lrf_out_2.outport, lrf_out_2_dem.inport[0]);
 
     // connect lrf_out_1_dem to following latches
+    lrf_out_1_out.connect(&lrf_out_1_dem.outport[0]); // not connected yet
+    lrf_out_1_ls.connect(&lrf_out_1_dem.outport[1]);
+    lrf_out_1_pc.connect(&lrf_out_1_dem.outport[2]);
     lrf_out_1_l1.connect(&lrf_out_1_dem.outport[3]);
+    lrf_out_1_lrf1.connect(&lrf_out_1_dem.outport[4]);
+    lrf_out_1_l2.connect(&lrf_out_1_dem.outport[5]);
     // lrf_out_1_l2.connect(&lrf_out_1_dem.outport[1]);
     // connect rest later
 
@@ -291,11 +300,13 @@ int main () {
     // connect l1 mux to lrf_out_1 and ll_dem
     l1_mux.connect(&ll_l1.outport, l1_mux.inport[0]);
     l1_mux.connect(&lrf_out_1_l1.outport, l1_mux.inport[1]);
+    l1_mux.connect(&l_pc_l1.outport, l1_mux.inport[2]); // lim still not connected
 
     // connect l2 mux to lrf_out_2 and ll_dem and lalu_dem
-    l2_mux.connect(&a, l2_mux.inport[0]);
+    l2_mux.connect(&lrf_out_1_l2.outport, l2_mux.inport[0]);
     l2_mux.connect(&ll_l2.outport, l2_mux.inport[1]);
     l2_mux.connect(&lrf_out_2_l2.outport, l2_mux.inport[2]);
+    l2_mux.connect(&lim.outport, l2_mux.inport[3]); // lim still not connected
     l2_mux.connect(&lalu_l2.outport, l2_mux.inport[4]);
 
     // connect l1 latch to l1_mux output
@@ -380,6 +391,9 @@ int main () {
 
     lalu_l2.connect(&lalu_dem.outport[0]);
     lalu_lrf1.connect(&lalu_dem.outport[1]);
+    lalu_pc.connect(&lalu_dem.outport[2]);
+    lalu_ls_add.connect(&lalu_dem.outport[3]);
+    lalu_lut.connect(&lalu_dem.outport[4]); // not connected yet
 
     // architecture is now declared and connected.
 
