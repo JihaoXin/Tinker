@@ -361,10 +361,6 @@ int main () {
         }
 
         // assign bitfields of ctr_sig to respective devices
-        // lrd.connect_signal(&ctr_sig->lrd);
-        // lrs.connect_signal(&ctr_sig->lrs);n
-        // lrt.connect_signal(&ctr_sig->lrt);
-        // ll.connect_signal(&ctr_sig->ll);
         lrd.connect_signal(&ctr_sig->lrd);
         lrs.connect_signal(&ctr_sig->lrs);
         lrt.connect_signal(&ctr_sig->lrt);
@@ -385,13 +381,9 @@ int main () {
         lrf2_mux.connect(&ctr_sig->lrf2_mux, lrf2_mux.ctrlport);
         lrf_1.connect_signal(&ctr_sig->lrf1);
         lrf_2.connect_signal(&ctr_sig->lrf2);
-        // lrf_1.connect_signal(&a);
-        // lrf_2.connect_signal(&a);
         register_file.connect(&ctr_sig->register_file, register_file.ctrlport);
         lrf_out_1.connect_signal(&ctr_sig->lrf_out_1);
         lrf_out_2.connect_signal(&ctr_sig->lrf_out_2);
-        // lrf_out_1.connect_signal(&a);
-        // lrf_out_2.connect_signal(&a);
         lrf_out_1_dem.connect(&ctr_sig->lrf_out_1_dem, lrf_out_1_dem.ctrlport);
         lrf_out_2_dem.connect(&ctr_sig->lrf_out_2_dem, lrf_out_2_dem.ctrlport);
         lrf_out_1_l1.connect_signal(&ctr_sig->lrf_out_1_l1);
@@ -400,8 +392,6 @@ int main () {
         l2_mux.connect(&ctr_sig->l2_mux, l2_mux.ctrlport);
         l1.connect_signal(&ctr_sig->l1);
         l2.connect_signal(&ctr_sig->l2);
-        // l1.connect_signal(&a);
-        // l2.connect_signal(&a);
         l1_dem.connect(&ctr_sig->l1_dem, l1_dem.ctrlport);
         l_dem1_1.connect_signal(&ctr_sig->l_dem1_1);
         l_dem1_2.connect_signal(&ctr_sig->l_dem1_2);
@@ -410,13 +400,6 @@ int main () {
         l_dem1_5.connect_signal(&ctr_sig->l_dem1_5);
         l_dem1_6.connect_signal(&ctr_sig->l_dem1_6);
         l_dem1_7.connect_signal(&ctr_sig->l_dem1_7);
-        // l_dem1_1.connect_signal(&a);
-        // l_dem1_2.connect_signal(&a);
-        // l_dem1_3.connect_signal(&a);
-        // l_dem1_4.connect_signal(&a);
-        // l_dem1_5.connect_signal(&a);
-        // l_dem1_6.connect_signal(&a);
-        // l_dem1_7.connect_signal(&a);
         l2_dem.connect(&ctr_sig->l2_dem, l2_dem.ctrlport);
         l_dem2_1.connect_signal(&ctr_sig->l_dem2_1);
         l_dem2_2.connect_signal(&ctr_sig->l_dem2_2);    
@@ -424,12 +407,6 @@ int main () {
         l_dem2_4.connect_signal(&ctr_sig->l_dem2_4);
         l_dem2_5.connect_signal(&ctr_sig->l_dem2_5);
         l_dem2_6.connect_signal(&ctr_sig->l_dem2_6);
-        // l_dem2_1.connect_signal(&a);
-        // l_dem2_2.connect_signal(&a);    
-        // l_dem2_3.connect_signal(&a);
-        // l_dem2_4.connect_signal(&a);
-        // l_dem2_5.connect_signal(&a);
-        // l_dem2_6.connect_signal(&a);
         la1.connect_signal(&ctr_sig->la1);
         la2.connect_signal(&ctr_sig->la2);
         la3.connect_signal(&ctr_sig->la3);
@@ -437,16 +414,8 @@ int main () {
         la5.connect_signal(&ctr_sig->la5);
         la6.connect_signal(&ctr_sig->la6);
         la7.connect_signal(&ctr_sig->la7);
-        // la1.connect_signal(&a);
-        // la2.connect_signal(&a);
-        // la3.connect_signal(&a);
-        // la4.connect_signal(&a);
-        // la5.connect_signal(&a);
-        // la6.connect_signal(&a);
-        // la7.connect_signal(&a);
         lalu_mux.connect(&ctr_sig->lalu_mux, lalu_mux.ctrlport);
         lalu.connect_signal(&ctr_sig->lalu);
-        // lalu.connect_signal(&a);
         lalu_dem.connect(&ctr_sig->lalu_dem, lalu_dem.ctrlport);
         lalu_l2.connect_signal(&ctr_sig->lalu_l2);
         lalu_lrf1.connect_signal(&ctr_sig->lalu_lrf1);
@@ -482,88 +451,11 @@ int main () {
         lrf1_mux.receive_clock(); 
         lrf2_mux.receive_clock(); 
         l1_mux.receive_clock(); 
-        l2_mux.receive_clock(); // not entirrely sure. 
+        l2_mux.receive_clock(); 
         // ================================================
         lrd.receive_clock(); lrs.receive_clock(); lrt.receive_clock(); ll.receive_clock();
         lrd_dem.receive_clock(); lrs_dem.receive_clock(); lrt_dem.receive_clock(); ll_dem.receive_clock();
         
-
-
-        // // horizontal code = parallel/independent 
-        // // ==================================
-        // lalu.receive_clock();
-        // lalu_dem.receive_clock();
-        // // ==================================
-
-        // la1.receive_clock(); la2.receive_clock(); la3.receive_clock(); la4.receive_clock(); la5.receive_clock(); la6.receive_clock(); la7.receive_clock();
-        // lalu_mux.receive_clock();
-        
-        // // ==================================
-
-        // l_dem1_1.receive_clock(); l_dem1_2.receive_clock(); l_dem1_3.receive_clock(); l_dem1_4.receive_clock(); l_dem1_5.receive_clock(); l_dem1_6.receive_clock(); l_dem1_7.receive_clock();
-        // l_dem2_1.receive_clock(); l_dem2_2.receive_clock(); l_dem2_3.receive_clock(); l_dem2_4.receive_clock(); l_dem2_5.receive_clock(); l_dem2_6.receive_clock();
-        // adder.receive_clock(); shifter.receive_clock(); logic.receive_clock(); twos_complement.receive_clock(); multiplier.receive_clock(); divider.receive_clock(); comparator.receive_clock();
-
-        // // ==================================
-
-        // l1.receive_clock(); l2.receive_clock();
-        // l1_dem.receive_clock(); l2_dem.receive_clock();
-
-        // // ==================================
-
-        // lrf_out_1.receive_clock(); lrf_out_2.receive_clock();
-
-        // // ==================================
-
-        // lrf_1.receive_clock(); lrf_2.receive_clock();
-        // register_file.receive_clock();
-
-        // // ==================================
-
-        // lrd.receive_clock(); lrs.receive_clock(); lrt.receive_clock(); ll.receive_clock();
-        // lrd_dem.receive_clock(); lrt_dem.receive_clock(); ll_dem.receive_clock(); // not sure about ll_dem
-        // lrf1_mux.receive_clock(); lrf2_mux.receive_clock();
-        // l1_mux.receive_clock(); l2_mux.receive_clock();
-
-        std::cout << "lrf1_mux output: " << lrf1_mux.outport << std::endl;
-        std::cout << "lrf2_mux output: " << lrf2_mux.outport << std::endl;
-
-        // horizontal execution/code = parallel/independent 
-        // ==================================
-        // lalu.receive_clock();
-        // lalu_dem.receive_clock();
-        // // ==================================
-
-        // la1.receive_clock(); la2.receive_clock(); la3.receive_clock(); la4.receive_clock(); la5.receive_clock(); la6.receive_clock(); la7.receive_clock();
-        // lalu_mux.receive_clock();
-        
-        // // ==================================
-
-        // l_dem1_1.receive_clock(); l_dem1_2.receive_clock(); l_dem1_3.receive_clock(); l_dem1_4.receive_clock(); l_dem1_5.receive_clock(); l_dem1_6.receive_clock(); l_dem1_7.receive_clock();
-        // l_dem2_1.receive_clock(); l_dem2_2.receive_clock(); l_dem2_3.receive_clock(); l_dem2_4.receive_clock(); l_dem2_5.receive_clock(); l_dem2_6.receive_clock();
-        // adder.receive_clock(); shifter.receive_clock(); logic.receive_clock(); twos_complement.receive_clock(); multiplier.receive_clock(); divider.receive_clock(); comparator.receive_clock();
-
-        // // ==================================
-
-        // l1.receive_clock(); l2.receive_clock();
-        // l1_dem.receive_clock(); l2_dem.receive_clock();
-
-        // // ==================================
-
-        // lrf_out_1.receive_clock(); lrf_out_2.receive_clock();
-        // l1_mux.receive_clock(); l2_mux.receive_clock();
-
-        // // ==================================
-
-        // lrf_1.receive_clock(); lrf_2.receive_clock();
-        // register_file.receive_clock();
-
-        // // ==================================
-
-        // lrd.receive_clock(); lrs.receive_clock(); lrt.receive_clock(); ll.receive_clock();
-        // lrd_dem.receive_clock(); lrt_dem.receive_clock(); ll_dem.receive_clock(); // not sure about ll_dem
-        // lrf1_mux.receive_clock(); lrf2_mux.receive_clock();
-
 
         // std::cout << "lrf1_mux output: " << lrf1_mux.outport << std::endl;
         // std::cout << "lrf2_mux output: " << lrf2_mux.outport << std::endl;
@@ -577,9 +469,6 @@ int main () {
         }
         printf("----------------\n");
 
-        // if (control_array.control_registers.size() == 0) { // finished instructions 
-        //     std::cout << "Num cycles: " << test_cycles << std::endl;
-        // }
     }
 
     // // //DEBUGGING CODE
