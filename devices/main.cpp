@@ -177,7 +177,7 @@ int main () {
     load_dem.connect(&l_load_data.outport, load_dem.inport[0]);
 
     // connect ifd latch to load_dem outport
-    ifd.connect(&load_dem.outport[0]);
+    // ifd.connect(&load_dem.outport[0]); uncomment then
 
     // connect l_laod_data_lrf1 to load_dem outport
     l_laod_data_lrf1.connect(&load_dem.outport[1]);
@@ -253,12 +253,13 @@ int main () {
 
 
     // conect lrf1_mux
-    lrf1_mux.connect(&lrf_out_1_lrf1.outport, lrf1_mux.inport[0]);
-    lrf1_mux.connect(&l_laod_data_lrf1.outport, lrf1_mux.inport[1]);
-    lrf1_mux.connect(&lrd_lrf1.outport, lrf1_mux.inport[2]);
-    lrf1_mux.connect(&lrs_lrf1.outport, lrf1_mux.inport[3]);
-    lrf1_mux.connect(&lrt_lrf1.outport, lrf1_mux.inport[4]);
-    lrf1_mux.connect(&lalu_lrf1.outport, lrf1_mux.inport[5]);
+    lrf1_mux.connect(&a, lrf1_mux.inport[0]); // for input
+    lrf1_mux.connect(&lrf_out_1_lrf1.outport, lrf1_mux.inport[1]);
+    lrf1_mux.connect(&l_laod_data_lrf1.outport, lrf1_mux.inport[2]);
+    lrf1_mux.connect(&lrd_lrf1.outport, lrf1_mux.inport[3]);
+    lrf1_mux.connect(&lrs_lrf1.outport, lrf1_mux.inport[4]);
+    lrf1_mux.connect(&lrt_lrf1.outport, lrf1_mux.inport[5]);
+    lrf1_mux.connect(&lalu_lrf1.outport, lrf1_mux.inport[6]);
 
     //connect lrf2_mux
     lrf2_mux.connect(&lrd_lrf2.outport, lrf2_mux.inport[0]);
