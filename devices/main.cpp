@@ -35,6 +35,7 @@ int main () {
     Multiplexer16 lrf2_mux;
     RegisterFile register_file;
     Demultiplexer16 lrf_out_1_dem;
+    Demultiplexer16 lrf_out_2_dem;
     Multiplexer16 l1_mux;
     Multiplexer16 l2_mux;
     Demultiplexer16 l1_dem;
@@ -108,7 +109,7 @@ int main () {
     Latch lalu_lrf1;
 
 
-
+    long long a = 1;
 
 
     /*
@@ -190,14 +191,17 @@ int main () {
 
 
     // conect lrf1_mux
-    lrf1_mux.connect(&lrd_lrf1.outport, lrf1_mux.inport[0]);
-    lrf1_mux.connect(&lrs_lrf1.outport, lrf1_mux.inport[1]);
-    lrf1_mux.connect(&lrt_lrf1.outport, lrf1_mux.inport[2]);
-    lrf1_mux.connect(&lalu_lrf1.outport, lrf1_mux.inport[3]);
+    lrf1_mux.connect(&a, lrf1_mux.inport[0]);
+    lrf1_mux.connect(&a, lrf1_mux.inport[1]);
+    lrf1_mux.connect(&lrd_lrf1.outport, lrf1_mux.inport[3]);
+    lrf1_mux.connect(&lrs_lrf1.outport, lrf1_mux.inport[4]);
+    lrf1_mux.connect(&lrt_lrf1.outport, lrf1_mux.inport[5]);
+    lrf1_mux.connect(&lalu_lrf1.outport, lrf1_mux.inport[6]);
 
     //connect lrf2_mux
     lrf2_mux.connect(&lrd_lrf2.outport, lrf2_mux.inport[0]);
-    lrf2_mux.connect(&lrt_lrf2.outport, lrf2_mux.inport[1]);
+    lrf2_mux.connect(&lrs_lrf2.outport, lrf2_mux.inport[1]);
+    lrf2_mux.connect(&lrt_lrf2.outport, lrf2_mux.inport[2]);
     // add another connecttion to lrf2_mux from lrs_lrf2. 
 
     // connect lrf_1 latch input to lrf1_mux output
@@ -216,23 +220,25 @@ int main () {
 
     // connect lrf_out_1 to following demux
     lrf_out_1_dem.connect(&lrf_out_1.outport, lrf_out_1_dem.inport[0]);
+    lrf_out_2_dem.connect(&lrf_out_2.outport, lrf_out_2_dem.inport[0]);
 
     // connect lrf_out_1_dem to following latches
-    lrf_out_1_l1.connect(&lrf_out_1_dem.outport[0]);
+    lrf_out_1_l1.connect(&lrf_out_1_dem.outport[3]);
     // lrf_out_1_l2.connect(&lrf_out_1_dem.outport[1]);
     // connect rest later
 
     // connect lrf_out_2 to following latch
-    lrf_out_2_l2.connect(&lrf_out_2.outport);
+    lrf_out_2_l2.connect(&lrf_out_2_dem.outport[0]);
 
     // connect l1 mux to lrf_out_1 and ll_dem
-    l1_mux.connect(&lrf_out_1_l1.outport, l1_mux.inport[0]);
-    l1_mux.connect(&ll_l1.outport, l1_mux.inport[1]);
+    l1_mux.connect(&ll_l1.outport, l1_mux.inport[0]);
+    l1_mux.connect(&lrf_out_1_l1.outport, l1_mux.inport[1]);
 
     // connect l2 mux to lrf_out_2 and ll_dem and lalu_dem
-    l2_mux.connect(&lrf_out_2_l2.outport, l2_mux.inport[0]);
+    l2_mux.connect(&a, l2_mux.inport[0]);
     l2_mux.connect(&ll_l2.outport, l2_mux.inport[1]);
-    l2_mux.connect(&lalu_l2.outport, l2_mux.inport[2]);
+    l2_mux.connect(&lrf_out_2_l2.outport, l2_mux.inport[2]);
+    l2_mux.connect(&lalu_l2.outport, l2_mux.inport[4]);
 
     // connect l1 latch to l1_mux output
     l1.connect(&l1_mux.outport);
@@ -314,8 +320,8 @@ int main () {
     // connect lalu latch to lalu demux
     lalu_dem.connect(&lalu.outport, lalu_dem.inport[0]);
 
-    lalu_lrf1.connect(&lalu_dem.outport[0]);
-    lalu_l2.connect(&lalu_dem.outport[1]);
+    lalu_l2.connect(&lalu_dem.outport[0]);
+    lalu_lrf1.connect(&lalu_dem.outport[1]);
 
     // architecture is now declared and connected.
 
@@ -324,7 +330,7 @@ int main () {
     register_file.registers[3] = 2;
 
     int test_cycles = 0;
-    long long a = 1;
+    
     long long lrsdem = 0;
     ifd.connect_signal(&a);
     opcode.connect_signal(&a); // ifd and opcode dont need control register
@@ -356,115 +362,131 @@ int main () {
 
         // assign bitfields of ctr_sig to respective devices
         // lrd.connect_signal(&ctr_sig->lrd);
-        // lrs.connect_signal(&ctr_sig->lrs);
+        // lrs.connect_signal(&ctr_sig->lrs);n
         // lrt.connect_signal(&ctr_sig->lrt);
         // ll.connect_signal(&ctr_sig->ll);
-        lrd.connect_signal(&a);
-        lrs.connect_signal(&a);
-        lrt.connect_signal(&a);
-        ll.connect_signal(&a);
+        lrd.connect_signal(&ctr_sig->lrd);
+        lrs.connect_signal(&ctr_sig->lrs);
+        lrt.connect_signal(&ctr_sig->lrt);
+        ll.connect_signal(&ctr_sig->ll);
         ll_dem.connect(&ctr_sig->ll_dem, ll_dem.ctrlport);
         lrd_dem.connect(&ctr_sig->lrd_dem, lrd_dem.ctrlport);
         lrt_dem.connect(&ctr_sig->lrt_dem, lrt_dem.ctrlport);
-        lrs_dem.connect(&lrsdem, lrs_dem.ctrlport);
-        lrd_lrf1.connect_signal(&a);
-        lrd_lrf2.connect_signal(&a);
-        lrs_lrf1.connect_signal(&a);
-        lrs_lrf2.connect_signal(&a);
-        lrt_lrf1.connect_signal(&a);
-        lrt_lrf2.connect_signal(&a);
-        ll_l1.connect_signal(&a);
-        ll_l2.connect_signal(&a);
+        lrs_dem.connect(&ctr_sig->lrs_dem, lrs_dem.ctrlport);
+        lrd_lrf1.connect_signal(&ctr_sig->lrd_lrf1);
+        lrd_lrf2.connect_signal(&ctr_sig->lrd_lrf2);
+        lrs_lrf1.connect_signal(&ctr_sig->lrs_lrf1);
+        lrs_lrf2.connect_signal(&ctr_sig->lrs_lrf2);
+        lrt_lrf1.connect_signal(&ctr_sig->lrt_lrf1);
+        lrt_lrf2.connect_signal(&ctr_sig->lrt_lrf2);
+        ll_l1.connect_signal(&ctr_sig->ll_l1);
+        ll_l2.connect_signal(&ctr_sig->ll_l2);
         lrf1_mux.connect(&ctr_sig->lrf1_mux, lrf1_mux.ctrlport);
         lrf2_mux.connect(&ctr_sig->lrf2_mux, lrf2_mux.ctrlport);
-        // lrf_1.connect_signal(&ctr_sig->lrf1);
-        // lrf_2.connect_signal(&ctr_sig->lrf2);
-        lrf_1.connect_signal(&a);
-        lrf_2.connect_signal(&a);
+        lrf_1.connect_signal(&ctr_sig->lrf1);
+        lrf_2.connect_signal(&ctr_sig->lrf2);
+        // lrf_1.connect_signal(&a);
+        // lrf_2.connect_signal(&a);
         register_file.connect(&ctr_sig->register_file, register_file.ctrlport);
-        // lrf_out_1.connect_signal(&ctr_sig->lrf_out_1);
-        // lrf_out_2.connect_signal(&ctr_sig->lrf_out_2);
-        lrf_out_1.connect_signal(&a);
-        lrf_out_2.connect_signal(&a);
-        lrf_out_1_dem.connect(&a, lrf_out_1_dem.ctrlport);
-        lrf_out_1_l1.connect_signal(&a);
+        lrf_out_1.connect_signal(&ctr_sig->lrf_out_1);
+        lrf_out_2.connect_signal(&ctr_sig->lrf_out_2);
+        // lrf_out_1.connect_signal(&a);
+        // lrf_out_2.connect_signal(&a);
+        lrf_out_1_dem.connect(&ctr_sig->lrf_out_1_dem, lrf_out_1_dem.ctrlport);
+        lrf_out_2_dem.connect(&ctr_sig->lrf_out_2_dem, lrf_out_2_dem.ctrlport);
+        lrf_out_1_l1.connect_signal(&ctr_sig->lrf_out_1_l1);
+        lrf_out_2_l2.connect_signal(&ctr_sig->lrf_out_2_l2);
         l1_mux.connect(&ctr_sig->l1_mux, l1_mux.ctrlport);
         l2_mux.connect(&ctr_sig->l2_mux, l2_mux.ctrlport);
-        // l1.connect_signal(&ctr_sig->l1);
-        // l2.connect_signal(&ctr_sig->l2);
-        l1.connect_signal(&a);
-        l2.connect_signal(&a);
+        l1.connect_signal(&ctr_sig->l1);
+        l2.connect_signal(&ctr_sig->l2);
+        // l1.connect_signal(&a);
+        // l2.connect_signal(&a);
         l1_dem.connect(&ctr_sig->l1_dem, l1_dem.ctrlport);
-        // l_dem1_1.connect_signal(&ctr_sig->l_dem1_1);
-        // l_dem1_2.connect_signal(&ctr_sig->l_dem1_2);
-        // l_dem1_3.connect_signal(&ctr_sig->l_dem1_3);
-        // l_dem1_4.connect_signal(&ctr_sig->l_dem1_4);
-        // l_dem1_5.connect_signal(&ctr_sig->l_dem1_5);
-        // l_dem1_6.connect_signal(&ctr_sig->l_dem1_6);
-        // l_dem1_7.connect_signal(&ctr_sig->l_dem1_7);
-        l_dem1_1.connect_signal(&a);
-        l_dem1_2.connect_signal(&a);
-        l_dem1_3.connect_signal(&a);
-        l_dem1_4.connect_signal(&a);
-        l_dem1_5.connect_signal(&a);
-        l_dem1_6.connect_signal(&a);
-        l_dem1_7.connect_signal(&a);
+        l_dem1_1.connect_signal(&ctr_sig->l_dem1_1);
+        l_dem1_2.connect_signal(&ctr_sig->l_dem1_2);
+        l_dem1_3.connect_signal(&ctr_sig->l_dem1_3);
+        l_dem1_4.connect_signal(&ctr_sig->l_dem1_4);
+        l_dem1_5.connect_signal(&ctr_sig->l_dem1_5);
+        l_dem1_6.connect_signal(&ctr_sig->l_dem1_6);
+        l_dem1_7.connect_signal(&ctr_sig->l_dem1_7);
+        // l_dem1_1.connect_signal(&a);
+        // l_dem1_2.connect_signal(&a);
+        // l_dem1_3.connect_signal(&a);
+        // l_dem1_4.connect_signal(&a);
+        // l_dem1_5.connect_signal(&a);
+        // l_dem1_6.connect_signal(&a);
+        // l_dem1_7.connect_signal(&a);
         l2_dem.connect(&ctr_sig->l2_dem, l2_dem.ctrlport);
-        // l_dem2_1.connect_signal(&ctr_sig->l_dem2_1);
-        // l_dem2_2.connect_signal(&ctr_sig->l_dem2_2);    
-        // l_dem2_3.connect_signal(&ctr_sig->l_dem2_3);
-        // l_dem2_4.connect_signal(&ctr_sig->l_dem2_4);
-        // l_dem2_5.connect_signal(&ctr_sig->l_dem2_5);
-        // l_dem2_6.connect_signal(&ctr_sig->l_dem2_6);
-        l_dem2_1.connect_signal(&a);
-        l_dem2_2.connect_signal(&a);    
-        l_dem2_3.connect_signal(&a);
-        l_dem2_4.connect_signal(&a);
-        l_dem2_5.connect_signal(&a);
-        l_dem2_6.connect_signal(&a);
-        // la1.connect_signal(&ctr_sig->la1);
-        // la2.connect_signal(&ctr_sig->la2);
-        // la3.connect_signal(&ctr_sig->la3);
-        // la4.connect_signal(&ctr_sig->la4);
-        // la5.connect_signal(&ctr_sig->la5);
-        // la6.connect_signal(&ctr_sig->la6);
-        // la7.connect_signal(&ctr_sig->la7);
-        la1.connect_signal(&a);
-        la2.connect_signal(&a);
-        la3.connect_signal(&a);
-        la4.connect_signal(&a);
-        la5.connect_signal(&a);
-        la6.connect_signal(&a);
-        la7.connect_signal(&a);
+        l_dem2_1.connect_signal(&ctr_sig->l_dem2_1);
+        l_dem2_2.connect_signal(&ctr_sig->l_dem2_2);    
+        l_dem2_3.connect_signal(&ctr_sig->l_dem2_3);
+        l_dem2_4.connect_signal(&ctr_sig->l_dem2_4);
+        l_dem2_5.connect_signal(&ctr_sig->l_dem2_5);
+        l_dem2_6.connect_signal(&ctr_sig->l_dem2_6);
+        // l_dem2_1.connect_signal(&a);
+        // l_dem2_2.connect_signal(&a);    
+        // l_dem2_3.connect_signal(&a);
+        // l_dem2_4.connect_signal(&a);
+        // l_dem2_5.connect_signal(&a);
+        // l_dem2_6.connect_signal(&a);
+        la1.connect_signal(&ctr_sig->la1);
+        la2.connect_signal(&ctr_sig->la2);
+        la3.connect_signal(&ctr_sig->la3);
+        la4.connect_signal(&ctr_sig->la4);
+        la5.connect_signal(&ctr_sig->la5);
+        la6.connect_signal(&ctr_sig->la6);
+        la7.connect_signal(&ctr_sig->la7);
+        // la1.connect_signal(&a);
+        // la2.connect_signal(&a);
+        // la3.connect_signal(&a);
+        // la4.connect_signal(&a);
+        // la5.connect_signal(&a);
+        // la6.connect_signal(&a);
+        // la7.connect_signal(&a);
         lalu_mux.connect(&ctr_sig->lalu_mux, lalu_mux.ctrlport);
-        // lalu.connect_signal(&ctr_sig->lalu);
-        lalu.connect_signal(&a);
+        lalu.connect_signal(&ctr_sig->lalu);
+        // lalu.connect_signal(&a);
         lalu_dem.connect(&ctr_sig->lalu_dem, lalu_dem.ctrlport);
-        lalu_l2.connect_signal(&a);
-        lalu_lrf1.connect_signal(&a);
+        lalu_l2.connect_signal(&ctr_sig->lalu_l2);
+        lalu_lrf1.connect_signal(&ctr_sig->lalu_lrf1);
         shifter.connect(&ctr_sig->shifter, shifter.ctrlport);
         logic.connect(&ctr_sig->logic, logic.ctrlport);
 
+
+        // ================================================
         lalu_l2.receive_clock(); lalu_lrf1.receive_clock(); 
-        lalu_dem.receive_clock();
+        // ================================================
         lalu.receive_clock();
+        lalu_dem.receive_clock();
+        // ================================================
+        la1.receive_clock(); la2.receive_clock(); la3.receive_clock(); la4.receive_clock(); la5.receive_clock(); la6.receive_clock(); la7.receive_clock();     
         lalu_mux.receive_clock();
-        la1.receive_clock(); la2.receive_clock(); la3.receive_clock(); la4.receive_clock(); la5.receive_clock(); la6.receive_clock(); la7.receive_clock();
-        adder.receive_clock(); shifter.receive_clock(); logic.receive_clock(); twos_complement.receive_clock(); multiplier.receive_clock(); divider.receive_clock(); comparator.receive_clock();
+        // ================================================
         l_dem1_1.receive_clock(); l_dem1_2.receive_clock(); l_dem1_3.receive_clock(); l_dem1_4.receive_clock(); l_dem1_5.receive_clock(); l_dem1_6.receive_clock(); l_dem1_7.receive_clock();
         l_dem2_1.receive_clock(); l_dem2_2.receive_clock(); l_dem2_3.receive_clock(); l_dem2_4.receive_clock(); l_dem2_5.receive_clock(); l_dem2_6.receive_clock();
-        l1_dem.receive_clock(); l2_dem.receive_clock();
+        adder.receive_clock(); shifter.receive_clock(); logic.receive_clock(); twos_complement.receive_clock(); multiplier.receive_clock(); divider.receive_clock(); comparator.receive_clock();
+        // ================================================
         l1.receive_clock(); l2.receive_clock();
-        l1_mux.receive_clock(); l2_mux.receive_clock(); // not entirrely sure. 
+        l1_dem.receive_clock(); l2_dem.receive_clock();
+        // ================================================        
         lrf_out_1_l1.receive_clock(); lrf_out_2_l2.receive_clock();
-        lrf_out_1_dem.receive_clock();
+        // ================================================
         lrf_out_1.receive_clock(); lrf_out_2.receive_clock();
-        register_file.receive_clock();
+        lrf_out_1_dem.receive_clock(); lrf_out_2_dem.receive_clock();
+        // ================================================
         lrf_1.receive_clock(); lrf_2.receive_clock();
-        lrf1_mux.receive_clock(); lrf2_mux.receive_clock();
+        register_file.receive_clock();
+        // ================================================
         lrd_lrf1.receive_clock(); lrd_lrf2.receive_clock(); lrs_lrf1.receive_clock(); lrs_lrf2.receive_clock(); lrt_lrf1.receive_clock(); lrt_lrf2.receive_clock(); ll_l1.receive_clock(); ll_l2.receive_clock();
-        lrd_dem.receive_clock(); lrs_dem.receive_clock(); lrt_dem.receive_clock(); ll_dem.receive_clock();
+        lrf1_mux.receive_clock(); 
+        lrf2_mux.receive_clock(); 
+        l1_mux.receive_clock(); 
+        l2_mux.receive_clock(); // not entirrely sure. 
+        // ================================================
         lrd.receive_clock(); lrs.receive_clock(); lrt.receive_clock(); ll.receive_clock();
+        lrd_dem.receive_clock(); lrs_dem.receive_clock(); lrt_dem.receive_clock(); ll_dem.receive_clock();
+        
 
 
         // // horizontal code = parallel/independent 
