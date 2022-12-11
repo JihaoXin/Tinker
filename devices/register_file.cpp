@@ -25,7 +25,7 @@ void RegisterFile::receive_clock(){
         return;
     }
 
-    printf("ctrlport: %lld, in0: %lld, in1: %lld\n", ctrlport, *inport[0], *inport[1]);
+    // printf("ctrlport: %lld, in0: %lld, in1: %lld\n", ctrlport, *inport[0], *inport[1]);
     cycle_counter = 0;
     if (ctrlport == 0) { // The register file is idle
         return;

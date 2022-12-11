@@ -584,6 +584,7 @@ int main () {
         l_load_data.connect_signal(ctr_sig.l_load_data);
         load_dem.connect_signal(ctr_sig.load_dem);
         lrf_out_1_out.connect_signal(ctr_sig.lrf_out_1_out);
+        output_device.connect_signal(ctr_sig.lrf_out_1_out);
         lrf_out_1_ls.connect_signal(ctr_sig.lrf_out_1_ls);
         lrf_out_1_pc.connect_signal(ctr_sig.lrf_out_1_pc);
         lrf_out_1_l1.connect_signal(ctr_sig.lrf_out_1_l1);
@@ -613,6 +614,7 @@ int main () {
         l1_dem.receive_clock(); l2_dem.receive_clock();
         // ================================================        
         lrf_out_1_out.receive_clock(); lrf_out_1_ls.receive_clock(); lrf_out_1_pc.receive_clock(); lrf_out_1_l1.receive_clock(); lrf_out_1_lrf1.receive_clock(); lrf_out_1_l2.receive_clock(); lrf_out_1_in.receive_clock(); lrf_out_2_l2.receive_clock(); lrf_out_2_out.receive_clock();
+        output_device.receive_clock();
         // ================================================
         lrf_out_1.receive_clock(); lrf_out_2.receive_clock();
         lrf_out_1_dem.receive_clock(); lrf_out_2_dem.receive_clock();
@@ -660,14 +662,14 @@ int main () {
         ctr_sig = control_array.outport;
 
         // //DEBUGGING CODE
-        if (test_cycles == 37)
-            std::cout << "out : " << std::endl;
-        printf("----------------\n");
-        std::cout << "test_cycles: " << test_cycles << std::endl;
-        for (int i = 0; i < 32; i++) {
-            printf("registers[%d]: %lld\n", i, register_file.registers[i]);
-        }
-        printf("----------------\n");
+        // if (test_cycles == 50)
+        //     std::cout << "out : " << std::endl;
+        // printf("----------------\n");
+        // std::cout << "test_cycles: " << test_cycles << std::endl;
+        // for (int i = 0; i < 32; i++) {
+        //     printf("registers[%d]: %lld\n", i, register_file.registers[i]);
+        // }
+        // printf("----------------\n");
 
     }
 
