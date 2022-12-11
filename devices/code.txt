@@ -1,2 +1,4 @@
-add r5, r4, r3
+addi r0, 78
+addi r1, 78
+out r0, r1
 halt

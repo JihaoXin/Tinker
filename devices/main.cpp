@@ -420,8 +420,8 @@ int main () {
     // architecture is now declared and connected.
 
     //DEBUGGING CODE
-    register_file.registers[4] = 30;
-    register_file.registers[3] = 2;
+    // register_file.registers[4] = 30;
+    // register_file.registers[3] = 2;
 
     int test_cycles = 0;
     bool start = true;
@@ -656,7 +656,10 @@ int main () {
         ctr_sig = control_array.outport;
 
         // //DEBUGGING CODE
+        if (test_cycles == 37)
+            std::cout << "out : " << std::endl;
         printf("----------------\n");
+        std::cout << "test_cycles: " << test_cycles << std::endl;
         for (int i = 0; i < 32; i++) {
             printf("registers[%d]: %lld\n", i, register_file.registers[i]);
         }
