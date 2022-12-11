@@ -11,6 +11,7 @@ Tinker comes with **Makefile** and is designed to be easy to use. The first step
 Whitespace have syntactic meaning in the assembler. Comments are not supported.
 
 Syntax, watchout for the tabs and spaces:
+
 ```
 [opcode] [r_d], [r_s], [r_t]
 [opcode] [r_d], [r_s]
@@ -76,7 +77,7 @@ make device_test
 
 We proposed the two designs for Tinker processor. The comprehensive design is closer to hardware but with high complexity and cost more cycles. The simplified architecture utilized software's ease of use to achieve some logics such as *if* and *else* thus it cost less cycles.
 
-*  The comprehensive design
+* The comprehensive design
 
   ![WX20221210-210158@2x](./assets/comprehensive.png)
 
@@ -91,40 +92,40 @@ We proposed the two designs for Tinker processor. The comprehensive design is cl
   <u>*Key Component:*</u>
 
   >* Decoder
->
-  >  Firstly, the binary instruction will fetch to the decoder, where it will pass the register&immediate values to corresponding multiplexers, and the opcode will be sent to the lookup table 
->
-  >* Lookup Table
->
-  >  Lookup Table will translate the opcode to pre-defined control signals and pass it to Control Array
->
-  >  In our design, the lookup table will pass the control signal at the speed of 1 instruction / 1 cycle, instead of 1 control signal / 1 cycle. Because it is the Control Array that should do the buffering instead of a Lookup table.
->
-  >* Control Array
->
-  >  Control Array is a queue of control signal vectors, which will be split into devices below Control Array's max size is 64.
->
-  >* Register File
->
-  >  Register File contains 32 registers.
->
-  >  We also implemented Multi-Ported register file according to the specification, but we did not use it in the simulation.
->
-  >* ALU
->
-  >  ALU is a group of independent devices, which can perform varieties of arithmetic.
->
-  >* L/S \& Memory
->
-  >  We treat L/S \& Memory as a single device,  where memory is an Array in the Load-Store unit.
->
-  >* I/O Device
->
-  >  Each device will take two ports as input, one indicates the input/output port and the other is the value.
->
-  >  But as this is the simulation for the processor regardless of the number of peripherals, also based on the fact that the given test instruction always uses the same in/out port "r0", the Input Device always takes standard input from the keyboard while the Output Device always prints on the screen.
 
-*  The simplified design
+>Firstly, the binary instruction will fetch to the decoder, where it will pass the register&immediate values to corresponding multiplexers, and the opcode will be sent to the lookup table 
+>
+>* Lookup Table
+>
+> Lookup Table will translate the opcode to pre-defined control signals and pass it to Control Array
+>
+> In our design, the lookup table will pass the control signal at the speed of 1 instruction / 1 cycle, instead of 1 control signal / 1 cycle. Because it is the Control Array that should do the buffering instead of a Lookup table.
+>
+>* Control Array
+>
+> Control Array is a queue of control signal vectors, which will be split into devices below Control Array's max size is 64.
+>
+>* Register File
+>
+> Register File contains 32 registers.
+>
+> We also implemented Multi-Ported register file according to the specification, but we did not use it in the simulation.
+>
+>* ALU
+>
+> ALU is a group of independent devices, which can perform varieties of arithmetic.
+>
+>* L/S \& Memory
+>
+> We treat L/S \& Memory as a single device,  where memory is an Array in the Load-Store unit.
+>
+>* I/O Device
+>
+> Each device will take two ports as input, one indicates the input/output port and the other is the value.
+>
+> But as this is the simulation for the processor regardless of the number of peripherals, also based on the fact that the given test instruction always uses the same in/out port "r0", the Input Device always takes standard input from the keyboard while the Output Device always prints on the screen.
+
+* The simplified design
 
   ![image-20221211205744448](./assets/simplified.png)
 
