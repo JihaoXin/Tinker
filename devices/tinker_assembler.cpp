@@ -368,7 +368,8 @@ uint32_t interpret_line(std::string instruction)
     opcodes.insert(std::make_pair("return", 0x13));
     opcodes.insert(std::make_pair("brgt", 0x14));
     opcodes.insert(std::make_pair("halt", 0x1f));
-    opcodes.insert(std::make_pair("mov", 0x15)); // or 0x16, 0x17, 0x18. check the switch case
+    opcodes.insert(std::make_pair("mov", 0x15)); // or 0x16, 0x18. check the switch case
+    opcodes.insert(std::make_pair("movi", 0x17));
     opcodes.insert(std::make_pair("in", 0x1d));
     opcodes.insert(std::make_pair("out", 0x1e));
 
@@ -496,18 +497,16 @@ uint32_t interpret_line(std::string instruction)
 
         if (instr == 0)
         {
-            // Try for mov r_d, L
-            instr = (instr + 0x17) << 5;
-            instr = interpret_operands(instr, instruction, RD_L);
-        }
-
-        if (instr == 0)
-        {
             // Try for mov (r_d)(L), r_s
             instr = (instr + 0x18) << 5;
             instr = interpret_operands(instr, instruction, RD_L_RS);
         }
 
+        break;
+    case 0x17:
+        // Try for mov r_d, L
+        instr = (instr + 0x17) << 5;
+        instr = interpret_operands(instr, instruction, RD_L);
         break;
     case 0x1d:
         // int
