@@ -12,6 +12,10 @@ Lookup::Lookup() {
 
 Lookup::~Lookup() {this->lookup_table.clear();}
 
+void Lookup::connect_signal(long long sig_value) {
+    ctrlport = sig_value;
+}
+
 void Lookup::populate_signals(){
     this->add.size = 11;
     Signal_array add_0 = {0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; 
@@ -177,7 +181,7 @@ void Lookup::receive_clock() {
 //     if ( it == this->lookup_table.end() ) {
 //       outport = this->none_operation;
 //    }
-    if (*ctrlport == 0) {
+    if (ctrlport == 0) {
         outport.size = 0; // add nothing to control array. 
         return;
     }

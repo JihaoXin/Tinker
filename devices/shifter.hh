@@ -8,9 +8,10 @@ public:
     Shifter();
     ~Shifter();
     void receive_clock();
+    void connect_signal(long long sig_value);
     std::array<inport_t, 2> inport;
     outport_t outport;
-    inport_t ctrlport;
+    long long ctrlport;
 };
 
 #endif

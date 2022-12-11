@@ -8,8 +8,9 @@ public:
     Demultiplexer16();
     ~Demultiplexer16();
     void receive_clock();
+    void connect_signal(long long sig_value);
     std::array<inport_t, 1> inport;
     std::array<outport_t, 16> outport;
-    inport_t ctrlport;
+    long long ctrlport;
 };
 #endif

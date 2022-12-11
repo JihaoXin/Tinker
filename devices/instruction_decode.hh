@@ -10,10 +10,12 @@ public:
     InstructionDecode();
     ~InstructionDecode();
     void receive_clock();
+    void connect_signal(long long sig_value);
+
 
     //inport[0] must be a pointer for the fetched 32-bit instruction
     std::array<inport_t, 1> inport;
-    inport_t ctrlport; 
+    long long ctrlport; 
 
     //The decoded 32-bit instruction
     outport_t opcode;

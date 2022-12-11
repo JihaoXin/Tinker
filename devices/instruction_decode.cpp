@@ -6,11 +6,16 @@ InstructionDecode::InstructionDecode() {
     cycles = 0;
     area = 0;
     power = 0;
+    ctrlport = 0;
 
     cycle_counter = 0;
 }
 
 InstructionDecode::~InstructionDecode() {}
+
+void InstructionDecode::connect_signal(long long sig_value) {
+    ctrlport = sig_value;
+}
 
 void InstructionDecode::receive_clock() {
     cycle_counter++;
@@ -22,7 +27,7 @@ void InstructionDecode::receive_clock() {
     /* --- Instruction Decode --- */
     
 
-    if (*ctrlport == 0) return;
+    if (ctrlport == 0) return;
     opcode = (*inport[0] >> 27) & 0b11111;
     if (opcode == 31) // so far, we still need the below registers to maintain their last values for execution to finish.
         return;

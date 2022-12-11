@@ -14,8 +14,9 @@ public:
     void receive_clock();
     void populate_signals();
     void populate_table();
+    void connect_signal(long long sig_value);
     std::array<inport_t, 1> inport;
-    inport_t ctrlport;
+    long long ctrlport;
     control_signal_array_t outport;
     std::map<long long, control_signal_array_t> lookup_table;
     control_signal_array_t none_operation;

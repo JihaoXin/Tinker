@@ -36,6 +36,10 @@ Loadstore::~Loadstore() {
     instructionFile.close();
 }
 
+void Loadstore::connect_signal(long long sig_value){
+    ctrlport = sig_value;
+}
+
 void Loadstore::receive_clock(){
     cycle_counter++;
     if (cycle_counter < cycles) {
@@ -45,14 +49,14 @@ void Loadstore::receive_clock(){
     long long index = *inport[0] / 4; // *inport[0] is the address, /4 because each mem_unit is 4 bytes
 
     cycle_counter = 0;
-    if (*ctrlport == 0) { // 0 to read
+    if (ctrlport == 0) { // 0 to read
         if (index >= MEMORY_LENGTH) {
             throw std::runtime_error("READ outside of memory range.");
             return;
         }
         outport[0] = mem[index];
     }
-    else if (*ctrlport == 1) { // 1 to write
+    else if (ctrlport == 1) { // 1 to write
         if (index < num_instructions) {
             throw std::runtime_error("Cannot write to instruction memory.");
             return;

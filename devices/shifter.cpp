@@ -6,11 +6,15 @@ Shifter::Shifter() {
 }
 Shifter::~Shifter() {}
 
+void Shifter::connect_signal(long long sig_value) {
+    ctrlport = sig_value;
+}
+
 void Shifter::receive_clock(){
     cycle_counter++;
     if (cycle_counter < cycles) {
         return;
     }
     cycle_counter = 0;
-    outport = (*ctrlport == 0)? (*inport[0] >> *inport[1]) : (*inport[0] << *inport[1]);
+    outport = (ctrlport == 0)? (*inport[0] >> *inport[1]) : (*inport[0] << *inport[1]);
 }

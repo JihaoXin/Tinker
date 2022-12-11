@@ -9,10 +9,10 @@ public:
     ~Latch();
     void receive_clock();
     void connect(outport_t *p_outport);
-    void connect_signal(outport_t *p_outport);
+    void connect_signal(outport_t p_outport);
     inport_t inport;  // long long *
     outport_t outport; // long long
-    inport_t ctrlport;
+    long long ctrlport;
 };
 
 #endif
