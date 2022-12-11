@@ -490,8 +490,8 @@ int main () {
         // ctr_sig = control_array.outport;
 
         if (ctr_sig.ifd == -1) { // HALT
-            std::cout << "HALT" << std::endl;
-            std::cout << "Num cycles: " << test_cycles << std::endl;
+            std::cout << std::endl;
+            // std::cout << "Num cycles: " << test_cycles << std::endl;
             break;
         }
 
