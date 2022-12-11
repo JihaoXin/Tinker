@@ -1,2 +1,28 @@
-add r5, r4, r3
+add r10, r14, r13
+addi r10, 8
+sub r10, r14, r13
+subi r10, 8
+mul r10, r14, r13
+div r10, r14, r13
+and r10, r14, r13
+or r10, r14, r13
+xor r10, r14, r13
+not r10, r14
+shftr r10, r14, r13
+shftri r10, 8
+shftl r10, r14, r13
+shftli r10, 8
+br r10
+brr r10
+brr 8
+brnz r10, r14
+call r10, r14, r13
+return
+brgt r10, r14, r13
+mov r10, (r14)(8)
+mov r10, r14
+mov r10, 8
+mov (r10)(8), r14
+in r10, r14
+out r10, r14
 halt
