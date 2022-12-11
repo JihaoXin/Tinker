@@ -16,7 +16,7 @@ public:
     std::array<control_signal_array_t*, 1> inport;
     control_signal_t *outport;
     int CONTROL_ARRAY_SIZE; // Size of ControlArray
-    std::queue< std::array<bool,148> > control_registers;
+    std::queue< Signal_array > control_registers;
 };
 
 #endif

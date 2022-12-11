@@ -223,8 +223,15 @@ int main () {
     // LoadStore Test
     {
     std::cout<<"=================="<<std::endl<<"LoadStore Test"<<std::endl;
-    Loadstore loadstore;
-    inLatch0.outport = 10;
+    Loadstore loadstore("code");
+    InstructionDecode decode;
+
+    // InstructionDecode decode;
+    decode.connect(&loadstore.outport[0], decode.inport[0]);
+    decode.receive_clock();
+    std::cout << "Instruction Decode output = " << decode.opcode << std::endl;
+
+    inLatch0.outport = 40;
     inLatch1.outport = 666;
     ctrlLatch.outport = 1; //Store 666 on mem[10]
     loadstore.connect(&inLatch0.outport, loadstore.inport[0]);
@@ -233,97 +240,112 @@ int main () {
     loadstore.receive_clock();
     truth = (loadstore.mem[10] == 666)? " PASS" : " FAIL";
     std::cout << "loadstore output = " << loadstore.mem[10] << truth << std::endl;
+
+    inLatch0.outport = 0; // first instruction
+    ctrlLatch.outport = 0; //read
+    loadstore.receive_clock();
+    decode.receive_clock();
+    truth = (decode.opcode == 0)? " PASS" : " FAIL";
+    std::cout << "loadstore output = " << loadstore.outport[0] << truth << std::endl;
+
+    inLatch0.outport = 4; // first instruction
+    ctrlLatch.outport = 0; //read
+    loadstore.receive_clock();
+    decode.receive_clock();
+    truth = (decode.opcode == 31)? " PASS" : " FAIL";
+    std::cout << "loadstore output = " << loadstore.outport[0] << truth << std::endl;
+
     }
 
     // Instruction Fetch and Decode Test
     {
-    std::cout<<"=================="<<std::endl<<"Instruction Fetch and Decode Test"<<std::endl;
-    InstructionFetch if_unit("code");
-    InstructionDecode id_unit;
+    // std::cout<<"=================="<<std::endl<<"Instruction Fetch and Decode Test"<<std::endl;
+    // InstructionFetch if_unit("code");
+    // InstructionDecode id_unit;
     
-    Latch pc_l;
-    Latch ifd_l;
-    Latch opcode_l;
-    Latch register_d_l;
-    Latch register_s_l;
-    Latch register_t_l;
-    Latch literal_l;
+    // Latch pc_l;
+    // Latch ifd_l;
+    // Latch opcode_l;
+    // Latch register_d_l;
+    // Latch register_s_l;
+    // Latch register_t_l;
+    // Latch literal_l;
 
-    //PC Latch -> Instruction Fetch
-    if_unit.connect(&pc_l.outport, if_unit.inport[0]);
+    // //PC Latch -> Instruction Fetch
+    // if_unit.connect(&pc_l.outport, if_unit.inport[0]);
 
-    //Instruction Fetch -> IFD Latch
-    ifd_l.connect(&if_unit.outport);
+    // //Instruction Fetch -> IFD Latch
+    // ifd_l.connect(&if_unit.outport);
 
-    //IFD Latch -> Instruction Decode
-    id_unit.connect(&ifd_l.outport, id_unit.inport[0]);
+    // //IFD Latch -> Instruction Decode
+    // id_unit.connect(&ifd_l.outport, id_unit.inport[0]);
 
-    //Instruction Decode -> opcode, register, and literal Latches
-    opcode_l.connect(&id_unit.opcode);
-    register_d_l.connect(&id_unit.register_d);
-    register_s_l.connect(&id_unit.register_s);
-    register_t_l.connect(&id_unit.register_t);
-    literal_l.connect(&id_unit.literal);
+    // //Instruction Decode -> opcode, register, and literal Latches
+    // opcode_l.connect(&id_unit.opcode);
+    // register_d_l.connect(&id_unit.register_d);
+    // register_s_l.connect(&id_unit.register_s);
+    // register_t_l.connect(&id_unit.register_t);
+    // literal_l.connect(&id_unit.literal);
 
-    pc_l.outport = 0; // PC Value, read first instruction << start main from here
+    // pc_l.outport = 0; // PC Value, read first instruction << start main from here
 
-    if_unit.receive_clock(); // Fetch the instruction
-    ifd_l.receive_clock(); // Receive the results from IF
-    id_unit.receive_clock(); // Receive the results from the latch
-    opcode_l.receive_clock(); // Receive the opcode from the ID
-    register_d_l.receive_clock(); // Receive the register from the ID
-    register_s_l.receive_clock(); // Receive the register from the ID
-    register_t_l.receive_clock(); // Receive the register from the ID
-    literal_l.receive_clock(); // Receive the literal from the ID
+    // if_unit.receive_clock(); // Fetch the instruction
+    // ifd_l.receive_clock(); // Receive the results from IF
+    // id_unit.receive_clock(); // Receive the results from the latch
+    // opcode_l.receive_clock(); // Receive the opcode from the ID
+    // register_d_l.receive_clock(); // Receive the register from the ID
+    // register_s_l.receive_clock(); // Receive the register from the ID
+    // register_t_l.receive_clock(); // Receive the register from the ID
+    // literal_l.receive_clock(); // Receive the literal from the ID
 
-    printf("Instruction Fetch and Decode output: \n1- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
-    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
-    literal_l.outport);
+    // printf("Instruction Fetch and Decode output: \n1- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
+    // opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
+    // literal_l.outport);
 
-    pc_l.outport = 4; // PC Value, read second instruction
+    // pc_l.outport = 4; // PC Value, read second instruction
 
-    if_unit.receive_clock(); // Fetch the instruction
-    ifd_l.receive_clock(); // Receive the results from IF
-    id_unit.receive_clock(); // Receive the results from the latch
-    opcode_l.receive_clock(); // Receive the opcode from the ID
-    register_d_l.receive_clock(); // Receive the register from the ID
-    register_s_l.receive_clock(); // Receive the register from the ID
-    register_t_l.receive_clock(); // Receive the register from the ID
-    literal_l.receive_clock(); // Receive the literal from the ID
+    // if_unit.receive_clock(); // Fetch the instruction
+    // ifd_l.receive_clock(); // Receive the results from IF
+    // id_unit.receive_clock(); // Receive the results from the latch
+    // opcode_l.receive_clock(); // Receive the opcode from the ID
+    // register_d_l.receive_clock(); // Receive the register from the ID
+    // register_s_l.receive_clock(); // Receive the register from the ID
+    // register_t_l.receive_clock(); // Receive the register from the ID
+    // literal_l.receive_clock(); // Receive the literal from the ID
 
-    printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
-    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
-    literal_l.outport);
+    // printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
+    // opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
+    // literal_l.outport);
 
-    pc_l.outport = 8; // PC Value, read second instruction
+    // pc_l.outport = 8; // PC Value, read second instruction
 
-    if_unit.receive_clock(); // Fetch the instruction
-    ifd_l.receive_clock(); // Receive the results from IF
-    id_unit.receive_clock(); // Receive the results from the latch
-    opcode_l.receive_clock(); // Receive the opcode from the ID
-    register_d_l.receive_clock(); // Receive the register from the ID
-    register_s_l.receive_clock(); // Receive the register from the ID
-    register_t_l.receive_clock(); // Receive the register from the ID
-    literal_l.receive_clock(); // Receive the literal from the ID
+    // if_unit.receive_clock(); // Fetch the instruction
+    // ifd_l.receive_clock(); // Receive the results from IF
+    // id_unit.receive_clock(); // Receive the results from the latch
+    // opcode_l.receive_clock(); // Receive the opcode from the ID
+    // register_d_l.receive_clock(); // Receive the register from the ID
+    // register_s_l.receive_clock(); // Receive the register from the ID
+    // register_t_l.receive_clock(); // Receive the register from the ID
+    // literal_l.receive_clock(); // Receive the literal from the ID
 
-    printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
-    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
-    literal_l.outport);
+    // printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
+    // opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
+    // literal_l.outport);
 
-    pc_l.outport = 12; // PC Value, read second instruction
+    // pc_l.outport = 12; // PC Value, read second instruction
 
-    if_unit.receive_clock(); // Fetch the instruction
-    ifd_l.receive_clock(); // Receive the results from IF
-    id_unit.receive_clock(); // Receive the results from the latch
-    opcode_l.receive_clock(); // Receive the opcode from the ID
-    register_d_l.receive_clock(); // Receive the register from the ID
-    register_s_l.receive_clock(); // Receive the register from the ID
-    register_t_l.receive_clock(); // Receive the register from the ID
-    literal_l.receive_clock(); // Receive the literal from the ID
+    // if_unit.receive_clock(); // Fetch the instruction
+    // ifd_l.receive_clock(); // Receive the results from IF
+    // id_unit.receive_clock(); // Receive the results from the latch
+    // opcode_l.receive_clock(); // Receive the opcode from the ID
+    // register_d_l.receive_clock(); // Receive the register from the ID
+    // register_s_l.receive_clock(); // Receive the register from the ID
+    // register_t_l.receive_clock(); // Receive the register from the ID
+    // literal_l.receive_clock(); // Receive the literal from the ID
 
-    printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
-    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
-    literal_l.outport);
+    // printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
+    // opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
+    // literal_l.outport);
     }
 
     { // Lookup test
@@ -522,6 +544,8 @@ int main () {
     // std::bitset<33> b15(control_array_out);
     // std::cout << "ControlArray output 8 = " << b15 << truth << std::endl;
     }
+
+    // loadstore test
     
     // Input Test
     {

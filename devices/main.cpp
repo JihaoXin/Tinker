@@ -26,11 +26,11 @@ int main () {
     Multiplexer16 pc_mux;
     Demultiplexer16 pc_dem;
     Multiplexer16 address_mux;
-    Loadstore loadstore;
+    Loadstore loadstore("code");
     Demultiplexer16 load_dem;
 
     InstructionDecode decoder;
-    InstructionFetch fetcher("code");
+    // InstructionFetch fetcher("code");
     Lookup lookup;
     ControlArray control_array;
     Demultiplexer16 lrd_dem;
@@ -86,6 +86,7 @@ int main () {
     Latch ll_l1;
     Latch ll_l2;
     Latch opcode;
+    Latch l_in_lrf1;
     Latch lrf_1;
     Latch lrf_2;
     Latch lrf_out_1;
@@ -95,8 +96,10 @@ int main () {
     Latch lrf_out_1_pc;
     Latch lrf_out_1_l1;
     Latch lrf_out_1_l2;
+    Latch lrf_out_1_in;
     Latch lrf_out_1_lrf1;
     Latch lrf_out_2_l2;
+    Latch lrf_out_2_out;
     Latch l1;
     Latch l2;
     Latch l_dem1_1;
@@ -125,9 +128,6 @@ int main () {
     Latch lalu_pc;
     Latch lalu_ls_add;
     Latch lalu_lut;
-
-
-    long long a = 1;
 
 
     /*
@@ -183,10 +183,10 @@ int main () {
     l_laod_data_lrf1.connect(&load_dem.outport[1]);
 
     //PC Latch -> Instruction Fetch
-    fetcher.connect(&pc.outport, fetcher.inport[0]);
+    // fetcher.connect(&pc.outport, fetcher.inport[0]);
 
     //Instruction Fetch -> IFD Latch
-    ifd.connect(&fetcher.outport);
+    ifd.connect(&load_dem.outport[0]);
 
     //IFD Latch -> Instruction Decode
     decoder.connect(&ifd.outport, decoder.inport[0]);
@@ -253,7 +253,7 @@ int main () {
 
 
     // conect lrf1_mux
-    lrf1_mux.connect(&a, lrf1_mux.inport[0]); // for input
+    lrf1_mux.connect(&l_in_lrf1.outport, lrf1_mux.inport[0]); // for input
     lrf1_mux.connect(&lrf_out_1_lrf1.outport, lrf1_mux.inport[1]);
     lrf1_mux.connect(&l_laod_data_lrf1.outport, lrf1_mux.inport[2]);
     lrf1_mux.connect(&lrd_lrf1.outport, lrf1_mux.inport[3]);
@@ -292,11 +292,13 @@ int main () {
     lrf_out_1_l1.connect(&lrf_out_1_dem.outport[3]);
     lrf_out_1_lrf1.connect(&lrf_out_1_dem.outport[4]);
     lrf_out_1_l2.connect(&lrf_out_1_dem.outport[5]);
+    lrf_out_1_in.connect(&lrf_out_1_dem.outport[6]);
     // lrf_out_1_l2.connect(&lrf_out_1_dem.outport[1]);
     // connect rest later
 
     // connect lrf_out_2 to following latch
     lrf_out_2_l2.connect(&lrf_out_2_dem.outport[0]);
+    lrf_out_2_out.connect(&lrf_out_2_dem.outport[1]);
 
     // connect l1 mux to lrf_out_1 and ll_dem
     l1_mux.connect(&ll_l1.outport, l1_mux.inport[0]);
@@ -403,29 +405,65 @@ int main () {
     register_file.registers[3] = 2;
 
     int test_cycles = 0;
-    
-    long long lrsdem = 0;
-    ifd.connect_signal(&a);
-    opcode.connect_signal(&a); // ifd and opcode dont need control register
     bool start = true;
+
+    long long one = 1;
+    long long zero = 0;
+
+    pc.connect_signal(&one);
+    pc_dem.connect(&one, pc_dem.ctrlport);
+    l_pc_ls_add.connect_signal(&one);
+    address_mux.connect(&one, address_mux.ctrlport);
+    l_ls_address.connect_signal(&one);
+    loadstore.connect(&one, loadstore.ctrlport);
+    l_load_data.connect_signal(&one);
+    load_dem.connect(&zero, load_dem.ctrlport);
+    ifd.connect_signal(&one);
+    opcode.connect_signal(&one);
+
+    pc.receive_clock();
+    pc_dem.receive_clock();
+    l_pc_ls_add.receive_clock();
+    address_mux.receive_clock();
+    l_ls_address.receive_clock();
+    loadstore.receive_clock();
+    l_load_data.receive_clock();
+    load_dem.receive_clock();
+    ifd.receive_clock();
+    decoder.receive_clock();
+    opcode.receive_clock();
+    lookup.receive_clock();
+    control_array.receive_clock();
+
+    control_signal_t *ctr_sig;
+    ctr_sig = control_array.outport;
+    
     
     while (true) { // should only pass first inputs, call do_functions, and recieve clocks. 
         // pass input to first devices (first device(s) in dependency chain) probably the PC to the fetch unit. 
         // if (test_cycles == 7) 
         //     std::cout << "here" << std::endl;
-        fetcher.receive_clock();
-        ifd.receive_clock();
-        decoder.receive_clock();
-        opcode.receive_clock();
+        // fetcher.receive_clock();
+        // pc.receive_clock();
+        // // pc_dem
 
-        pc.outport+=4; // we need add4
+
+
+
+
+
+        // ifd.receive_clock();
+        // decoder.receive_clock();
+        // opcode.receive_clock();
+
+        // pc.outport+=4; // we need add4
     
-        lookup.receive_clock();
-        control_array.receive_clock();
+        // lookup.receive_clock();
+        // control_array.receive_clock();
 
-        // assign contorl signals
-        control_signal_t *ctr_sig;
-        ctr_sig = control_array.outport;
+        // // assign contorl signals
+        // control_signal_t *ctr_sig;
+        // ctr_sig = control_array.outport;
 
         if (ctr_sig == NULL) { // HALT
             std::cout << "HALT" << std::endl;

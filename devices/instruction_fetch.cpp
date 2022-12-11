@@ -1,13 +1,13 @@
 
 #include "instruction_fetch.hh"
 
-InstructionFetch::InstructionFetch(char const* filename) {
+InstructionFetch::InstructionFetch(/* char const* filename */) {
     //Open the binary file of instructions
 
-    instructionFile.open(filename, std::ios::out | std::ios::binary);
-    if(!instructionFile) {
-      std::cout << "Cannot open instruction file" << std::endl;
-    }
+    // instructionFile.open(filename, std::ios::out | std::ios::binary);
+    // if(!instructionFile) {
+    //   std::cout << "Cannot open instruction file" << std::endl;
+    // }
 
     //Metrics (TODO: define them to something)
     cycles = 0;
@@ -15,13 +15,13 @@ InstructionFetch::InstructionFetch(char const* filename) {
     power = 0;
     cycle_counter = 0;
 
-    // get size of instructionFile in bytes
-    instructionFile.seekg(0, instructionFile.end);
-    fileLength = instructionFile.tellg();
+    // // get size of instructionFile in bytes
+    // instructionFile.seekg(0, instructionFile.end);
+    // fileLength = instructionFile.tellg();
 }
 
 InstructionFetch::~InstructionFetch() {
-    instructionFile.close();
+    // instructionFile.close();
 }
 
 void InstructionFetch::receive_clock() {
@@ -34,14 +34,14 @@ void InstructionFetch::receive_clock() {
     /* --- Instruction Fetch --- */
     
     // check if PC from inport is out of bounds
-    if (*inport[0] >= fileLength) { 
-        outport = 23458977153024; // this is our assembler's halt instruction in decimal
-        return;
-    }
+    // if (*inport[0] >= fileLength) { 
+    //     outport = 23458977153024; // this is our assembler's halt instruction in decimal
+    //     return;
+    // }
 
-    //Seek to the program counter's value
-    instructionFile.seekg(static_cast<uint32_t>(*inport[0]), std::ios::beg);
+    // //Seek to the program counter's value
+    // instructionFile.seekg(static_cast<uint32_t>(*inport[0]), std::ios::beg);
 
-    //Read the 32-bits and output it to the port
-    instructionFile.read((char *) &outport, sizeof(uint32_t));
+    // //Read the 32-bits and output it to the port
+    // instructionFile.read((char *) &outport, sizeof(uint32_t));
 }

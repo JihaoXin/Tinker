@@ -17,6 +17,7 @@ public:
     std::array<inport_t, 1> inport;
     control_signal_array_t outport;
     std::map<long long, control_signal_array_t> lookup_table;
+    // control_signal_array_t none_operation;
     control_signal_array_t add;
     control_signal_array_t addi;
     control_signal_array_t sub;

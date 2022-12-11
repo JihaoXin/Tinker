@@ -4,12 +4,15 @@
 #include <cstdint>
 #include <array>
 #define MAX_CONTROL_SIGNALS 25
-# define CONTROL_SIGNAL_BITS 64
+#define CONTROL_SIGNAL_BITS 64
+#define CONTROL_SIGNAL_ARRAY_SIZE 151
+#define MEMORY_LENGTH 100
 typedef long long *inport_t;
 typedef long long outport_t;
 typedef long long Reg;
 typedef long long mem_unit;
-// 64 bits
+typedef std::array<bool,CONTROL_SIGNAL_ARRAY_SIZE> Signal_array; 
+// 151 bits
 struct control_signal_t {
     long long lins;
     long long l_opcode;
@@ -138,7 +141,7 @@ struct control_signal_t {
 
 struct control_signal_array_t {
     int size; // number of control signals
-    std::array< std::array<bool,148>,MAX_CONTROL_SIGNALS >  control_signals; // MAX_CONTROL_SIGNALS rows, each row is 100 bits to represent one control signal
+    std::array< Signal_array,MAX_CONTROL_SIGNALS >  control_signals; // MAX_CONTROL_SIGNALS rows, each row is 100 bits to represent one control signal
 };
 
 
