@@ -1,3 +1,2 @@
 add r5, r4, r3
-sub r5, r2, r2
 halt

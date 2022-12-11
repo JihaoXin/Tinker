@@ -101,9 +101,9 @@ struct control_signal_t {
     long long address_mux;
     long long l_ls_address;
     long long loadstore;
-    long long l_loaddata;
+    long long l_load_data;
     long long load_dem;
-    long long l_loaddata_lrf1;
+    long long l_load_data_lrf1;
     long long lrf_out_1_in;
     long long l_in_lrf1;
     long long lrf_out_2_out;

@@ -74,7 +74,7 @@ int main () {
     Latch l_pc_l1;
     Latch l_ls_address;
     Latch l_load_data;
-    Latch l_laod_data_lrf1;
+    Latch l_load_data_lrf1;
     Latch ifd;
     Latch lrd;
     Latch lrd_lrf1;
@@ -113,12 +113,16 @@ int main () {
     Latch l_dem1_5;
     Latch l_dem1_6;
     Latch l_dem1_7;
+    Latch l_dem1_8;
+    Latch l_dem1_9;
     Latch l_dem2_1;
     Latch l_dem2_2;
     Latch l_dem2_3;
     Latch l_dem2_4;
     Latch l_dem2_5;
     Latch l_dem2_6;
+    Latch l_dem2_7;
+    Latch l_dem2_8;
     Latch la1;
     Latch la2;
     Latch la3;
@@ -126,6 +130,8 @@ int main () {
     Latch la5;
     Latch la6;
     Latch la7;
+    Latch la8;
+    Latch la9;
     Latch lalu;
     Latch lalu_l2;
     Latch lalu_lrf1;
@@ -184,7 +190,7 @@ int main () {
     // ifd.connect(&load_dem.outport[0]); uncomment then
 
     // connect l_laod_data_lrf1 to load_dem outport
-    l_laod_data_lrf1.connect(&load_dem.outport[1]);
+    l_load_data_lrf1.connect(&load_dem.outport[1]);
 
     //PC Latch -> Instruction Fetch
     // fetcher.connect(&pc.outport, fetcher.inport[0]);
@@ -259,7 +265,7 @@ int main () {
     // conect lrf1_mux
     lrf1_mux.connect(&l_in_lrf1.outport, lrf1_mux.inport[0]); // for input
     lrf1_mux.connect(&lrf_out_1_lrf1.outport, lrf1_mux.inport[1]);
-    lrf1_mux.connect(&l_laod_data_lrf1.outport, lrf1_mux.inport[2]);
+    lrf1_mux.connect(&l_load_data_lrf1.outport, lrf1_mux.inport[2]);
     lrf1_mux.connect(&lrd_lrf1.outport, lrf1_mux.inport[3]);
     lrf1_mux.connect(&lrs_lrf1.outport, lrf1_mux.inport[4]);
     lrf1_mux.connect(&lrt_lrf1.outport, lrf1_mux.inport[5]);
@@ -338,6 +344,9 @@ int main () {
     l_dem1_5.connect(&l1_dem.outport[4]);
     l_dem1_6.connect(&l1_dem.outport[5]);
     l_dem1_7.connect(&l1_dem.outport[6]);
+    l_dem1_8.connect(&l1_dem.outport[7]);
+    l_dem1_9.connect(&l1_dem.outport[8]);
+
 
     // connect l_dem2_1 - l_dem2_6 to l2_dem output
     l_dem2_1.connect(&l2_dem.outport[0]);
@@ -346,6 +355,8 @@ int main () {
     l_dem2_4.connect(&l2_dem.outport[3]);
     l_dem2_5.connect(&l2_dem.outport[4]);
     l_dem2_6.connect(&l2_dem.outport[5]);
+    l_dem2_7.connect(&l2_dem.outport[6]);
+    l_dem2_8.connect(&l2_dem.outport[7]);
 
     // connect l_dem1_1 and l_dem1_2 to adder
     adder.connect(&l_dem1_1.outport, adder.inport[0]);
@@ -382,6 +393,8 @@ int main () {
     la5.connect(&divider.outport);
     la6.connect(&comparator.outport);
     la7.connect(&twos_complement.outport);
+    // la8
+    // la9
 
     // connect lalu mux to adder, shifter, logic, twos_complement, multiplier, divider, comparator
     lalu_mux.connect(&la1.outport, lalu_mux.inport[0]);
@@ -413,40 +426,39 @@ int main () {
     int test_cycles = 0;
     bool start = true;
 
-    long long one = 1;
-    long long zero = 0;
+    // long long one = 1;
+    // long long zero = 0;
 
-    pc.connect_signal(&one);
-    pc_dem.connect(&one, pc_dem.ctrlport);
-    l_pc_ls_add.connect_signal(&one);
-    address_mux.connect(&one, address_mux.ctrlport);
-    l_ls_address.connect_signal(&one);
-    loadstore.connect(&one, loadstore.ctrlport);
-    l_load_data.connect_signal(&one);
-    load_dem.connect(&zero, load_dem.ctrlport);
-    ifd.connect_signal(&one);
-    decoder.connect(&one, decoder.ctrlport);
-    opcode.connect_signal(&one);
-    lookup.connect(&one, lookup.ctrlport);
+    // pc.connect_signal(&one);
+    // pc_dem.connect(&one, pc_dem.ctrlport);
+    // l_pc_ls_add.connect_signal(&one);
+    // address_mux.connect(&one, address_mux.ctrlport);
+    // l_ls_address.connect_signal(&one);
+    // loadstore.connect(&one, loadstore.ctrlport);
+    // l_load_data.connect_signal(&one);
+    // load_dem.connect(&zero, load_dem.ctrlport);
+    // ifd.connect_signal(&one);
+    // decoder.connect(&one, decoder.ctrlport);
+    // opcode.connect_signal(&one);
+    // lookup.connect(&one, lookup.ctrlport);
 
-    // this part before the while loop is to run the first 6 cycles that will fetch the first instruciton 
-    // and get the first control signal for the execute part
+    // // this part before the while loop is to run the first 6 cycles that will fetch the first instruciton 
+    // // and get the first control signal for the execute part
 
-    pc.receive_clock();
-    pc_dem.receive_clock();
-    l_pc_ls_add.receive_clock();
-    address_mux.receive_clock();
-    l_ls_address.receive_clock();
-    loadstore.receive_clock();
-    l_load_data.receive_clock();
-    load_dem.receive_clock();
-    ifd.receive_clock();
-    decoder.receive_clock();
-    opcode.receive_clock();
-    lookup.receive_clock();
+    // pc.receive_clock();
+    // pc_dem.receive_clock();
+    // l_pc_ls_add.receive_clock();
+    // address_mux.receive_clock();
+    // l_ls_address.receive_clock();
+    // loadstore.receive_clock();
+    // l_load_data.receive_clock();
+    // load_dem.receive_clock();
+    // ifd.receive_clock();
+    // decoder.receive_clock();
+    // opcode.receive_clock();
+    // lookup.receive_clock();
+
     control_array.receive_clock();
-
-
     control_signal_t *ctr_sig;
     ctr_sig = control_array.outport;
     
@@ -492,10 +504,11 @@ int main () {
         lrs.connect_signal(&ctr_sig->lrs);
         lrt.connect_signal(&ctr_sig->lrt);
         ll.connect_signal(&ctr_sig->ll);
-        ll_dem.connect(&ctr_sig->ll_dem, ll_dem.ctrlport);
+        // lim here
         lrd_dem.connect(&ctr_sig->lrd_dem, lrd_dem.ctrlport);
-        lrt_dem.connect(&ctr_sig->lrt_dem, lrt_dem.ctrlport);
         lrs_dem.connect(&ctr_sig->lrs_dem, lrs_dem.ctrlport);
+        lrt_dem.connect(&ctr_sig->lrt_dem, lrt_dem.ctrlport);
+        ll_dem.connect(&ctr_sig->ll_dem, ll_dem.ctrlport);
         lrd_lrf1.connect_signal(&ctr_sig->lrd_lrf1);
         lrd_lrf2.connect_signal(&ctr_sig->lrd_lrf2);
         lrs_lrf1.connect_signal(&ctr_sig->lrs_lrf1);
@@ -520,6 +533,7 @@ int main () {
         l1.connect_signal(&ctr_sig->l1);
         l2.connect_signal(&ctr_sig->l2);
         l1_dem.connect(&ctr_sig->l1_dem, l1_dem.ctrlport);
+        l2_dem.connect(&ctr_sig->l2_dem, l2_dem.ctrlport);
         l_dem1_1.connect_signal(&ctr_sig->l_dem1_1);
         l_dem1_2.connect_signal(&ctr_sig->l_dem1_2);
         l_dem1_3.connect_signal(&ctr_sig->l_dem1_3);
@@ -527,13 +541,18 @@ int main () {
         l_dem1_5.connect_signal(&ctr_sig->l_dem1_5);
         l_dem1_6.connect_signal(&ctr_sig->l_dem1_6);
         l_dem1_7.connect_signal(&ctr_sig->l_dem1_7);
-        l2_dem.connect(&ctr_sig->l2_dem, l2_dem.ctrlport);
+        l_dem1_8.connect_signal(&ctr_sig->l_dem1_8);
+        l_dem1_9.connect_signal(&ctr_sig->l_dem1_9);
         l_dem2_1.connect_signal(&ctr_sig->l_dem2_1);
         l_dem2_2.connect_signal(&ctr_sig->l_dem2_2);    
         l_dem2_3.connect_signal(&ctr_sig->l_dem2_3);
         l_dem2_4.connect_signal(&ctr_sig->l_dem2_4);
         l_dem2_5.connect_signal(&ctr_sig->l_dem2_5);
         l_dem2_6.connect_signal(&ctr_sig->l_dem2_6);
+        l_dem2_7.connect_signal(&ctr_sig->l_dem2_7);
+        l_dem2_8.connect_signal(&ctr_sig->l_dem2_8);
+        shifter.connect(&ctr_sig->shifter, shifter.ctrlport);
+        logic.connect(&ctr_sig->logic, logic.ctrlport);
         la1.connect_signal(&ctr_sig->la1);
         la2.connect_signal(&ctr_sig->la2);
         la3.connect_signal(&ctr_sig->la3);
@@ -541,13 +560,35 @@ int main () {
         la5.connect_signal(&ctr_sig->la5);
         la6.connect_signal(&ctr_sig->la6);
         la7.connect_signal(&ctr_sig->la7);
+        la8.connect_signal(&ctr_sig->la8);
+        la9.connect_signal(&ctr_sig->la9);
         lalu_mux.connect(&ctr_sig->lalu_mux, lalu_mux.ctrlport);
         lalu.connect_signal(&ctr_sig->lalu);
         lalu_dem.connect(&ctr_sig->lalu_dem, lalu_dem.ctrlport);
         lalu_l2.connect_signal(&ctr_sig->lalu_l2);
         lalu_lrf1.connect_signal(&ctr_sig->lalu_lrf1);
-        shifter.connect(&ctr_sig->shifter, shifter.ctrlport);
-        logic.connect(&ctr_sig->logic, logic.ctrlport);
+        lalu_pc.connect_signal(&ctr_sig->lalu_pc);
+        // continue in same order of declaration
+        lalu_ls_add.connect_signal(&ctr_sig->lalu_ls_add);
+        lalu_lut.connect_signal(&ctr_sig->lalu_lut);
+        pc_mux.connect(&ctr_sig->pc_mux, pc_mux.ctrlport);
+        pc.connect_signal(&ctr_sig->pc);
+        pc_dem.connect(&ctr_sig->pc_dem, pc_dem.ctrlport);
+        l_pc_add4.connect_signal(&ctr_sig->l_pc_add4);
+        l_pc_ls_add.connect_signal(&ctr_sig->l_pc_ls_add);
+        l_pc_l1.connect_signal(&ctr_sig->l_pc_l1);
+        l_add4_out.connect_signal(&ctr_sig->l_add4_out);
+        address_mux.connect(&ctr_sig->address_mux, address_mux.ctrlport);
+        l_ls_address.connect_signal(&ctr_sig->l_ls_address);
+        loadstore.connect(&ctr_sig->loadstore, loadstore.ctrlport);
+        l_load_data.connect_signal(&ctr_sig->l_load_data);
+        l_load_data.connect_signal(&ctr_sig->l_load_data);
+        load_dem.connect(&ctr_sig->load_dem, load_dem.ctrlport);
+        l_load_data_lrf1.connect_signal(&ctr_sig->l_load_data_lrf1);
+        lrf_out_1_in.connect_signal(&ctr_sig->lrf_out_1_in);
+        l_in_lrf1.connect_signal(&ctr_sig->l_in_lrf1);
+        lrf_out_2_out.connect_signal(&ctr_sig->lrf_out_2_out);
+
 
 
         // ================================================
