@@ -237,6 +237,36 @@ int main () {
 
     // Instruction Fetch and Decode Test
     {
+    std::map<int, std::string> opcodes;
+    opcodes.insert(std::make_pair(0x0, "add"));
+    opcodes.insert(std::make_pair(0x1, "addi"));
+    opcodes.insert(std::make_pair(0x2, "sub"));
+    opcodes.insert(std::make_pair(0x3, "subi"));
+    opcodes.insert(std::make_pair(0x4, "mul"));
+    opcodes.insert(std::make_pair(0x5, "div"));
+    opcodes.insert(std::make_pair(0x6, "and"));
+    opcodes.insert(std::make_pair(0x7, "or"));
+    opcodes.insert(std::make_pair(0x8, "xor"));
+    opcodes.insert(std::make_pair(0x9, "not"));
+    opcodes.insert(std::make_pair(0xa, "shftr"));
+    opcodes.insert(std::make_pair(0xb, "shftri"));
+    opcodes.insert(std::make_pair(0xc, "shftl"));
+    opcodes.insert(std::make_pair(0xd, "shftli"));
+    opcodes.insert(std::make_pair(0x0e, "br"));
+    opcodes.insert(std::make_pair(0x0f, "brr")); // or 0x10. check the switch case
+    opcodes.insert(std::make_pair(0x10, "brr"));
+    opcodes.insert(std::make_pair(0x11, "brnz"));
+    opcodes.insert(std::make_pair(0x12, "call"));
+    opcodes.insert(std::make_pair(0x13, "return"));
+    opcodes.insert(std::make_pair(0x14, "brgt"));
+    opcodes.insert(std::make_pair(0x1f, "halt"));
+    opcodes.insert(std::make_pair(0x15, "mov")); // or 0x16, 0x18. check the switch case
+    opcodes.insert(std::make_pair(0x16, "mov"));
+    opcodes.insert(std::make_pair(0x17, "movi"));
+    opcodes.insert(std::make_pair(0x18, "mov"));
+    opcodes.insert(std::make_pair(0x1d, "in"));
+    opcodes.insert(std::make_pair(0x1e, "out"));
+
     std::cout<<"=================="<<std::endl<<"Instruction Fetch and Decode Test"<<std::endl;
     InstructionFetch if_unit("code");
     InstructionDecode id_unit;
@@ -265,65 +295,38 @@ int main () {
     register_t_l.connect(&id_unit.register_t);
     literal_l.connect(&id_unit.literal);
 
-    pc_l.outport = 0; // PC Value, read first instruction << start main from here
+    long long a = 1;
+    ifd_l.connect_signal(&a);
+    opcode_l.connect_signal(&a);
+    register_d_l.connect_signal(&a);
+    register_s_l.connect_signal(&a);
+    register_t_l.connect_signal(&a);
+    literal_l.connect_signal(&a);
 
-    if_unit.receive_clock(); // Fetch the instruction
-    ifd_l.receive_clock(); // Receive the results from IF
-    id_unit.receive_clock(); // Receive the results from the latch
-    opcode_l.receive_clock(); // Receive the opcode from the ID
-    register_d_l.receive_clock(); // Receive the register from the ID
-    register_s_l.receive_clock(); // Receive the register from the ID
-    register_t_l.receive_clock(); // Receive the register from the ID
-    literal_l.receive_clock(); // Receive the literal from the ID
+    printf("Instruction Fetch and Decode output: \n");
 
-    printf("Instruction Fetch and Decode output: \n1- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
-    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
-    literal_l.outport);
+    int i = 0;
+    while (opcodes.find(opcode_l.outport)->second != "halt") {
+        pc_l.outport = i * 4; // PC Value
 
-    pc_l.outport = 4; // PC Value, read second instruction
+        if_unit.receive_clock(); // Fetch the instruction
+        ifd_l.receive_clock(); // Receive the results from IF
+        id_unit.receive_clock(); // Receive the results from the latch
+        opcode_l.receive_clock(); // Receive the opcode from the ID
+        register_d_l.receive_clock(); // Receive the register from the ID
+        register_s_l.receive_clock(); // Receive the register from the ID
+        register_t_l.receive_clock(); // Receive the register from the ID
+        literal_l.receive_clock(); // Receive the literal from the ID
 
-    if_unit.receive_clock(); // Fetch the instruction
-    ifd_l.receive_clock(); // Receive the results from IF
-    id_unit.receive_clock(); // Receive the results from the latch
-    opcode_l.receive_clock(); // Receive the opcode from the ID
-    register_d_l.receive_clock(); // Receive the register from the ID
-    register_s_l.receive_clock(); // Receive the register from the ID
-    register_t_l.receive_clock(); // Receive the register from the ID
-    literal_l.receive_clock(); // Receive the literal from the ID
+        std::cout << opcodes.find(opcode_l.outport)->second;
+        printf(" r%lld, r%lld, r%lld, %lld\n",
+        register_d_l.outport, register_s_l.outport, register_t_l.outport,
+        literal_l.outport);
+        i++;
+    }
 
-    printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
-    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
-    literal_l.outport);
+    
 
-    pc_l.outport = 8; // PC Value, read second instruction
-
-    if_unit.receive_clock(); // Fetch the instruction
-    ifd_l.receive_clock(); // Receive the results from IF
-    id_unit.receive_clock(); // Receive the results from the latch
-    opcode_l.receive_clock(); // Receive the opcode from the ID
-    register_d_l.receive_clock(); // Receive the register from the ID
-    register_s_l.receive_clock(); // Receive the register from the ID
-    register_t_l.receive_clock(); // Receive the register from the ID
-    literal_l.receive_clock(); // Receive the literal from the ID
-
-    printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
-    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
-    literal_l.outport);
-
-    pc_l.outport = 12; // PC Value, read second instruction
-
-    if_unit.receive_clock(); // Fetch the instruction
-    ifd_l.receive_clock(); // Receive the results from IF
-    id_unit.receive_clock(); // Receive the results from the latch
-    opcode_l.receive_clock(); // Receive the opcode from the ID
-    register_d_l.receive_clock(); // Receive the register from the ID
-    register_s_l.receive_clock(); // Receive the register from the ID
-    register_t_l.receive_clock(); // Receive the register from the ID
-    literal_l.receive_clock(); // Receive the literal from the ID
-
-    printf("2- opcode: %lld, r_d: %lld, r_s: %lld, r_t: %lld, literal: %lld\n",
-    opcode_l.outport, register_d_l.outport, register_s_l.outport, register_t_l.outport,
-    literal_l.outport);
     }
 
     { // Lookup test
