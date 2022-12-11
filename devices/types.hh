@@ -5,17 +5,17 @@
 #include <array>
 #define MAX_CONTROL_SIGNALS 25
 #define CONTROL_SIGNAL_BITS 64
-#define CONTROL_SIGNAL_ARRAY_SIZE 151
+#define CONTROL_SIGNAL_ARRAY_SIZE 150
 #define MEMORY_LENGTH 100
 typedef long long *inport_t;
 typedef long long outport_t;
 typedef long long Reg;
 typedef long long mem_unit;
 typedef std::array<bool,CONTROL_SIGNAL_ARRAY_SIZE> Signal_array; 
-// 151 bits
+// 150 bits
 struct control_signal_t {
-    long long lins;
-    long long l_opcode;
+    long long ifd;
+    long long opcode;
     long long lrd;
     long long lrs;
     long long lrt;
@@ -104,7 +104,9 @@ struct control_signal_t {
     long long l_loaddata;
     long long load_dem;
     long long l_loaddata_lrf1;
-    long long immediate;
+    long long lrf_out_1_in;
+    long long l_in_lrf1;
+    long long lrf_out_2_out;
 
 
     // long long ll_dem : 2;

@@ -1,6 +1,6 @@
 #include "control_array.hh"
 
-inline bool check_equal(std::array<bool,151> current_line, std::string target_control_signal){
+inline bool check_equal(Signal_array current_line, std::string target_control_signal){
     for (int i = 0; i < target_control_signal.size(); i++){
         if ( current_line[i] != static_cast<bool>(target_control_signal[i]-'0') ){
             return false;
@@ -42,12 +42,12 @@ void ControlArray::receive_clock(){
     if (control_registers.size() > 0 /*& control_registers.size() <= CONTROL_ARRAY_SIZE*/) {
         std::array<bool, CONTROL_SIGNAL_ARRAY_SIZE> current_line = control_registers.front();
         control_registers.pop();
-        if (check_equal(current_line,"1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111") == true){
+        if (check_equal(current_line,"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111") == true){
             outport = NULL;
             return;
         }
-        outport->lins = current_line[0];
-        outport->l_opcode = current_line[1];
+        outport->ifd = current_line[0];
+        outport->opcode = current_line[1];
         outport->lrd = current_line[2];
         outport->lrs = current_line[3];
         outport->lrt = current_line[4];
@@ -136,7 +136,9 @@ void ControlArray::receive_clock(){
         outport->l_loaddata = current_line[141];
         outport->load_dem = current_line[142] *8 + current_line[143]*4 + current_line[144]*2 + current_line[145];
         outport->l_loaddata_lrf1 = current_line[146];
-        outport->immediate = current_line[147];
+        outport->lrf_out_1_in = current_line[147];
+        outport->l_in_lrf1 = current_line[148];
+        outport->lrf_out_2_out = current_line[149];
 
     }
 };

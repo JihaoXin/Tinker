@@ -22,6 +22,7 @@ void InstructionDecode::receive_clock() {
     /* --- Instruction Decode --- */
     
 
+    if (*ctrlport == 0) return;
     opcode = (*inport[0] >> 27) & 0b11111;
     if (opcode == 31) // so far, we still need the below registers to maintain their last values for execution to finish.
         return;

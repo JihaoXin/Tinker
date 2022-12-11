@@ -17,6 +17,8 @@
 #include "instruction_decode.hh"
 #include "lookup.hh"
 #include "loadstore.hh"
+#include "input.hh"
+#include "output.hh"
 #include <iostream>
 #include <bitset>
 
@@ -56,6 +58,8 @@ int main () {
     TwoComplement twos_complement;
     Multiplexer16 lalu_mux;
     Demultiplexer16 lalu_dem;
+    Input input_device;
+    Output output_device;
 
     /* 
     each device has a latch connected to it, so we need to first define the first latches in the chain
@@ -265,7 +269,9 @@ int main () {
     lrf2_mux.connect(&lrd_lrf2.outport, lrf2_mux.inport[0]);
     lrf2_mux.connect(&lrs_lrf2.outport, lrf2_mux.inport[1]);
     lrf2_mux.connect(&lrt_lrf2.outport, lrf2_mux.inport[2]);
-    // add another connecttion to lrf2_mux from lrs_lrf2. 
+
+    l_in_lrf1.connect(&input_device.outport);
+    output_device.connect(&lrf_out_1_out.outport, output_device.inport[0]);
 
     // connect lrf_1 latch input to lrf1_mux output
     lrf_1.connect(&lrf1_mux.outport);
@@ -419,7 +425,12 @@ int main () {
     l_load_data.connect_signal(&one);
     load_dem.connect(&zero, load_dem.ctrlport);
     ifd.connect_signal(&one);
+    decoder.connect(&one, decoder.ctrlport);
     opcode.connect_signal(&one);
+    lookup.connect(&one, lookup.ctrlport);
+
+    // this part before the while loop is to run the first 6 cycles that will fetch the first instruciton 
+    // and get the first control signal for the execute part
 
     pc.receive_clock();
     pc_dem.receive_clock();
@@ -434,6 +445,7 @@ int main () {
     opcode.receive_clock();
     lookup.receive_clock();
     control_array.receive_clock();
+
 
     control_signal_t *ctr_sig;
     ctr_sig = control_array.outport;
@@ -472,6 +484,10 @@ int main () {
         }
 
         // assign bitfields of ctr_sig to respective devices
+        ifd.connect_signal(&ctr_sig->ifd);
+        opcode.connect_signal(&ctr_sig->opcode);
+        decoder.connect(&ctr_sig->ifd, decoder.ctrlport);
+        lookup.connect(&ctr_sig->opcode, lookup.ctrlport);
         lrd.connect_signal(&ctr_sig->lrd);
         lrs.connect_signal(&ctr_sig->lrs);
         lrt.connect_signal(&ctr_sig->lrt);
@@ -566,12 +582,36 @@ int main () {
         // ================================================
         lrd.receive_clock(); lrs.receive_clock(); lrt.receive_clock(); ll.receive_clock();
         lrd_dem.receive_clock(); lrs_dem.receive_clock(); lrt_dem.receive_clock(); ll_dem.receive_clock();
+        // ================================================
+        opcode.receive_clock();
+        lookup.receive_clock();
+        control_array.receive_clock(); // will this overwrite signals? test
+        // ================================================
+        ifd.receive_clock();
+        decoder.receive_clock();
+        // ================================================
+        l_load_data.receive_clock();
+        load_dem.receive_clock();
+        // ================================================
+        l_ls_address.receive_clock();
+        loadstore.receive_clock();
+        // ================================================
+        l_pc_add4.receive_clock(); l_pc_ls_add.receive_clock(); l_pc_l1.receive_clock();
+        address_mux.receive_clock(); add4.receive_clock();
+        // ================================================
+        l_add4_out.receive_clock();
+        pc_mux.receive_clock();
+        // ================================================
+        pc.receive_clock();
+        pc_dem.receive_clock();
+        // ================================================
         
 
         // std::cout << "lrf1_mux output: " << lrf1_mux.outport << std::endl;
         // std::cout << "lrf2_mux output: " << lrf2_mux.outport << std::endl;
 
         test_cycles++;
+        ctr_sig = control_array.outport;
 
         // //DEBUGGING CODE
         printf("----------------\n");

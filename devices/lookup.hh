@@ -15,6 +15,7 @@ public:
     void populate_signals();
     void populate_table();
     std::array<inport_t, 1> inport;
+    inport_t ctrlport;
     control_signal_array_t outport;
     std::map<long long, control_signal_array_t> lookup_table;
     // control_signal_array_t none_operation;

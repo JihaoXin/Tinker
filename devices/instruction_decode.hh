@@ -13,7 +13,8 @@ public:
 
     //inport[0] must be a pointer for the fetched 32-bit instruction
     std::array<inport_t, 1> inport;
-    
+    inport_t ctrlport; 
+
     //The decoded 32-bit instruction
     outport_t opcode;
     outport_t register_d;
