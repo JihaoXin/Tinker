@@ -6,11 +6,17 @@ Tinker is a C++ based CPU simulator, it takes binary instruction as input, runni
 
 ## User Guide
 
-Tinker comes with **Makefile** and is designed to be easy to use. The first step is to compile assembly code to binary with our `tinker_assembler`. The assembler takes a source file name as an argument and outputs the binary to `code` .
+Tinker comes with **Makefile** and is designed to be easy to use.
 
-Whitespace have syntactic meaning in the assembler. Comments are not supported.
+All operations is done in the `devices` folder.
 
-Syntax, watchout for the tabs and spaces:
+* The first step is to compile assembly code to binary with our `tinker_assembler`. 
+
+  The assembler takes a source file name as an argument and outputs the binary to `code` .
+
+  Whitespace have syntactic meaning in the assembler. Comments are not supported.
+
+  Syntax, watchout for the tabs and spaces:
 
 ```
 [opcode] [r_d], [r_s], [r_t]
@@ -22,7 +28,7 @@ Syntax, watchout for the tabs and spaces:
 [opcode] [L]
 ```
 
-Supported instructions in the assembler (no tabs, and no whitespace before instructions) also acts as an example for the syntax:
+​		Supported instructions in the assembler (no tabs, and no whitespace before instructions) also acts as an example for the syntax:
 
 ```
 add r10, r14, r13
@@ -55,7 +61,7 @@ out r10, r14
 halt
 ```
 
-All operations is done in the `devices` folder.
+* Run Simulator
 
 ```shell
 git clone git@github.com:JihaoXin/Tinker.git
@@ -66,7 +72,9 @@ make
 ./main
 ```
 
-We also provided **unit test** which tested all components of Tinker.
+* Test
+
+We also provided **unit test** to test all component.
 
 ```shell
 make device_test
@@ -81,7 +89,7 @@ We proposed the two designs for Tinker processor. The comprehensive design is cl
 
   ![WX20221210-210158@2x](./assets/comprehensive.png)
 
-  It tries best to simulate how **real hardware** works, with **150** control signals.
+  It tries best to simulate how **real hardware** works.
 
   One complexity comes from the **circle**, we carefully analyzed the dependencies.
 
@@ -97,33 +105,33 @@ We proposed the two designs for Tinker processor. The comprehensive design is cl
 >
 >* Lookup Table
 >
-> Lookup Table will translate the opcode to pre-defined control signals and pass it to Control Array
+>Lookup Table will translate the opcode to pre-defined control signals and pass it to Control Array
 >
-> In our design, the lookup table will pass the control signal at the speed of 1 instruction / 1 cycle, instead of 1 control signal / 1 cycle. Because it is the Control Array that should do the buffering instead of a Lookup table.
+>In our design, the lookup table will pass the control signal at the speed of 1 instruction / 1 cycle, instead of 1 control signal / 1 cycle. Because it is the Control Array that should do the buffering instead of a Lookup table.
 >
 >* Control Array
 >
-> Control Array is a queue of control signal vectors, which will be split into devices below Control Array's max size is 64.
+>Control Array is a queue of control signal vectors, which will be split into devices below Control Array's max size is 64.
 >
 >* Register File
 >
-> Register File contains 32 registers.
+>Register File contains 32 registers.
 >
-> We also implemented Multi-Ported register file according to the specification, but we did not use it in the simulation.
+>We also implemented Multi-Ported register file according to the specification, but we did not use it in the simulation.
 >
 >* ALU
 >
-> ALU is a group of independent devices, which can perform varieties of arithmetic.
+>ALU is a group of independent devices, which can perform varieties of arithmetic.
 >
 >* L/S \& Memory
 >
-> We treat L/S \& Memory as a single device,  where memory is an Array in the Load-Store unit.
+>We treat L/S \& Memory as a single device,  where memory is an Array in the Load-Store unit.
 >
 >* I/O Device
 >
-> Each device will take two ports as input, one indicates the input/output port and the other is the value.
+>Each device will take two ports as input, one indicates the input/output port and the other is the value.
 >
-> But as this is the simulation for the processor regardless of the number of peripherals, also based on the fact that the given test instruction always uses the same in/out port "r0", the Input Device always takes standard input from the keyboard while the Output Device always prints on the screen.
+>But as this is the simulation for the processor regardless of the number of peripherals, also based on the fact that the given test instruction always uses the same in/out port "r0", the Input Device always takes standard input from the keyboard while the Output Device always prints on the screen.
 
 * The simplified design
 
@@ -199,7 +207,16 @@ Both implementation use similar design pattern.
 
   Such as for **brnz**, when the Lookup Table realized it is a condition instruction, then it will first issue the control signal to **compare rs and 0**, then based on the feedback connection, it will decide to issue control signals for `pc<-pc+4` or `pc=rd`.
 
-## Experiments
+## Analysis
+
+* Architectures (hello.tnk)
+
+  The more cycles it takes, the more complex the system is, and also more work to consider.
+
+|                 | Comprehensive | Simplified |
+| --------------- | ------------- | ---------- |
+| Control Signals | 150           | 63         |
+| Cycles          | 408           | 153        |
 
 
 
