@@ -442,7 +442,7 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 0, in1: 0
 ----------------
 test_cycles: 13
@@ -479,7 +479,7 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 0, in1: 0
 ----------------
 test_cycles: 14
@@ -516,7 +516,7 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 0, in1: 0
 ----------------
 test_cycles: 15
@@ -553,7 +553,7 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 0, in1: 0
 ----------------
 test_cycles: 16
@@ -590,11 +590,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 3, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 3, in0: 72, in1: 0
 ----------------
 test_cycles: 17
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -627,11 +627,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 0
 ----------------
 test_cycles: 18
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -664,11 +664,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 0
 ----------------
 test_cycles: 19
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -701,11 +701,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 0
 ----------------
 test_cycles: 20
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -738,11 +738,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 0
 ----------------
 test_cycles: 21
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -775,11 +775,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 0
 ----------------
 test_cycles: 22
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -812,11 +812,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 0
 ----------------
 test_cycles: 23
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -849,11 +849,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 0
 ----------------
 test_cycles: 24
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -886,11 +886,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 0
 ----------------
 test_cycles: 25
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -923,11 +923,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 0
 ----------------
 test_cycles: 26
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -960,11 +960,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 0
 ----------------
 test_cycles: 27
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -997,11 +997,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 0
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 0
 ----------------
 test_cycles: 28
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -1034,11 +1034,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 1, in0: 1, in1: 0
 ----------------
 test_cycles: 29
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -1071,11 +1071,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 30
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -1108,11 +1108,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 31
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -1145,11 +1145,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 32
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -1182,11 +1182,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 33
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -1219,11 +1219,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 34
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -1256,11 +1256,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 35
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -1293,11 +1293,11 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 36
-registers[0]: 78
+registers[0]: 72
 registers[1]: 0
 registers[2]: 0
 registers[3]: 0
@@ -1330,12 +1330,13 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 3, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 3, in0: 72, in1: 1
+out : 
 ----------------
 test_cycles: 37
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1367,12 +1368,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 1
 ----------------
 test_cycles: 38
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1404,12 +1405,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 1
 ----------------
 test_cycles: 39
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1441,12 +1442,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 1
 ----------------
 test_cycles: 40
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1478,12 +1479,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 1
 ----------------
 test_cycles: 41
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1515,12 +1516,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 1
 ----------------
 test_cycles: 42
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1552,12 +1553,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 1
 ----------------
 test_cycles: 43
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1589,12 +1590,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 1
 ----------------
 test_cycles: 44
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1626,12 +1627,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 1
 ----------------
 test_cycles: 45
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1663,12 +1664,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 1
 ----------------
 test_cycles: 46
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1700,12 +1701,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 1
 ----------------
 test_cycles: 47
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1737,12 +1738,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
-ctrlport: 0, in0: 78, in1: 1
+Adder: 0 + 72 = 72
+ctrlport: 0, in0: 72, in1: 1
 ----------------
 test_cycles: 48
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1774,12 +1775,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 2, in0: 1, in1: 0
 ----------------
 test_cycles: 49
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1811,12 +1812,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 50
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1848,12 +1849,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 51
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1885,12 +1886,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 52
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1922,12 +1923,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 53
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1959,12 +1960,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 54
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -1996,12 +1997,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 55
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -2033,12 +2034,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 56
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -2070,12 +2071,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 57
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -2107,12 +2108,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 58
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -2144,12 +2145,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 59
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0
@@ -2181,12 +2182,12 @@ registers[29]: 0
 registers[30]: 0
 registers[31]: 0
 ----------------
-Adder: 0 + 78 = 78
+Adder: 0 + 72 = 72
 ctrlport: 0, in0: 1, in1: 0
 ----------------
 test_cycles: 60
-registers[0]: 78
-registers[1]: 78
+registers[0]: 72
+registers[1]: 72
 registers[2]: 0
 registers[3]: 0
 registers[4]: 0

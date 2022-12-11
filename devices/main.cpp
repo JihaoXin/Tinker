@@ -568,8 +568,6 @@ int main () {
         lalu_l2.connect_signal(ctr_sig.lalu_l2);
         lalu_lrf1.connect_signal(ctr_sig.lalu_lrf1);
         lalu_pc.connect_signal(ctr_sig.lalu_pc);
-
-        // continue in same order of declaration
         lalu_ls_add.connect_signal(ctr_sig.lalu_ls_add);
         lalu_lut.connect_signal(ctr_sig.lalu_lut);
         pc_mux.connect_signal(ctr_sig.pc_mux);
@@ -585,8 +583,14 @@ int main () {
         l_load_data.connect_signal(ctr_sig.l_load_data);
         l_load_data.connect_signal(ctr_sig.l_load_data);
         load_dem.connect_signal(ctr_sig.load_dem);
-        l_load_data_lrf1.connect_signal(ctr_sig.l_load_data_lrf1);
+        lrf_out_1_out.connect_signal(ctr_sig.lrf_out_1_out);
+        lrf_out_1_ls.connect_signal(ctr_sig.lrf_out_1_ls);
+        lrf_out_1_pc.connect_signal(ctr_sig.lrf_out_1_pc);
+        lrf_out_1_l1.connect_signal(ctr_sig.lrf_out_1_l1);
+        lrf_out_1_lrf1.connect_signal(ctr_sig.lrf_out_1_lrf1);
+        lrf_out_1_l2.connect_signal(ctr_sig.lrf_out_1_l2);
         lrf_out_1_in.connect_signal(ctr_sig.lrf_out_1_in);
+        l_load_data_lrf1.connect_signal(ctr_sig.l_load_data_lrf1);
         l_in_lrf1.connect_signal(ctr_sig.l_in_lrf1);
         lrf_out_2_out.connect_signal(ctr_sig.lrf_out_2_out);
 
@@ -608,7 +612,7 @@ int main () {
         l1.receive_clock(); l2.receive_clock();
         l1_dem.receive_clock(); l2_dem.receive_clock();
         // ================================================        
-        lrf_out_1_l1.receive_clock(); lrf_out_2_l2.receive_clock();
+        lrf_out_1_out.receive_clock(); lrf_out_1_ls.receive_clock(); lrf_out_1_pc.receive_clock(); lrf_out_1_l1.receive_clock(); lrf_out_1_lrf1.receive_clock(); lrf_out_1_l2.receive_clock(); lrf_out_1_in.receive_clock(); lrf_out_2_l2.receive_clock(); lrf_out_2_out.receive_clock();
         // ================================================
         lrf_out_1.receive_clock(); lrf_out_2.receive_clock();
         lrf_out_1_dem.receive_clock(); lrf_out_2_dem.receive_clock();
