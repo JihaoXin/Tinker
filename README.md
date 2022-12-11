@@ -6,7 +6,7 @@ Tinker is a C++ based CPU simulator, it takes binary instruction as input, runni
 
 ## User Guide
 
-Tinker comes with **Makefile** and is designed to be easy to use. The first step is to compile assembly code to binary with our `tinker_assembler`. The assembler takes a source file name as an argument and outputs the binary in `code` .
+Tinker comes with **Makefile** and is designed to be easy to use. The first step is to compile assembly code to binary with our `tinker_assembler`. The assembler takes a source file name as an argument and outputs the binary to `code` .
 
 All operations is done in the `devices` folder.
 
