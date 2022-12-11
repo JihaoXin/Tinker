@@ -74,53 +74,69 @@ make device_test
 
 # Architecture
 
-We proposed the design for Tinker processor according to the device specification and instructions.
+We proposed the two designs for Tinker processor. The comprehensive design is closer to hardware but with high complexity and cost more cycles. The simplified architecture utilized software's ease of use to achieve some logics such as *if* and *else* thus it cost less cycles.
 
-Tinker tries to perform as close as possible to real hardware, in the meantime, it utilized C++ software features to simplify the design.
+*  The comprehensive design
 
-![WX20221210-210158@2x](./assets/WX20221210-210158@2x.png)
+  ![WX20221210-210158@2x](./assets/comprehensive.png)
 
-The general workflow is from left to right.
+  It tries best to simulate how **real hardware** works, with **150** control signals.
 
-* Decoder
+  One complexity comes from the **circle**, we carefully analyzed the dependencies.
 
-  Firstly, the binary instruction will fetch to the decoder, where it will pass the register&immediate values to corresponding multiplexers, and the opcode will be sent to the lookup table 
+  At the start of program, the **PC** is initialized point to memory 0 and **Control Array** is initialized with signals to **fetch**.
 
-* Lookup Table
+  The general workflow is from left to right.
 
-  Lookup Table will translate the opcode to pre-defined control signals and pass it to Control Array
+  <u>*Key Component:*</u>
 
-  In our design, the lookup table will pass the control signal at the speed of 1 instruction / 1 cycle, instead of 1 control signal / 1 cycle. Because it is the Control Array that should do the buffering instead of a Lookup table.
+  >* Decoder
+>
+  >  Firstly, the binary instruction will fetch to the decoder, where it will pass the register&immediate values to corresponding multiplexers, and the opcode will be sent to the lookup table 
+>
+  >* Lookup Table
+>
+  >  Lookup Table will translate the opcode to pre-defined control signals and pass it to Control Array
+>
+  >  In our design, the lookup table will pass the control signal at the speed of 1 instruction / 1 cycle, instead of 1 control signal / 1 cycle. Because it is the Control Array that should do the buffering instead of a Lookup table.
+>
+  >* Control Array
+>
+  >  Control Array is a queue of control signal vectors, which will be split into devices below Control Array's max size is 64.
+>
+  >* Register File
+>
+  >  Register File contains 32 registers.
+>
+  >  We also implemented Multi-Ported register file according to the specification, but we did not use it in the simulation.
+>
+  >* ALU
+>
+  >  ALU is a group of independent devices, which can perform varieties of arithmetic.
+>
+  >* L/S \& Memory
+>
+  >  We treat L/S \& Memory as a single device,  where memory is an Array in the Load-Store unit.
+>
+  >* I/O Device
+>
+  >  Each device will take two ports as input, one indicates the input/output port and the other is the value.
+>
+  >  But as this is the simulation for the processor regardless of the number of peripherals, also based on the fact that the given test instruction always uses the same in/out port "r0", the Input Device always takes standard input from the keyboard while the Output Device always prints on the screen.
 
-* Control Array
+*  The simplified design
 
-  Control Array is a queue of control signal vectors, which will be split into devices below.
+  ![image-20221211205744448](./assets/simplified.png)
 
-  Control Array's max size is 64.
+  We hide the branch logic by *if* and *else* in *C++* thus we can update the PC based on the condition instruction's result, which means we simplified the interaction between PC and Register File.
 
-* Register File
+  By utilizing this we can reduce the cycle number.
 
-  Register File contains 32 registers.
+## Code
 
-  We also implemented Multi-Ported register file according to the specification, but we did not use it in the simulation.
+The **main** branch is for comprehensive design, and **simplified** branch is for simplified design.
 
-* ALU
-
-  ALU is a group of independent devices, which can perform varieties of arithmetic.
-
-* L/S \& Memory
-
-  We treat L/S \& Memory as a single device,  where memory is an Array in the Load-Store unit.
-
-* I/O Device
-
-  Each device will take two ports as input, one indicates the input/output port and the other is the value.
-
-  But as this is the simulation for the processor regardless of the number of peripherals, also based on the fact that the given test instruction always uses the same in/out port "r0", the Input Device always takes standard input from the keyboard while the Output Device always prints on the screen.
-
-  
-
-## Code Design
+Both implementation use similar design pattern.
 
 * Connection
 
@@ -136,7 +152,7 @@ The general workflow is from left to right.
 
   This is also aligned with hardware as the data flows in a short circuit without a latch is very fast, should be treated as always same.
 
-  ![CS294V (1)](./assets/CS294V.png)
+  ![CS294V (1)](./assets/dataflow.png)
 
 * Latch
 
@@ -178,7 +194,7 @@ The general workflow is from left to right.
 
   Thus we cut the branch instruction into **stages** and add a **feedback** connection from **ALU** to **Lookup Table**.
 
-  ![image-20221210220127596](./assets/image-20221210220127596.png)
+  ![image-20221210220127596](./assets/brng.png)
 
   Such as for **brnz**, when the Lookup Table realized it is a condition instruction, then it will first issue the control signal to **compare rs and 0**, then based on the feedback connection, it will decide to issue control signals for `pc<-pc+4` or `pc=rd`.
 
