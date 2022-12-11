@@ -33,9 +33,10 @@ void ControlArray::receive_clock(){
     cycle_counter = 0;
     // insert to the queue 
     if (inport[0] != NULL) { 
-        control_signal_array_t ctr_sigs = *inport[0];
-        for (int i = 0; i < ctr_sigs.size; i++) {
-            control_registers.push(ctr_sigs.control_signals[i]);
+        control_signal_array_t *ctr_sigs = inport[0];
+        while(ctr_sigs->control_signals.empty() == false){
+            control_registers.push(ctr_sigs->control_signals.front());
+            ctr_sigs->control_signals.pop();
         }
     }
     cycle_counter = 0;

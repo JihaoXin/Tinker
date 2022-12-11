@@ -282,16 +282,22 @@ int main () {
         // pass input to first devices (first device(s) in dependency chain) probably the PC to the fetch unit. 
         // if (test_cycles == 7) 
         //     std::cout << "here" << std::endl;
-        fetcher.receive_clock();
-        ifd.receive_clock();
-        decoder.receive_clock();
-        opcode.receive_clock();
-
-        pc.outport+=4; // we need add4
-    
-        lookup.receive_clock();
+        if (test_cycles >=20){
+            break;
+        }
+        if(control_array.control_registers.empty()){
+            fetcher.receive_clock();
+            ifd.receive_clock();
+            decoder.receive_clock();
+            opcode.receive_clock();
+            pc.outport+=4; // we need add4
+            lookup.receive_clock();
+        }
+        else{
+            // std::cout<<"Len of control array "<<control_array.control_registers.size()<<std::endl;
+        }
         control_array.receive_clock();
-
+        //  std::cout<<"Len of lookup ourpot"<<lookup.outport.control_signals.size()<<std::endl;
         // assign contorl signals
         control_signal_t *ctr_sig;
         ctr_sig = control_array.outport;
@@ -385,8 +391,8 @@ int main () {
         lrf1_mux.receive_clock(); lrf2_mux.receive_clock();
         l1_mux.receive_clock(); l2_mux.receive_clock();
 
-        std::cout << "lrf1_mux output: " << lrf1_mux.outport << std::endl;
-        std::cout << "lrf2_mux output: " << lrf2_mux.outport << std::endl;
+        // std::cout << "lrf1_mux output: " << lrf1_mux.outport << std::endl;
+        // std::cout << "lrf2_mux output: " << lrf2_mux.outport << std::endl;
 
         // horizontal execution/code = parallel/independent 
         // ==================================
@@ -431,11 +437,11 @@ int main () {
         test_cycles++;
 
         // //DEBUGGING CODE
-        printf("----------------\n");
-        for (int i = 0; i < 32; i++) {
-            printf("registers[%d]: %lld\n", i, register_file.registers[i]);
-        }
-        printf("----------------\n");
+        // printf("----------------\n");
+        // for (int i = 0; i < 32; i++) {
+        //     printf("registers[%d]: %lld\n", i, register_file.registers[i]);
+        // }
+        // printf("----------------\n");
 
         // if (control_array.control_registers.size() == 0) { // finished instructions 
         //     std::cout << "Num cycles: " << test_cycles << std::endl;
@@ -443,11 +449,11 @@ int main () {
     }
 
     // // //DEBUGGING CODE
-    // printf("----------------\n");
-    // for (int i = 0; i < 32; i++) {
-    //     printf("registers[%d]: %lld\n", i, register_file.registers[i]);
-    // }
-    // printf("----------------\n");
+    printf("----------------\n");
+    for (int i = 0; i < 32; i++) {
+        printf("registers[%d]: %lld\n", i, register_file.registers[i]);
+    }
+    printf("----------------\n");
 
     return 0;
 }

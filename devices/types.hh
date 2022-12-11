@@ -3,6 +3,7 @@
 #define NULL 0
 #include <cstdint>
 #include <array>
+#include <queue>
 #define MAX_CONTROL_SIGNALS 15
 # define CONTROL_SIGNAL_BITS 64
 typedef long long *inport_t;
@@ -91,7 +92,8 @@ struct control_signal_t {
 
 struct control_signal_array_t {
     int size; // number of control signals
-    std::array< std::array<bool,100>,MAX_CONTROL_SIGNALS >  control_signals; // MAX_CONTROL_SIGNALS rows, each row is 100 bits to represent one control signal
+    // std::array< std::array<bool,100>,MAX_CONTROL_SIGNALS >  control_signals; // MAX_CONTROL_SIGNALS rows, each row is 100 bits to represent one control signal
+    std::queue< std::array<bool,100> > control_signals;
 };
 
 
