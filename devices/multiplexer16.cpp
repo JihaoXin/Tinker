@@ -14,5 +14,6 @@ void Multiplexer16::receive_clock() {
         return;
     }
     cycle_counter = 0;
+    
     outport = *inport[*ctrlport];
 }

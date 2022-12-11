@@ -43,7 +43,7 @@ void ControlArray::receive_clock(){
     if (control_registers.size() > 0 /*& control_registers.size() <= CONTROL_ARRAY_SIZE*/) {
         std::array<bool, 100> current_line = control_registers.front();
         control_registers.pop();
-        if (check_equal(current_line,"1111111111111111111111111111111111111111111111111111111111111111") == true){
+        if (check_equal(current_line,"111111111111111111111111111111111111111111111111111111111111111111") == true){
             outport = NULL;
             return;
         }
@@ -137,6 +137,7 @@ void ControlArray::receive_clock(){
         outport->shifter = current_line[61];
         // outport->logic = (current_line) & 0b11;
         outport->logic = current_line[62] *2 + current_line[63];
-
+        outport->l_dem1_8 = current_line[64];
+        outport->l_dem2_7 = current_line[65];
     }
 };

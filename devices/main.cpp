@@ -16,7 +16,8 @@
 #include "instruction_fetch.hh"
 #include "instruction_decode.hh"
 #include "lookup.hh"
-#include "loadstore.hh"
+#include "input.hh"
+#include "output.hh"
 #include <iostream>
 #include <bitset>
 
@@ -47,7 +48,7 @@ int main () {
     TwoComplement twos_complement;
     Multiplexer16 lalu_mux;
     Demultiplexer lalu_dem;
-
+    Output output;
     /* 
     each device has a latch connected to it, so we need to first define the first latches in the chain
     (and assign a value to them later in the loop)
@@ -74,12 +75,14 @@ int main () {
     Latch l_dem1_5;
     Latch l_dem1_6;
     Latch l_dem1_7;
+    Latch l_dem1_8;
     Latch l_dem2_1;
     Latch l_dem2_2;
     Latch l_dem2_3;
     Latch l_dem2_4;
     Latch l_dem2_5;
     Latch l_dem2_6;
+    Latch l_dem2_7;
     Latch la1;
     Latch la2;
     Latch la3;
@@ -88,16 +91,6 @@ int main () {
     Latch la6;
     Latch la7;
     Latch lalu;
-
-
-
-
-
-    /*
-    .
-    .
-    .
-    */
 
     /* connect the Latches with the ports of the devices */
 
@@ -206,6 +199,7 @@ int main () {
     l_dem1_5.connect(&l1_dem.outport[4]);
     l_dem1_6.connect(&l1_dem.outport[5]);
     l_dem1_7.connect(&l1_dem.outport[6]);
+    l_dem1_8.connect(&l1_dem.outport[7]);
 
     // connect l_dem2_1 - l_dem2_6 to l2_dem output
     l_dem2_1.connect(&l2_dem.outport[0]);
@@ -215,6 +209,9 @@ int main () {
     l_dem2_5.connect(&l2_dem.outport[4]);
     l_dem2_6.connect(&l2_dem.outport[5]);
 
+    // connect output
+    output.connect(&l_dem1_8.outport, output.inport[0]);
+    output.connect(&l_dem2_7.outport, output.inport[1]);
     // connect l_dem1_1 and l_dem1_2 to adder
     adder.connect(&l_dem1_1.outport, adder.inport[0]);
     adder.connect(&l_dem2_1.outport, adder.inport[1]);
@@ -280,12 +277,7 @@ int main () {
     
     while (true) { // should only pass first inputs, call do_functions, and recieve clocks. 
         // pass input to first devices (first device(s) in dependency chain) probably the PC to the fetch unit. 
-        // if (test_cycles == 7) 
-        //     std::cout << "here" << std::endl;
-        if (test_cycles >=20){
-            break;
-        }
-        if(control_array.control_registers.empty()){
+        if(control_array.control_registers.empty()){ // Fetch new instruction only if the control array is empty
             fetcher.receive_clock();
             ifd.receive_clock();
             decoder.receive_clock();
@@ -293,9 +285,7 @@ int main () {
             pc.outport+=4; // we need add4
             lookup.receive_clock();
         }
-        else{
-            // std::cout<<"Len of control array "<<control_array.control_registers.size()<<std::endl;
-        }
+
         control_array.receive_clock();
         //  std::cout<<"Len of lookup ourpot"<<lookup.outport.control_signals.size()<<std::endl;
         // assign contorl signals
@@ -335,6 +325,7 @@ int main () {
         l_dem1_5.connect_signal(&ctr_sig->l_dem1_5);
         l_dem1_6.connect_signal(&ctr_sig->l_dem1_6);
         l_dem1_7.connect_signal(&ctr_sig->l_dem1_7);
+        l_dem1_8.connect_signal(&ctr_sig->l_dem1_8);
         l2_dem.connect(&ctr_sig->l2_dem, l2_dem.ctrlport);
         l_dem2_1.connect_signal(&ctr_sig->l_dem2_1);
         l_dem2_2.connect_signal(&ctr_sig->l_dem2_2);    
@@ -342,6 +333,7 @@ int main () {
         l_dem2_4.connect_signal(&ctr_sig->l_dem2_4);
         l_dem2_5.connect_signal(&ctr_sig->l_dem2_5);
         l_dem2_6.connect_signal(&ctr_sig->l_dem2_6);
+        l_dem2_7.connect_signal(&ctr_sig->l_dem2_7);
         la1.connect_signal(&ctr_sig->la1);
         la2.connect_signal(&ctr_sig->la2);
         la3.connect_signal(&ctr_sig->la3);
@@ -352,9 +344,12 @@ int main () {
         lalu_mux.connect(&ctr_sig->lalu_mux, lalu_mux.ctrlport);
         lalu.connect_signal(&ctr_sig->lalu);
         lalu_dem.connect(&ctr_sig->lalu_dem, lalu_dem.ctrlport);
+        output.connect(&ctr_sig->l_dem2_7, output.ctrlport);
+        if(ctr_sig->l_dem2_7 == 1) {
+            std::cout << "Output: " << std::endl;
+        }
         shifter.connect(&ctr_sig->shifter, shifter.ctrlport);
         logic.connect(&ctr_sig->logic, logic.ctrlport);
-
         // horizontal code = parallel/independent 
         // ==================================
         lalu.receive_clock();
@@ -366,8 +361,9 @@ int main () {
         
         // ==================================
 
-        l_dem1_1.receive_clock(); l_dem1_2.receive_clock(); l_dem1_3.receive_clock(); l_dem1_4.receive_clock(); l_dem1_5.receive_clock(); l_dem1_6.receive_clock(); l_dem1_7.receive_clock();
-        l_dem2_1.receive_clock(); l_dem2_2.receive_clock(); l_dem2_3.receive_clock(); l_dem2_4.receive_clock(); l_dem2_5.receive_clock(); l_dem2_6.receive_clock();
+        l_dem1_1.receive_clock(); l_dem1_2.receive_clock(); l_dem1_3.receive_clock(); l_dem1_4.receive_clock(); l_dem1_5.receive_clock(); l_dem1_6.receive_clock(); l_dem1_7.receive_clock();l_dem1_8.receive_clock();
+        l_dem2_1.receive_clock(); l_dem2_2.receive_clock(); l_dem2_3.receive_clock(); l_dem2_4.receive_clock(); l_dem2_5.receive_clock(); l_dem2_6.receive_clock();l_dem2_7.receive_clock();
+        output.receive_clock();
         adder.receive_clock(); shifter.receive_clock(); logic.receive_clock(); twos_complement.receive_clock(); multiplier.receive_clock(); divider.receive_clock(); comparator.receive_clock();
 
         // ==================================

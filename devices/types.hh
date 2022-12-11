@@ -38,6 +38,7 @@ struct control_signal_t {
     long long l_dem1_5;
     long long l_dem1_6;
     long long l_dem1_7;
+    long long l_dem1_8;
     long long l2_dem;
     long long l_dem2_1;
     long long l_dem2_2;
@@ -45,6 +46,7 @@ struct control_signal_t {
     long long l_dem2_4;
     long long l_dem2_5;
     long long l_dem2_6;
+    long long l_dem2_7;
     long long la1;  // we don't have this in the diagram
     long long la2;
     long long la3;
@@ -55,7 +57,6 @@ struct control_signal_t {
     long long lalu_mux;
     long long lalu;
     long long lalu_dem;
-
     long long shifter; 
     long long logic;
     // long long ll_dem : 2;

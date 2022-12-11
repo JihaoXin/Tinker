@@ -14,7 +14,8 @@ void Output::receive_clock() {
         return;
     }
     cycle_counter = 0;
-    std::cout << "Output: ";
-    std::cout << *inport[0] << std::endl;
+    if (*ctrlport == 1) {
+    std::cout << "Output Device: " << *inport[0] << std::endl;
+    }
     return;
 }

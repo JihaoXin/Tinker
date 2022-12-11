@@ -24,6 +24,7 @@ public:
     control_signal_array_t mul;
     control_signal_array_t div;
     control_signal_array_t halt;
+    control_signal_array_t out;
 };
 
 #endif

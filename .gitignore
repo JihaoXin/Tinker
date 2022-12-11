@@ -360,3 +360,4 @@ devices/tinker_assembler
 devices/tinker_assembler.dSYM/*
 devices/code
 devices/device_test.dSYM/Contents/Resources/DWARF/device_test
+devices/tmp

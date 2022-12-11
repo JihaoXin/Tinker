@@ -6,7 +6,8 @@ public:
     Output();
     ~Output();
     void receive_clock();
-    std::array<inport_t, 1> inport;
+    std::array<inport_t, 2> inport;
+    inport_t ctrlport;
 };
 
 #endif
