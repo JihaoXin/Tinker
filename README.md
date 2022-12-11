@@ -8,6 +8,52 @@ Tinker is a C++ based CPU simulator, it takes binary instruction as input, runni
 
 Tinker comes with **Makefile** and is designed to be easy to use. The first step is to compile assembly code to binary with our `tinker_assembler`. The assembler takes a source file name as an argument and outputs the binary to `code` .
 
+Whitespace have syntactic meaning in the assembler. Comments are not supported.
+
+Syntax, watchout for the tabs and spaces:
+```
+[opcode] [r_d], [r_s], [r_t]
+[opcode] [r_d], [r_s]
+[opcode] [r_d], ([r_s])[L])
+[opcode] ([r_d])([L]), [r_s]
+[opcode] [r_d], [r_s]
+[opcode] [r_d]
+[opcode] [L]
+```
+
+Supported instructions in the assembler (no tabs, and no whitespace before instructions) also acts as an example for the syntax:
+
+```
+add r10, r14, r13
+addi r10, 8
+sub r10, r14, r13
+subi r10, 8
+mul r10, r14, r13
+div r10, r14, r13
+and r10, r14, r13
+or r10, r14, r13
+xor r10, r14, r13
+not r10, r14
+shftr r10, r14, r13
+shftri r10, 8
+shftl r10, r14, r13
+shftli r10, 8
+br r10
+brr r10
+brr 8
+brnz r10, r14
+call r10, r14, r13
+return
+brgt r10, r14, r13
+mov r10, (r14)(8)
+mov r10, r14
+mov r10, 8
+mov (r10)(8), r14
+in r10, r14
+out r10, r14
+halt
+```
+
 All operations is done in the `devices` folder.
 
 ```shell
