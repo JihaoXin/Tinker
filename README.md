@@ -47,7 +47,7 @@ return
 brgt r10, r14, r13
 mov r10, (r14)(8)
 mov r10, r14
-mov r10, 8
+movi r10, 8
 mov (r10)(8), r14
 in r10, r14
 out r10, r14
