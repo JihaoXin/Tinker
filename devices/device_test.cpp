@@ -527,9 +527,9 @@ int main () {
     {
     std::cout<<"=================="<<std::endl<<"Input Test"<<std::endl;
     Input input;
-    input.outport = 0b0000000000000000000000000000000000000000000000000000000000000000;
+    input.outport = 0b0100000000000000000000000000000000000000000000000000000000000000;
     input.receive_clock();
-    truth = (input.outport != 0b0000000000000000000000000000000000000000000000000000000000000000)? " PASS" : " FAIL";
+    truth = (input.outport != 0b0100000000000000000000000000000000000000000000000000000000000000)? " PASS" : " FAIL";
     std::cout<<"Input = "<<input.outport<<truth<<std::endl;
     }
 
