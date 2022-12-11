@@ -140,7 +140,7 @@ uint32_t interpret_operands(uint32_t instr, std::string instruction, int instrTy
                             if (word[4] == '(' && word[word.length() - 1] == ')')
                             {
                                 // (Literal)
-                                instr = (instr + stoi(word.substr(5, word.length() - 1)));
+                                instr = (instr + (stoi(word.substr(5, word.length() - 1)) & 0b111111111111));
                             }
                             else
                             {
@@ -155,7 +155,7 @@ uint32_t interpret_operands(uint32_t instr, std::string instruction, int instrTy
                             if (word[5] == '(' && word[word.length() - 1] == ')')
                             {
                                 // (Literal)
-                                instr = (instr + stoi(word.substr(6, word.length() - 1)));
+                                instr = (instr + (stoi(word.substr(6, word.length() - 1)) & 0b111111111111));
                             }
                             else
                             {
@@ -197,7 +197,7 @@ uint32_t interpret_operands(uint32_t instr, std::string instruction, int instrTy
                         if (word[4] == '(' && word[word.length() - 2] == ')')
                         {
                             // (Literal)
-                            tempL = stoi(word.substr(5, word.length() - 2));
+                            tempL = stoi(word.substr(5, word.length() - 2)) & 0b111111111111;
 
                             if (line >> word)
                             {
@@ -231,7 +231,7 @@ uint32_t interpret_operands(uint32_t instr, std::string instruction, int instrTy
                         if (word[5] == '(' && word[word.length() - 2] == ')')
                         {
                             // (Literal)
-                            tempL = stoi(word.substr(6, word.length() - 2));
+                            tempL = stoi(word.substr(6, word.length() - 2)) & 0b111111111111;
 
                             if (line >> word)
                             {
@@ -284,7 +284,7 @@ uint32_t interpret_operands(uint32_t instr, std::string instruction, int instrTy
                     if (line >> word)
                     {
                         // Literal
-                        instr = (instr + stoi(word.substr(0, word.length())));
+                        instr = (instr + (stoi(word.substr(0, word.length())) & 0b111111111111));
                     }
                     else
                     {
@@ -324,7 +324,7 @@ uint32_t interpret_operands(uint32_t instr, std::string instruction, int instrTy
                 instr = instr << 5;
                 instr = instr << 5;
                 instr = instr << 12;
-                instr = (instr + stoi(word.substr(0, word.length())));
+                instr = (instr + (stoi(word.substr(0, word.length())) & 0b111111111111));
             }
             else
             {
