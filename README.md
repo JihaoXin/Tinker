@@ -90,7 +90,7 @@ The general workflow is from left to right.
 
   This is also aligned with hardware as the data flows in a short circuit without a latch is very fast, should be treated as always same.
 
-  ![CS294V (1)](./assets/CS294V (1).png)
+  ![CS294V (1)](./assets/CS294V.png)
 
 * Latch
 
