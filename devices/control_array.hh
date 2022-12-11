@@ -14,7 +14,7 @@ public:
     void receive_clock();
     void connect_array(control_signal_array_t *p_outport, control_signal_array_t* &inport);
     std::array<control_signal_array_t*, 1> inport;
-    control_signal_t *outport;
+    control_signal_t outport;
     int CONTROL_ARRAY_SIZE; // Size of ControlArray
     std::queue< Signal_array > control_registers;
 };
