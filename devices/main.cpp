@@ -490,7 +490,7 @@ int main () {
         // ctr_sig = control_array.outport;
 
         if (ctr_sig.ifd == -1) { // HALT
-            std::cout << std::endl;
+            // std::cout << std::endl;
             // std::cout << "Num cycles: " << test_cycles << std::endl;
             break;
         }
@@ -660,16 +660,16 @@ int main () {
 
         test_cycles++;
         ctr_sig = control_array.outport;
-
-        // //DEBUGGING CODE
-        // if (test_cycles == 50)
-        //     std::cout << "out : " << std::endl;
-        // printf("----------------\n");
-        // std::cout << "test_cycles: " << test_cycles << std::endl;
-        // for (int i = 0; i < 32; i++) {
-        //     printf("registers[%d]: %lld\n", i, register_file.registers[i]);
-        // }
-        // printf("----------------\n");
+        if (test_cycles == 70) {
+            std::cout << "div ends here" << std::endl;
+        }
+        //DEBUGGING CODE
+        printf("----------------\n");
+        std::cout << "test_cycles: " << test_cycles << std::endl;
+        for (int i = 0; i < 32; i++) {
+            printf("registers[%d]: %lld\n", i, register_file.registers[i]);
+        }
+        printf("----------------\n");
 
     }
 

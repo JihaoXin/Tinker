@@ -57,7 +57,7 @@ void ControlArray::receive_clock(){
     if (control_registers.size() > 0 /*& control_registers.size() <= CONTROL_ARRAY_SIZE*/) {
         std::array<bool, CONTROL_SIGNAL_ARRAY_SIZE> current_line = control_registers.front();
         control_registers.pop();
-        if (check_equal(current_line,"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111") == true){
+        if (check_equal(current_line,"11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111") == true){
             outport.ifd = -1;
             return;
         }

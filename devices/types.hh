@@ -3,7 +3,7 @@
 #define NULL 0
 #include <cstdint>
 #include <array>
-#define MAX_CONTROL_SIGNALS 25
+#define MAX_CONTROL_SIGNALS 50
 #define CONTROL_SIGNAL_BITS 64
 #define CONTROL_SIGNAL_ARRAY_SIZE 150
 #define MEMORY_LENGTH 100
