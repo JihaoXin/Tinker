@@ -20,7 +20,7 @@ void Output::receive_clock() {
     }
     cycle_counter = 0;
     if (ctrlport == 1) {
-        std::cout << (char)*inport[0] /*<< std::endl*/;
+        std::cout << *inport[0];
     }
     return;
 }

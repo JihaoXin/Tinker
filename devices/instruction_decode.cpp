@@ -35,5 +35,12 @@ void InstructionDecode::receive_clock() {
     register_s = (*inport[0] >> 17) & 0b11111;
     register_t = (*inport[0] >> 12) & 0b11111;
     literal = *inport[0] & 0b111111111111;
+
+    //Handle negtives by testing the sign bit
+    if (literal & 0b100000000000) {
+        //Literal is negative, pad zeroes in the most significant 52 bits
+        
+        literal = (signed long long) 0xFFFFFFFFFFFFF000 ^ literal;
+    }
     
 }
