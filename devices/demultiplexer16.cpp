@@ -4,15 +4,24 @@ Demultiplexer16::Demultiplexer16() {
     cycles = 0.5; // using same stats as demultiplexer for now
     area = 500;
     power = 0.25;
+    ctrlport = 0;
 }
 
 Demultiplexer16::~Demultiplexer16() {}
+
+void Demultiplexer16::connect_signal(long long sig_value) {
+    ctrlport = sig_value;
+}
 
 void Demultiplexer16::receive_clock() {
     cycle_counter++;
     if (cycle_counter < cycles) {
         return;
     }
+
+    // if (inport[0] == NULL || ctrlport == NULL) {
+    //     return;
+    // }
     cycle_counter = 0;
     outport[0] = 0;
     outport[1] = 0;
@@ -31,5 +40,5 @@ void Demultiplexer16::receive_clock() {
     outport[14] = 0;
     outport[15] = 0;
 
-    outport[*ctrlport] = *inport[0];
+    outport[ctrlport] = *inport[0];
 }

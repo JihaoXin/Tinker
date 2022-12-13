@@ -8,7 +8,7 @@
 
 class InstructionFetch : public Device {
 public:
-    InstructionFetch(char const* filename);
+    // InstructionFetch(char const* filename);
     InstructionFetch();
     ~InstructionFetch();
     void receive_clock();
@@ -18,9 +18,9 @@ public:
     
     //outport is the 32-bit instruction
     outport_t outport;
-    int fileLength;
-private:
-    std::ifstream instructionFile;
+    // int fileLength;
+// private:
+//     std::ifstream instructionFile;
 };
 
 #endif

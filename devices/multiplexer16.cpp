@@ -8,11 +8,15 @@ Multiplexer16::Multiplexer16() {
 
 Multiplexer16::~Multiplexer16() {}
 
+void Multiplexer16::connect_signal(long long sig_value) {
+    ctrlport = sig_value;
+}
+
 void Multiplexer16::receive_clock() {
     cycle_counter++;
     if (cycle_counter < cycles) {
         return;
     }
     cycle_counter = 0;
-    outport = *inport[*ctrlport];
+    outport = *inport[ctrlport];
 }

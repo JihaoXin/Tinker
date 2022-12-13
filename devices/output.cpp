@@ -4,9 +4,14 @@ Output::Output() {
     cycles = 1;
     area = 5000;
     power = 1.0;
+    ctrlport = 0;
 }
 
 Output::~Output() {}
+
+void Output::connect_signal(long long sig_value) {
+    ctrlport = sig_value;
+}
 
 void Output::receive_clock() {
     cycle_counter++;
@@ -14,7 +19,8 @@ void Output::receive_clock() {
         return;
     }
     cycle_counter = 0;
-    std::cout << "Output: ";
-    std::cout << *inport[0] << std::endl;
+    if (ctrlport == 1) {
+        std::cout << *inport[0];
+    }
     return;
 }

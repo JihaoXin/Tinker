@@ -18,7 +18,6 @@
 */
 
 /*
-
 Instruction Types Constants:
 (0) r_d, r_s, r_t
 (1) r_d, r_s
@@ -27,8 +26,6 @@ Instruction Types Constants:
 (4) r_d, L
 (5) r_d
 (6) L
-
-
 */
 
 uint32_t interpret_operands(uint32_t instr, std::string instruction, int instrType)

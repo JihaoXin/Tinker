@@ -14,5 +14,5 @@ void Adder::receive_clock() {
     cycle_counter = 0;
     outport = *inport[0] + *inport[1];    
 
-    std::cout << "Adder: " << *inport[0] << " + " << *inport[1] << " = " << outport << std::endl;
+    // std::cout << "Adder: " << *inport[0] << " + " << *inport[1] << " = " << outport << std::endl;
 }
