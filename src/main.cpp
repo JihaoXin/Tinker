@@ -672,7 +672,7 @@ int main () {
         // printf("----------------\n");
 
     }
-
+    std::cout<<"Total cycles: "<<test_cycles<<std::endl;
     // //DEBUGGING CODE
     // printf("----------------\n");
     // for (int i = 0; i < 32; i++) {
