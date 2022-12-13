@@ -225,3 +225,62 @@ Both implementation use similar design pattern.
 * We did not do pipelining, so no schedule.
 * We did not implement a cache, we abstract all memory access in the L/S unit with a high cycle cost.
 
+
+
+
+
+---
+
+| Instructions      | instruction  fetche and decode | execution | PC updata | sum cycles to  complete | potential  parallel cycles to complete |
+| ----------------- | ------------------------------ | --------- | --------- | ----------------------- | -------------------------------------- |
+| add rd, rs, rt    | 6                              | 11        | 3         | 20                      | 11                                     |
+| addi rd, L        | 6                              | 11        | 3         | 20                      | 11                                     |
+| sub rd, rs, rt    | 6                              | 16        | 3         | 25                      | 16                                     |
+| subi rd, L        | 6                              | 13        | 3         | 22                      | 13                                     |
+| mul rd, rs, rt    | 6                              | 13        | 3         | 22                      | 13                                     |
+| div rd, rs, rt    | 6                              | 18        | 3         | 27                      | 18                                     |
+| and rd, rs, rt    | 6                              | 11        | 3         | 20                      | 11                                     |
+| or rd, rs, rt     | 6                              | 11        | 3         | 20                      | 11                                     |
+| xor rd, rs, rt    | 6                              | 11        | 3         | 20                      | 11                                     |
+| not rd, rs        | 6                              | 11        | 3         | 20                      | 11                                     |
+| shftr rd, rs,  rt | 6                              | 11        | 3         | 20                      | 11                                     |
+| shftri rd, L      | 6                              | 11        | 3         | 20                      | 11                                     |
+| shftl rd, rs,  rt | 6                              | 11        | 3         | 20                      | 11                                     |
+| shftli rd, L      | 6                              | 11        | 3         | 20                      | 11                                     |
+| br rd             | 6                              | 0         | 5         | 11                      | 11                                     |
+| brr rd            | 6                              | 0         | 10        | 16                      | 16                                     |
+| brr L             | 6                              | 0         | 7         | 13                      | 13                                     |
+| brnz rd, rs       | 6                              | 10        | 3 or 5    | 19 or 21                | 10 or 11                               |
+| brgt rd, rs,  rt  | 6                              | 10        | 3 or 5    | 19 or 21                | 10 or 11                               |
+| Halt              | 6                              | 0         | 0         | 6                       | 6                                      |
+| mov rd,  (rs)(L)  | 6                              | 14        | 3         | 23                      | 14                                     |
+| mov rd, rs        | 6                              | 6         | 3         | 15                      | 9                                      |
+| mov rd,L          | 6                              | 11        | 3         | 20                      | 11                                     |
+| mov (rd)(L),  rs  | 6                              | 11        | 3         | 20                      | 11                                     |
+| in rd, rs         | 6                              | 7         | 3         | 16                      | 9                                      |
+| out rd, rs        | 6                              | 5         | 3         | 14                      | 9                                      |
+
+| Device                     | area(nm^2) | power(W) | number | Total area (nm^2) | Total power (W) |
+| -------------------------- | ---------- | -------- | ------ | ----------------- | --------------- |
+| Adder                      | 400        | 0.5      | 1      | 400               | 0.5             |
+| Shifter                    | 200        | 0.5      | 1      | 200               | 0.5             |
+| Logic                      | 600        | 0.75     | 1      | 600               | 0.75            |
+| Multiplier                 | 2000       | 1.5      | 1      | 2000              | 1.5             |
+| Divider                    | 5000       | 1        | 1      | 5000              | 1               |
+| Comparator                 | 400        | 0.5      | 1      | 400               | 0.5             |
+| Two's  Complement          | 200        | 0.25     | 1      | 200               | 0.25            |
+| Register File              | 20000      | 4        | 1      | 20000             | 4               |
+| Multiplexer 16             | 2500       | 1.25     | 7      | 17500             | 8.75            |
+| Demultiplexer  16          | 2500       | 1.25     | 11     | 27500             | 13.75           |
+| Program  counter           | 200        | 0.05     | 1      | 200               | 0.05            |
+| Register                   | 200        | 0.05     | 5      | 1000              | 0.25            |
+| Control Array  (150 *30)   | 4500       | 4.5      | 1      | 4500              | 4.5             |
+| Add4                       | 100        | 3.2      | 1      | 100               | 3.2             |
+| Less or Equal              | 600        | 1        | 1      | 600               | 1               |
+| 12-bit write               | 300        | 0.5      | 1      | 300               | 0.5             |
+| L/S unit                   | 20000      | 4        | 1      | 20000             | 4               |
+| Input                      | 150        | 0.1      | 1      | 150               | 0.1             |
+| Output                     | 150        | 0.1      | 1      | 150               | 0.1             |
+| Instruction  Look-Up Table | 20000      | 4        | 1      | 20000             | 4               |
+| Instruction  decoder       | 400        | 0.5      | 1      | 400               | 0.5             |
+| All                        |            |          | 41     | 121200            | 49.7            |
